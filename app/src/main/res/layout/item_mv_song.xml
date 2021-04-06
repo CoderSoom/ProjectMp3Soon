@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="itemMV"
+            type="com.example.recyclerviewpool.model.itemdata.ItemSong" />
+    </data>
+
+
+    <RelativeLayout
+
+        android:id="@+id/ll"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@null"
+        android:orientation="horizontal">
+
+        <com.makeramen.roundedimageview.RoundedImageView
+            android:id="@+id/img_mv"
+            loadImg="@{itemMV.imgSong}"
+            android:layout_width="98dp"
+            android:layout_height="62dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/csn"
+            app:riv_corner_radius="8dp" />
+
+        <LinearLayout
+            android:layout_marginRight="32dp"
+            android:layout_marginLeft="8dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/img_mv"
+            android:orientation="vertical">
+
+            <TextView
+
+                android:id="@+id/name_mv"
+                loadText="@{itemMV.nameSong}"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/img_mv"
+                android:layout_marginTop="6dp"
+                android:textColor="@color/colorWhite"
+                android:textSize="@dimen/textSizeBig" />
+
+            <TextView
+                loadText="@{itemMV.singerSong}"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/name_mv"
+                android:textColor="@color/colorWhite" />
+        </LinearLayout>
+    </RelativeLayout>
+</layout>

@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="subItemSong"
+            type="com.example.recyclerviewpool.model.itemdata.ItemSong" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="@dimen/marginLeftItem"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="148dp"
+            android:layout_height="148dp">
+
+            <com.makeramen.roundedimageview.RoundedImageView
+                android:id="@+id/iv_image"
+                loadImg="@{subItemSong.imgSong}"
+
+                android:layout_width="148dp"
+                android:layout_height="148dp"
+                android:scaleType="centerCrop"
+                app:riv_corner_radius="6dp" />
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_centerInParent="true" />
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:src="@drawable/bg_time_video"
+                    android:layout_width="68dp"
+                    android:layout_height="21dp" />
+
+                <ImageView
+                    android:id="@+id/ic_time"
+                    android:layout_width="14dp"
+                    android:layout_height="14dp"
+                    android:layout_marginTop="3dp"
+                    android:layout_marginLeft="4dp"
+                    app:srcCompat="@drawable/ic_menu_clock" />
+
+                <TextView
+                    android:layout_toRightOf="@+id/ic_time"
+                    loadText="@{subItemSong.time}"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="3dp"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="14sp" />
+
+
+            </RelativeLayout>
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="82dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_name"
+                loadText="@{subItemSong.nameSong}"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:fontFamily="sans-serif-condensed"
+                android:maxLines="2"
+                android:textColor="@color/colorBlack"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/tv_artist"
+                loadText="@{subItemSong.singerSong}"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-condensed"
+                android:maxLines="1"
+                android:textSize="14sp" />
+        </LinearLayout>
+    </LinearLayout>
+</layout>

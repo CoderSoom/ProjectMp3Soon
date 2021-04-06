@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+        <variable
+            name="infoSong"
+            type="com.example.recyclerviewpool.model.itemdata.ItemMusicInfo" />
+    </data>
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:id="@+id/bg_info"
+            android:layout_width="match_parent"
+            android:layout_height="198dp"
+            android:layout_margin="21dp"
+            android:gravity="center_vertical"
+            android:background="@drawable/bg_info">
+
+            <TextView
+                android:id="@+id/nameSong"
+                android:textStyle="bold"
+                android:textSize="18dp"
+                android:maxLines="2"
+                android:layout_marginBottom="8dp"
+                android:textColor="@color/colorWhite"
+                android:layout_marginLeft="32dp"
+                android:layout_marginRight="32dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/albumsSong"
+                android:layout_marginLeft="32dp"
+                android:maxLines="2"
+                android:textColor="@color/colorWhite"
+                android:layout_marginRight="32dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/nameSong" />
+
+            <TextView
+                android:id="@+id/singerSong"
+                android:textColor="@color/colorWhite"
+                android:layout_marginLeft="32dp"
+                android:layout_marginRight="32dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/albumsSong" />
+
+            <TextView
+                android:id="@+id/authorSong"
+                android:textColor="@color/colorWhite"
+                android:layout_width="match_parent"
+                android:layout_marginLeft="32dp"
+                android:layout_marginRight="32dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/singerSong" />
+
+            <TextView
+                android:textColor="@color/colorWhite"
+                android:id="@+id/yearSong"
+                android:layout_width="match_parent"
+                android:layout_marginLeft="32dp"
+                android:layout_marginRight="32dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/authorSong" />
+        </RelativeLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_below="@+id/bg_info"
+            android:id="@+id/rcMVSong"
+            android:visibility="gone"
+            android:layout_width="match_parent"
+           android:layout_marginLeft="@dimen/marginLeftItem"
+            android:layout_marginRight="@dimen/marginLeftItem"
+            android:layout_height="match_parent"
+            android:layout_marginTop="21dp" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_below="@+id/rcMVSong"
+            android:id="@+id/rcRelateSong"
+            android:layout_marginLeft="@dimen/marginLeftItem"
+            android:layout_marginRight="@dimen/marginLeftItem"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="21dp" />
+
+    </RelativeLayout>
+    </androidx.core.widget.NestedScrollView>
+</layout>

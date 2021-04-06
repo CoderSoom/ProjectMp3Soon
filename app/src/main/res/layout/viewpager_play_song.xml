@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="mainSong"
+            type="com.example.recyclerviewpool.model.itemdata.ItemMusicInfo" />
+    </data>
+
+    <RelativeLayout
+        android:background="#00ffffff"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center_horizontal">
+
+
+
+
+       <com.makeramen.roundedimageview.RoundedImageView
+           loadImg="@{mainSong.imgSong}"
+           android:layout_width="match_parent"
+           android:layout_marginLeft="21sp"
+           android:layout_marginRight="21sp"
+           app:riv_corner_radius="16dp"
+           android:layout_marginTop="18dp"
+           android:layout_marginBottom="18dp"
+           android:src="@drawable/csn"
+           android:layout_height="match_parent"/>
+
+
+    </RelativeLayout>
+</layout>

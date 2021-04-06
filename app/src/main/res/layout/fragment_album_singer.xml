@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+    <data>
+
+        <variable
+            name="itemAlbum"
+            type="com.example.recyclerviewpool.model.itemdata.ItemSong" />
+    </data>
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <AbsoluteLayout
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:layout_alignParentBottom="true">
+
+            <ImageView
+                android:id="@+id/bg_albums"
+                android:layout_width="800dp"
+                android:layout_height="800dp"
+                android:layout_x="-200dip"
+                android:layout_y="-130dip"
+                android:scaleType="fitXY" />
+
+            <ImageView
+                android:id="@+id/gradien_albums"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/shadow_up_full_theme" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <RelativeLayout
+                    android:id="@+id/re_menu"
+                    android:layout_width="match_parent"
+                    android:layout_height="52dp">
+
+                    <ImageView
+                        android:id="@+id/btn_back"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="6dp"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:padding="8dp"
+                        android:src="@drawable/ic_arrow_back_white_24dp"
+                        app:tint="@color/tint_color_back" />
+
+                    <TextView
+                        android:id="@+id/nameSinger"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="@dimen/marginLeftItem"
+                        android:layout_marginRight="32dp"
+                        android:layout_toLeftOf="@+id/more"
+                        android:layout_toRightOf="@+id/btn_back"
+                        android:textSize="@dimen/textSizeBig"
+                        android:textStyle="bold" />
+
+
+                    <ImageView
+                        android:id="@+id/more"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginRight="6dp"
+                        android:background="?attr/selectableItemBackgroundBorderless"
+                        android:padding="8dp"
+                        android:src="@drawable/ic_more_vert"
+                        app:tint="@color/tint_color_back" />
+                </RelativeLayout>
+
+                <androidx.core.widget.NestedScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_below="@+id/re_menu">
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rcAlbums"
+                        android:layout_marginRight="@dimen/marginLeftItem"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
+                </androidx.core.widget.NestedScrollView>
+            </RelativeLayout>
+        </AbsoluteLayout>
+    </RelativeLayout>
+
+</layout>
+

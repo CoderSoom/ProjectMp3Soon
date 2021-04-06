@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <AbsoluteLayout
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:layout_alignParentBottom="true"
+            tools:ignore="Deprecated">
+            <ImageView
+
+                android:id="@+id/bg_search_song"
+                android:layout_width="480dp"
+                android:layout_height="800dp"
+                android:scaleType="centerCrop"
+                android:layout_x="-30dip"
+                android:layout_y="-30dip" />
+
+
+        </AbsoluteLayout>
+
+
+        <ImageView
+
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="fitXY"
+            android:src="@drawable/bg_view" />
+
+        <iammert.com.view.scalinglib.ScalingLayout
+            android:id="@+id/scalingLayout"
+            android:layout_width="match_parent"
+            android:layout_height="58dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginBottom="8dp"
+            android:clickable="true"
+            android:stateListAnimator="@animator/sl_state_animator"
+            app:radiusFactor="0.2">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/colorWhiteBlur">
+
+                <RelativeLayout
+                    android:id="@+id/searchLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_centerVertical="true"
+                    android:visibility="invisible">
+
+                    <ImageView
+                        android:id="@+id/arrowBack"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                       android:layout_marginLeft="12dp"
+                        android:background="?attr/selectableItemBackground"
+                        android:src="@drawable/ic_arrow_back_white_24dp" />
+
+                    <EditText
+                        android:id="@+id/edt_search"
+                        android:layout_width="match_parent"
+                        android:layout_height="52dp"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="24dp"
+                        android:layout_toRightOf="@+id/arrowBack"
+                        android:background="@drawable/background_transparent"
+                        android:hint="@string/search"
+                        android:lines="1"
+                        android:maxLines="1"
+                        android:singleLine="true"
+                        android:textColor="@color/colorWhite"
+                        android:textColorHint="@color/colorWhite100" />
+
+                </RelativeLayout>
+
+
+                <TextView
+                    android:id="@+id/textViewSearch"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:text="@string/search"
+                    android:textColor="#ffffff"
+                    android:textStyle="bold" />
+
+
+            </RelativeLayout>
+
+        </iammert.com.view.scalinglib.ScalingLayout>
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_marginLeft="@dimen/marginLeftItem"
+            android:layout_marginRight="@dimen/marginLeftItem"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/scalingLayout">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@null"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+
+                    </LinearLayout>
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:overScrollMode="never"
+                        android:id="@+id/rcMostSearched"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:overScrollMode="never"
+                        android:id="@+id/rcSugSong"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:overScrollMode="never"
+                        android:id="@+id/rcSugVideo"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                    <TextView
+                        android:layout_marginLeft="@dimen/marginLeftItem"
+                        android:id="@+id/topic_song"
+                        android:textSize="20dp"
+                        android:visibility="gone"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/top_result"
+                        android:textStyle="bold" />
+
+                    <include
+                        android:visibility="gone"
+                        android:id="@+id/top_song"
+                        layout="@layout/item_search_song_playlist" />
+
+                    <TextView
+                        android:textSize="20dp"
+                        android:layout_marginLeft="@dimen/marginLeftItem"
+                        android:id="@+id/topic_video"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/top_video"
+                        android:visibility="gone"
+                        android:textStyle="bold" />
+
+                    <include
+                        android:visibility="gone"
+                        android:id="@+id/top_video"
+                        layout="@layout/item_search_video" />
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:overScrollMode="never"
+                        android:id="@+id/rcSearchSong"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:overScrollMode="never"
+                        android:id="@+id/rcSearchAlbum"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:overScrollMode="never"
+                        android:id="@+id/rcSearchVideo"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                </LinearLayout>
+            </LinearLayout>
+        </androidx.core.widget.NestedScrollView>
+    </RelativeLayout>
+
+
+</layout>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="playsong_mini">52dp</dimen>
+    <dimen name="shadow_mini">2dp</dimen>
+    <dimen name="marginLeftItem">12dp</dimen>
+    <dimen name="size_circle">98dp</dimen>
+    <dimen name="radius_image">6dp</dimen>
+    <dimen name="size_circle_small">72dp</dimen>
+    <dimen name="size_square_normal">64dp</dimen>
+    <dimen name="size_square_small">56dp</dimen>
+    <dimen name="paddingIcon">8dp</dimen>
+    <dimen name="textSizeBig">18dp</dimen>
+    <dimen name="pageIndicator">6dp</dimen>
+    <dimen name="corner_radius">12dp</dimen>
+    <dimen name="textSizeBigNormal">15dp</dimen>
+    <dimen name="textSizeSmallNormal">13dp</dimen>
+    <dimen name="size_square_max_small">48dp</dimen>
+</resources>

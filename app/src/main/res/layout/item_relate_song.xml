@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="itemRelateSong"
+            type="com.example.recyclerviewpool.model.itemdata.ItemSong" />
+    </data>
+
+    <RelativeLayout
+        android:layout_marginTop="16sp"
+        android:id="@+id/ll"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@null"
+        android:orientation="horizontal">
+
+        <com.makeramen.roundedimageview.RoundedImageView
+            android:id="@+id/img_song_search"
+            app:riv_corner_radius="6dp"
+            android:layout_centerVertical="true"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/csn"
+            app:loadImg="@{itemRelateSong.imgSong}" />
+
+        <LinearLayout
+            android:layout_marginRight="32dp"
+            android:gravity="center_vertical"
+            android:id="@+id/info_song_search"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/img_song_search"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@null"
+            android:layout_marginLeft="16dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:singleLine="true"
+                android:id="@+id/name_song_search"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorWhite"
+                android:textSize="16sp"
+                app:setText="@{itemRelateSong.nameSong}" />
+
+            <TextView
+                android:id="@+id/singer_song_search"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="13sp"
+                android:textColor="@color/colorWhite100"
+                android:layout_marginRight="72dp"
+                loadText="@{itemRelateSong.singerSong}"
+                android:singleLine="true" />
+        </LinearLayout>
+
+
+    </RelativeLayout>
+</layout>

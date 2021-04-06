@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="infoVideoData"
+            type="com.example.recyclerviewpool.model.itemdata.ItemMusicInfo" />
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <fm.jiecao.jcvideoplayer_lib.JCVideoPlayerStandard
+            android:id="@+id/videoplayer"
+            android:layout_width="match_parent"
+            android:layout_height="200dp" />
+
+
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/web_top_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/videoplayer">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+
+                <RelativeLayout
+                    android:layout_marginTop="8dp"
+                    android:background="?attr/selectableItemBackground"
+                    android:id="@+id/re_title"
+                    android:layout_width="match_parent"
+                    android:layout_marginBottom="8dp"
+                    android:layout_height="wrap_content">
+
+                    <LinearLayout
+                        android:layout_centerVertical="true"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="12dp"
+                        android:layout_marginTop="12dp"
+                        android:layout_toLeftOf="@+id/more_down"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/nameVideo"
+                            loadText="@{infoVideoData.nameSong}"
+                            android:textAllCaps="true"
+                            android:textStyle="bold"
+                            android:maxLines="2"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" />
+                        <TextView
+                            android:textSize="14dp"
+                            android:id="@+id/viewVideo"
+                            android:singleLine="true"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent" />
+
+
+
+
+                    </LinearLayout>
+
+
+                    <ImageView
+
+                        android:layout_centerVertical="true"
+                        android:layout_marginTop="12dp"
+                        android:id="@+id/more_down"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginRight="6dp"
+                        android:padding="8dp"
+                        android:src="@drawable/baseline_keyboard_arrow_down_white_24dp"
+                        app:tint="@color/tint_color_back" />
+
+                    <ImageView
+                        android:layout_centerVertical="true"
+                        android:id="@+id/more_up"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginRight="6dp"
+                        android:layout_marginTop="12dp"
+                        android:padding="8dp"
+                        android:src="@drawable/baseline_keyboard_arrow_up_white_24dp"
+                        android:visibility="invisible"
+                        app:tint="@color/tint_color_back" />
+
+
+                </RelativeLayout>
+                <View
+                    android:background="@color/bg_line"
+                    android:layout_below="@+id/re_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"/>
+
+                <LinearLayout
+                    android:layout_below="@+id/re_title"
+                    android:id="@+id/infoVideo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                android:layout_marginRight="12dp"
+                    android:visibility="invisible"
+                    android:layout_marginTop="22dp"
+                    android:layout_marginLeft="12dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/categories"
+                        loadText="@{infoVideoData.category}"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:singleLine="true" />
+
+                    <TextView
+                        android:id="@+id/yearSong"
+                        loadText="@{infoVideoData.yearSong}"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:singleLine="true" />
+
+                    <TextView
+                        android:id="@+id/singerSong"
+                        loadText="@{infoVideoData.singerSong}"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:singleLine="true" />
+
+                    <TextView
+                        android:id="@+id/authorSong"
+                        loadText="@{infoVideoData.authorSong}"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:singleLine="true" />
+
+
+
+
+                </LinearLayout>
+                <View
+
+                    android:id="@+id/view_line"
+                    android:visibility="invisible"
+                    android:layout_below="@+id/infoVideo"
+                    android:layout_marginTop="18dp"
+                    android:layout_marginBottom="18dp"
+                    android:background="@color/bg_line"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"/>
+
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:layout_marginLeft="12dp"
+                    android:layout_marginRight="12dp"
+                    android:layout_marginTop="12dp"
+                    android:layout_below="@+id/re_title"
+                    android:id="@+id/rcRelate"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:overScrollMode="never" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:layout_marginTop="12dp"
+                    android:layout_below="@+id/rcRelate"
+                    android:id="@+id/rcSugVideo"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:overScrollMode="never" />
+
+            </RelativeLayout>
+        </androidx.core.widget.NestedScrollView>
+
+    </RelativeLayout>
+
+
+</layout>

@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="itemSug"
+            type="com.example.recyclerviewpool.model.itemdata.ItemSong" />
+    </data>
+
+    <RelativeLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/marginLeftItem"
+        android:orientation="horizontal">
+
+
+        <com.makeramen.roundedimageview.RoundedImageView
+            android:id="@+id/imgSong"
+            loadImg="@{itemSug.imgSong}"
+            app:riv_corner_radius="6dp"
+            android:layout_width="@dimen/size_square_normal"
+            android:layout_height="@dimen/size_square_normal"
+            android:src="@drawable/csn" />
+
+        <LinearLayout
+            android:id="@+id/info_Song"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@id/imgSong"
+            android:layout_width="match_parent"
+            android:layout_toLeftOf="@+id/listenSong"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="@dimen/marginLeftItem"
+            android:orientation="vertical">
+
+            <TextView
+                loadText="@{itemSug.nameSong}"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:singleLine="true"
+                android:textStyle="bold" />
+
+            <TextView
+                loadText="@{itemSug.singerSong}"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:singleLine="true" />
+
+            <TextView
+                android:textSize="14dp"
+                loadTextColor="@{itemSug.quality}"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:singleLine="true" />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/listenSong"
+            android:layout_centerVertical="true"
+            android:layout_width="92dp"
+            android:layout_alignParentRight="true"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="16dp"
+            android:orientation="vertical">
+
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:layout_marginTop="2dp"
+                    android:id="@+id/headset"
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
+                    android:src="@drawable/baseline_headset_white_18dp"
+                    app:tint="@color/tint_color_back" />
+
+                <TextView
+                    android:layout_toRightOf="@+id/headset"
+                    android:layout_marginLeft="5dp"
+                    loadText="@{itemSug.views}"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawableTint="@color/tint_color_back"
+                    android:textSize="14dp" />
+            </RelativeLayout>
+
+        </LinearLayout>
+
+    </RelativeLayout>
+</layout>

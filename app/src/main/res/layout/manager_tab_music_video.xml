@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <FrameLayout
+            android:layout_marginTop="4dp"
+            android:layout_below="@id/tab_music_video"
+            android:id="@+id/frame_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+        <LinearLayout
+            android:id="@+id/tab_music_video"
+            android:layout_marginTop="4dp"
+            android:layout_below="@+id/viewpagertab"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal">
+
+            <ImageView
+                android:id="@+id/tab_music"
+                android:layout_width="92dp"
+                android:padding="8dp"
+                android:layout_height="38dp"
+                android:src="@drawable/icon_music"
+                android:background="@drawable/bg_btn"
+                android:layout_marginRight="@dimen/marginLeftItem"
+                android:backgroundTint="@color/Green_500" />
+
+            <ImageView
+                android:id="@+id/tab_video"
+                android:src="@drawable/icon_video"
+                android:padding="8dp"
+                android:layout_marginLeft="@dimen/marginLeftItem"
+                android:layout_width="92dp"
+                android:layout_height="38dp"
+                android:background="@drawable/bg_btn"
+                android:backgroundTint="@color/Green_500" />
+        </LinearLayout>
+    </RelativeLayout>
+</layout>

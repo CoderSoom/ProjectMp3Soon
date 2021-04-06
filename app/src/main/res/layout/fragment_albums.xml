@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+    <data>
+
+        <variable
+            name="itemAlbum"
+            type="com.example.recyclerviewpool.model.itemdata.ItemSong" />
+    </data>
+
+    <RelativeLayout
+        android:background="@color/colorWhite"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <AbsoluteLayout
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:layout_alignParentBottom="true">
+        <ImageView
+            android:id="@+id/bg_albums"
+            android:layout_width="800dp"
+            android:layout_x="-200dip"
+            android:layout_y="-130dip"
+            android:layout_height="1002dp"
+            android:scaleType="fitXY" />
+            <ImageView
+                android:id="@+id/gradien_albums"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/shadow_up_full_theme" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_x="0dp"
+                android:layout_y="-2dp">
+
+                <androidx.viewpager.widget.ViewPager
+                    android:id="@+id/viewPagerSong"
+                    android:layout_width="match_parent"
+                    android:layout_height="316dp"
+                    android:layout_marginTop="64dp"
+                    android:background="@null" />
+
+                <com.rd.PageIndicatorView
+                    android:id="@+id/pageIndicatorView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/viewPagerSong"
+                    android:layout_centerHorizontal="true"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="6dp"
+                    android:layout_marginBottom="6dp"
+                    app:piv_animationType="worm"
+                    app:piv_dynamicCount="true"
+                    app:piv_interactiveAnimation="true"
+                    app:piv_padding="6dp"
+                    app:piv_radius="4dp"
+                    app:piv_selectedColor="@color/Green_700"
+                    app:piv_unselectedColor="#C4DDC5"
+                    app:piv_viewPager="@id/viewPagerSong" />
+
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:fadingEdgeLength="58dp"
+                    android:requiresFadingEdge="vertical"
+                    android:id="@+id/rcAlbums"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_below="@+id/pageIndicatorView" />
+
+
+            </RelativeLayout>
+        </AbsoluteLayout>
+
+
+
+        <RelativeLayout
+
+            android:id="@+id/panel"
+            android:layout_width="match_parent"
+            android:layout_height="52dp">
+            <ImageView
+                android:layout_centerVertical="true"
+                android:id="@+id/btn_back"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="6dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:padding="8dp"
+                android:src="@drawable/ic_arrow_back_white_24dp"
+                app:tint="@color/tint_color_back" />
+
+            <ImageView
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_gravity="center_vertical"
+                android:layout_marginRight="6dp"
+                android:padding="8dp"
+                android:src="@drawable/ic_more_vert"
+                app:tint="@color/tint_color_back" />
+        </RelativeLayout>
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+        </androidx.core.widget.NestedScrollView>
+
+    </RelativeLayout>
+</layout>
+

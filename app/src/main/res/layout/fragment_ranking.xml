@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+       <RelativeLayout
+           android:id="@+id/re_title"
+           android:background="@color/Green_500"
+           android:layout_width="match_parent"
+           android:layout_height="52dp">
+           <TextView
+               android:text="@string/bxh_music_hot"
+               android:textAllCaps="true"
+               android:textColor="@color/colorWhite"
+               android:textStyle="bold"
+               android:layout_marginLeft="52dp"
+               android:layout_marginRight="52dp"
+               android:layout_centerVertical="true"
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"/>
+
+
+       </RelativeLayout>
+
+        <com.dueeeke.tablayout.SlidingTabLayout
+            android:layout_below="@+id/re_title"
+            android:background="@color/Green_500"
+            android:id="@+id/viewpagertab"
+            app:tl_underline_color="@color/Red_600"
+            app:tl_indicator_corner_radius="8dp"
+            app:tl_indicator_gravity="BOTTOM"
+            app:tl_textAllCaps="true"
+            app:tl_indicator_color="@color/Green_500"
+            app:tl_textSelectColor="@color/colorWhite"
+            app:tl_textUnselectedColor="@color/Green_200"
+            app:tl_textBold="SELECT"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"/>
+
+
+
+        <androidx.viewpager.widget.ViewPager
+            android:id="@+id/view_pager_music_video"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/viewpagertab" />
+    </RelativeLayout>
+
+</layout>

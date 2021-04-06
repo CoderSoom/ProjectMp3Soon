@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="lyricSong"
+            type="com.example.recyclerviewpool.model.itemdata.ItemMusicInfo" />
+    </data>
+
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#00ffffff">
+
+<!--            <com.example.recyclerviewpool.view.fragment.discover.song.lyricsong.LyricView-->
+<!--                android:id="@+id/lyric_view"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="500dp" />-->
+            <TextView
+                android:id="@+id/lyric_a"
+                android:textColor="@color/colorWhite"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+
+
+        </LinearLayout>
+</layout>

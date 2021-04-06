@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="albums"
+            type="com.example.recyclerviewpool.model.itemdata.ItemSong" />
+    </data>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="52dp"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <TextView
+                loadText="@{albums.id}"
+                android:gravity="center"
+                android:layout_width="52dp"
+                android:layout_height="wrap_content"
+                android:textSize="16dp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="276dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                loadText="@{albums.nameSong}"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:singleLine="true"
+                android:fontFamily="sans-serif-condensed"
+                android:maxLines="1"
+                android:textColor="@color/colorBlack"
+                android:textSize="16sp" />
+
+            <TextView
+                loadText="@{albums.singerSong}"
+                android:singleLine="true"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-condensed"
+                android:maxLines="1"
+                android:textSize="14sp" />
+        </LinearLayout>
+    </LinearLayout>
+</layout>

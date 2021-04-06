@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="albums"
+            type="com.example.recyclerviewpool.model.itemdata.ItemSong" />
+    </data>
+
+
+    <RelativeLayout
+        android:layout_marginTop="16sp"
+        android:id="@+id/ll"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@null"
+        android:orientation="horizontal">
+        <TextView
+            loadText="@{albums.id}"
+            android:id="@+id/id_song"
+            android:gravity="center"
+            android:textSize="15dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_centerVertical="true"
+            android:layout_width="16dp"
+            android:layout_height="wrap_content"/>
+
+        <com.makeramen.roundedimageview.RoundedImageView
+            android:layout_toRightOf="@+id/id_song"
+            android:id="@+id/img_song_search"
+            app:riv_corner_radius="6dp"
+            android:layout_centerVertical="true"
+            android:layout_width="54dp"
+            android:layout_height="54dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/csn"
+            app:loadImg="@{albums.imgSong}" />
+
+        <LinearLayout
+            android:layout_marginRight="72dp"
+            android:gravity="center_vertical"
+            android:id="@+id/info_song_search"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/img_song_search"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@null"
+            android:layout_marginLeft="16dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:singleLine="true"
+                android:id="@+id/name_song_search"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:textSize="@dimen/textSizeBigNormal"
+                app:setText="@{albums.nameSong}" />
+
+            <TextView
+                android:id="@+id/singer_song_search"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/textSizeSmallNormal"
+                loadText="@{albums.singerSong}"
+                android:singleLine="true" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/textSizeSmallNormal"
+                loadText="@{albums.quality}"
+                android:singleLine="true" />
+        </LinearLayout>
+        <ImageView
+            android:layout_alignParentRight="true"
+            android:layout_width="wrap_content"
+            android:layout_centerVertical="true"
+            android:src="@drawable/ic_more_vert"
+            android:background="@null"
+            android:layout_height="wrap_content"
+            app:tint="@color/tint_color_back" />
+
+    </RelativeLayout>
+</layout>

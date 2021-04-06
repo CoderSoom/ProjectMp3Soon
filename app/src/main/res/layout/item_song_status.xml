@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="subItemSong"
+            type="com.example.recyclerviewpool.model.itemdata.ItemSong" />
+    </data>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:descendantFocusability="blocksDescendants"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/holder_view"
+            android:layout_width="184dp"
+            android:layout_gravity="center"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+
+            <com.makeramen.roundedimageview.RoundedImageView
+                android:id="@+id/iv_image"
+                loadImg="@{subItemSong.imgSong}"
+                android:layout_width="match_parent"
+                android:layout_height="184dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/csn"
+                app:riv_corner_radius="@dimen/radius_image" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="82dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tv_name"
+                    loadText="@{subItemSong.nameSong}"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:fontFamily="sans-serif-condensed"
+                    android:maxLines="2"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/tv_artist"
+                    loadText="@{subItemSong.singerSong}"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif-condensed"
+                    android:maxLines="1"
+                    android:textSize="14sp" />
+            </LinearLayout>
+
+
+        </LinearLayout>
+    </FrameLayout>
+</layout>

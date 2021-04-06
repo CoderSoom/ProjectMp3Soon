@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="itemSongOffline"
+            type="com.example.recyclerviewpool.model.itemdata.ItemMusicOffline" />
+    </data>
+
+
+        <RelativeLayout
+            android:id="@+id/ll"
+            android:layout_width="match_parent"
+            android:layout_height="62dp"
+            android:background="?selectableItemBackground"
+            android:orientation="horizontal">
+
+            <com.makeramen.roundedimageview.RoundedImageView
+                android:layout_marginLeft="@dimen/marginLeftItem"
+                android:id="@+id/img_song_search"
+                app:riv_corner_radius="6dp"
+                android:layout_centerVertical="true"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/csn"
+                app:loadImageUri="@{itemSongOffline.imageUri}" />
+
+            <LinearLayout
+                android:gravity="center_vertical"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@+id/img_song_search"
+                android:layout_width="228dp"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:layout_marginLeft="16dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:singleLine="true"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="16sp"
+                    app:loadText="@{itemSongOffline.nameSong}" />
+                <TextView
+                    android:singleLine="true"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="16sp"
+                    app:loadText="@{itemSongOffline.nameSinger}" />
+
+
+            </LinearLayout>
+            <ImageView
+                android:id="@+id/btn_options"
+                android:layout_alignParentRight="true"
+                android:layout_width="wrap_content"
+                android:layout_centerVertical="true"
+                android:src="@drawable/ic_more_vert"
+                android:background="@null"
+                android:layout_marginRight="@dimen/marginLeftItem"
+                android:layout_height="wrap_content"
+                app:tint="@color/tint_color_back" />
+
+        </RelativeLayout>
+</layout>

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+<data>
+    <variable
+        name="detailSearch"
+        type="com.example.recyclerviewpool.model.itemdata.ItemCategories" />
+</data>
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:descendantFocusability="blocksDescendants"
+        android:orientation="vertical">
+    <RelativeLayout
+        android:id="@+id/holder_view"
+        android:layout_marginTop="12dp"
+        android:layout_width="182dp"
+        android:layout_gravity="center"
+        android:layout_height="89dp">
+
+        <ImageView
+            android:src="@drawable/csn"
+            loadImg="@{detailSearch.imgCategory}"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <TextView
+           android:textStyle="bold"
+            android:gravity="center_horizontal"
+            android:textColor="@color/colorWhite"
+            android:layout_centerHorizontal="true"
+            loadText="@{detailSearch.nameCategory}"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true" />
+
+
+    </RelativeLayout>
+    </FrameLayout>
+
+</layout>

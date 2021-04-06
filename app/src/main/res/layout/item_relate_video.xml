@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+        <variable
+            name="dataVideo"
+            type="com.example.recyclerviewpool.model.itemdata.ItemSong" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:background="?attr/selectableItemBackground"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_marginTop="12dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+
+
+                <com.makeramen.roundedimageview.RoundedImageView
+                    android:id="@+id/imgVideo"
+                    loadImg="@{dataVideo.imgSong}"
+                    app:riv_corner_radius="8dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:scaleType="centerCrop" />
+
+                <ImageView
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_centerInParent="true" />
+
+                <TextView
+                    android:layout_below="@+id/imgVideo"
+                    android:id="@+id/nameVideo"
+                    android:layout_marginLeft="12dp"
+                    android:maxLines="2"
+                    android:layout_marginRight="12dp"
+                    loadText="@{dataVideo.nameSong}"
+                    android:layout_width="match_parent"
+                    android:textStyle="bold"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp" />
+                <TextView
+                    android:layout_below="@+id/nameVideo"
+                    android:layout_marginLeft="12dp"
+                    android:layout_marginRight="12dp"
+                    loadText="@{dataVideo.singerSong}"
+                    android:textSize="15dp"
+                    android:singleLine="true"
+                    android:layout_marginBottom="16dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </RelativeLayout>
+
+
+
+
+        </LinearLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginBottom="12dp"
+            android:background="@color/bg_line" />
+
+
+    </LinearLayout>
+</layout>

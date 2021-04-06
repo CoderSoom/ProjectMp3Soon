@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="categoriesContry"
+            type="com.example.recyclerviewpool.model.itemdata.ItemCategories" />
+    </data>
+
+    <RelativeLayout
+        android:layout_marginRight="@dimen/marginLeftItem"
+        android:layout_width="165dp"
+        android:layout_height="wrap_content">
+
+        <com.makeramen.roundedimageview.RoundedImageView
+            loadImg="@{categoriesContry.imgCategory}"
+            android:layout_width="match_parent"
+            android:scaleType="fitXY"
+            app:riv_corner_radius="@dimen/radius_image"
+            android:layout_height="82dp"
+            android:src="@drawable/csn" />
+
+        <TextView
+            loadText="@{categoriesContry.nameCategory}"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:gravity="center_horizontal"
+            android:textColor="@color/colorWhite"
+            android:textStyle="bold" />
+
+    </RelativeLayout>
+
+</layout>

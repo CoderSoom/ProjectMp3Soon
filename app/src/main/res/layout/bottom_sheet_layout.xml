@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="@drawable/bottom_sheet"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_margin="12dp"
+        android:id="@+id/info_song"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/imgSongDetail"
+            android:src="@drawable/csn"
+            android:layout_width="78dp"
+            android:layout_height="78dp" />
+
+        <LinearLayout
+            android:layout_marginLeft="@dimen/marginLeftItem"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/nameSongDetail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:singleLine="true"
+                android:textColor="@color/colorBlack" />
+
+            <TextView
+                android:id="@+id/nameSingerSongDetail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:singleLine="true" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <View
+        android:id="@+id/view_hint"
+        android:layout_width="352dp"
+        android:layout_height="1dp"
+        android:layout_below="@+id/info_song"
+        android:layout_centerHorizontal="true"
+        android:background="@color/tint_color_back" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/view_hint">
+
+        <TextView
+            android:id="@+id/detail"
+            android:background="?attr/selectableItemBackground"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="12dp"
+            android:text="@string/detail" />
+
+
+    </LinearLayout>
+
+
+</RelativeLayout>
