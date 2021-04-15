@@ -47,7 +47,7 @@ class SearchFragment : Fragment, TopicSearchSongAdapter.ICategories,
         sharedViewModel = ViewModelProvider(requireActivity()).get(SearchModel::class.java)
         model = SearchModel()
         binding = FragmentSearchBinding.inflate(inflater, container, false)
-        model.searchSong("")
+        model.searchSong("", context!!)
 
         //setUpMostSearched
         binding.rcMostSearched.apply {
@@ -182,7 +182,7 @@ class SearchFragment : Fragment, TopicSearchSongAdapter.ICategories,
 
             override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
                 val content = binding.edtSearch.text.toString()
-                model.searchSong(content)
+                model.searchSong(content, context!!)
                 model.searchAlbum(content)
                 model.searchVideo(content)
                 if (content.isNullOrEmpty()) {

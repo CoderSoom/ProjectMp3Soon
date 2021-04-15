@@ -1,8 +1,10 @@
 package com.example.recyclerviewpool.viewmodel
 
 import android.annotation.SuppressLint
+import android.content.Context
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+
 import com.example.recyclerviewpool.model.RetrofitUtils
 import com.example.recyclerviewpool.model.SongService
 import com.example.recyclerviewpool.model.itemdata.ItemMusicList
@@ -19,7 +21,7 @@ class SearchModel :ViewModel(){
     private var disPolistAlbums:Disposable?=null
     private var disPolistVideos:Disposable?=null
     private val songService =
-        RetrofitUtils.createRetrofit("http://192.168.1.11:5000", SongService::class.java)
+        RetrofitUtils.createRetrofit("http://192.168.1.5:5000", SongService::class.java)
 
     var sharedInfoAlbum = MutableLiveData<ItemSharedAlbums>()
 
@@ -41,12 +43,14 @@ class SearchModel :ViewModel(){
     }
 
     @SuppressLint("CheckResult")
-    fun searchSong(nameSearch: String) {
+    fun searchSong(nameSearch: String, context: Context) {
         disPolistSongs?.dispose()
         disPolistSongs = songService.searchSong(nameSearch).subscribeOn(Schedulers.newThread())
             .observeOn(AndroidSchedulers.mainThread()).subscribe({
                 listSongs.value = it
+
             }, {
+
                 it.printStackTrace()
             },{
                 disPolistSongs = null

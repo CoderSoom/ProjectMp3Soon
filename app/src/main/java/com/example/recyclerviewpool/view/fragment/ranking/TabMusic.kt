@@ -57,7 +57,6 @@ class TabMusic(val title:String) : Fragment(), CountryMusicAdapter.ICountry {
     }
 
     override fun getCountryMusicOnClick(position: Int) {
-
     }
 
 }

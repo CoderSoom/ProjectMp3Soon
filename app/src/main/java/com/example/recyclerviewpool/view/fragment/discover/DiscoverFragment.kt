@@ -149,7 +149,7 @@ class DiscoverFragment : Fragment, TopicAlbumSongAdapter.ICategories,
         //Call API
         model.getModel().albumsSong()
         model.getModel().albumsVideo()
-        model.getModel().getTopResult()
+        model.getModel().getTopResult(context!!)
         model.getModel().categoriesStatus()
         model.getModel().categoriesCountry()
         model.getModel().newSong()

@@ -14,7 +14,7 @@ class RankingModel : ViewModel() {
     private var disPoRankMusic: Disposable? = null
     private var disPoRankVideo: Disposable? = null
     private val songService =
-        RetrofitUtils.createRetrofit("http://192.168.1.11:5000", SongService::class.java)
+        RetrofitUtils.createRetrofit("http://192.168.1.5:5000", SongService::class.java)
 
     ///Ranking
     var rankingMusicCountry: MutableLiveData<MutableList<ItemSong>> = MutableLiveData()

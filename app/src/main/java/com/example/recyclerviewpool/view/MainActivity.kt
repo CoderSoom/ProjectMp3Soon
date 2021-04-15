@@ -11,7 +11,6 @@ import android.view.View
 import android.widget.SeekBar
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat.startForegroundService
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentPagerAdapter
@@ -25,7 +24,7 @@ import com.example.recyclerviewpool.checkconnect.NetworkUtil
 import com.example.recyclerviewpool.databinding.ActivityMainBinding
 import com.example.recyclerviewpool.lyricsong.LyricManager
 import com.example.recyclerviewpool.model.itemlyric.LineInfo
-import com.example.recyclerviewpool.playmusic.PLayMusic
+import com.example.recyclerviewpool.playmusic.PlayMusic
 import com.example.recyclerviewpool.playmusic.service.CreateNotification
 import com.example.recyclerviewpool.playmusic.service.PlayService
 import com.example.recyclerviewpool.playmusic.service.Playable
@@ -48,7 +47,7 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 
-class MainActivity : AppCompatActivity(), PLayMusic.IPlayMusic, Playable, View.OnClickListener {
+class MainActivity : AppCompatActivity(), PlayMusic.IPlayMusic, Playable, View.OnClickListener {
     var networkChangeReceiver: NetworkChangeReceiver? = null
     private var asyPlay: MyAsyn? = null
     private lateinit var lyricManager: LyricManager
@@ -90,11 +89,8 @@ class MainActivity : AppCompatActivity(), PLayMusic.IPlayMusic, Playable, View.O
         managerDiscover = ManagerFragmentDiscover()
         model = DiscoverModel()
         modelPersonal = PersonalModel()
-
-
         personalFragment = PersonalFragment()
-
-
+        
         navigationBar = binding.tabLayout
         slidingUpPanelLayout = binding.slideMain
         binding.slideMain.setDragView(slidingUpPanelLayout)
@@ -110,7 +106,6 @@ class MainActivity : AppCompatActivity(), PLayMusic.IPlayMusic, Playable, View.O
         checkConnectInternet()
         setSeekBar()
 
-
         val channel = NotificationChannel(CreateNotification!!.CHANNEL_ID,
             "Soom Dev", NotificationManager.IMPORTANCE_LOW)
         notificationManager = getSystemService(NotificationManager::class.java)
@@ -118,7 +113,7 @@ class MainActivity : AppCompatActivity(), PLayMusic.IPlayMusic, Playable, View.O
             notificationManager!!.createNotificationChannel(channel)
         }
         registerReceiver(broadcastReceiver, IntentFilter("TRACKS_TRACKS"))
-        startForegroundService(Intent(this, PlayService::class.java))
+        startService(Intent(this, PlayService::class.java))
 
 
 

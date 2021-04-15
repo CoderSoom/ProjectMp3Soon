@@ -20,15 +20,15 @@ import com.bumptech.glide.request.target.CustomTarget
 import com.bumptech.glide.request.transition.Transition
 import com.example.recyclerviewpool.R
 import com.example.recyclerviewpool.model.itemdata.ItemSong
-import com.example.recyclerviewpool.playmusic.PLayMusic
+import com.example.recyclerviewpool.playmusic.PlayMusic
 
 
-class PlayService : Service(), PLayMusic.IPlayMusic {
+class PlayService : Service(), PlayMusic.IPlayMusic {
 
     var imgSong: Bitmap? = null
 
-    private lateinit var pLayMusic: PLayMusic
-    var inter: PLayMusic.IPlayMusic? = null
+    private lateinit var playMusic: PlayMusic
+    var inter: PlayMusic.IPlayMusic? = null
 
     var currentPositionSong = 0
 
@@ -36,8 +36,8 @@ class PlayService : Service(), PLayMusic.IPlayMusic {
 
     override fun onCreate() {
         super.onCreate()
-        pLayMusic = PLayMusic()
-        pLayMusic.inter = this
+        playMusic = PlayMusic()
+        playMusic.inter = this
 
     }
 
@@ -63,14 +63,14 @@ class PlayService : Service(), PLayMusic.IPlayMusic {
     }
 
     fun setDataMusicOnline(item: ItemSong, position: Int, itemSize: MutableList<ItemSong>) {
-        pLayMusic.setDataSource(this, item.linkMusic!!)
+        playMusic.setDataSource(this, item.linkMusic!!)
         createNotification(this, item,
             R.drawable.ic_pause_black_24dp, position, itemSize.size - 1)
-        pLayMusic.setOnCompletionListener()
+        playMusic.setOnCompletionListener()
 
     }
     fun setDataMusicOffline(path: String){
-        pLayMusic.setDataOffline(path)
+        playMusic.setDataOffline(path)
     }
 
 
@@ -151,6 +151,7 @@ class PlayService : Service(), PLayMusic.IPlayMusic {
             action_close = R.drawable.baseline_close_black_24dp
 
 
+
             //create notification
 
             CreateNotification.notification = NotificationCompat.Builder(context,
@@ -184,16 +185,16 @@ class PlayService : Service(), PLayMusic.IPlayMusic {
 
 
     fun getTotalTime(): Int {
-        return pLayMusic.total
+        return playMusic.total
     }
 
     fun getCurrentPosition(): Int {
-        return pLayMusic.getCurrentPosition()
+        return playMusic.getCurrentPosition()
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
     fun setSeekTo(progress: Int, seekNextSync: Int) {
-        pLayMusic.getSeekTo(progress, seekNextSync)
+        playMusic.getSeekTo(progress, seekNextSync)
     }
 
     override fun onPrepared() {
@@ -204,26 +205,30 @@ class PlayService : Service(), PLayMusic.IPlayMusic {
         inter?.setOnCompletionListener()
     }
     fun setLooping(enable: Boolean){
-        pLayMusic.setLooping(enable)
+        playMusic.setLooping(enable)
     }
 
 
     fun releaseMusic() {
-        pLayMusic.release()
+        playMusic.release()
     }
 
     fun pauseMusic() {
-        pLayMusic.pause()
+        playMusic.pause()
     }
 
     fun playMusic() {
-        pLayMusic.play()
+        playMusic.play()
     }
 
     override fun onDestroy() {
         super.onDestroy()
 
 
+    }
+
+    override fun onTaskRemoved(rootIntent: Intent?) {
+        stopSelf()
     }
 
 

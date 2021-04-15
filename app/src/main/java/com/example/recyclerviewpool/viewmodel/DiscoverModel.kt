@@ -1,20 +1,16 @@
 package com.example.recyclerviewpool.viewmodel
 
 import android.annotation.SuppressLint
-import android.content.res.Resources
-import android.provider.Settings.Global.getString
+import android.content.Context
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.bumptech.glide.load.engine.Resource
-import com.example.recyclerviewpool.R
 import com.example.recyclerviewpool.model.RetrofitUtils
 import com.example.recyclerviewpool.model.SongService
 import com.example.recyclerviewpool.model.itemdata.*
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
-import kotlin.coroutines.coroutineContext
 
 class DiscoverModel : ViewModel() {
         private var disPoTopResult: Disposable?=null
@@ -71,7 +67,7 @@ class DiscoverModel : ViewModel() {
 
 
     private val songService =
-        RetrofitUtils.createRetrofit("http://192.168.1.5:5000", SongService::class.java)
+        RetrofitUtils.createRetrofit("http://192.168.1.4:5000", SongService::class.java)
 
 
     fun setData(
@@ -174,7 +170,7 @@ class DiscoverModel : ViewModel() {
 
     @SuppressLint("CheckResult")
     fun getMVSong(linkSong: String) {
-//        disPoRelateSong?.dispose()
+        disPoRelateSong?.dispose()
         Log.d("TAGGGGGGG", "$linkSong"
         )
         songService.getMVSong(linkSong).subscribeOn(Schedulers.newThread())
@@ -184,7 +180,7 @@ class DiscoverModel : ViewModel() {
             }, {
                 it.printStackTrace()
             }, {
-//                disPoRelateSong=null
+                disPoRelateSong=null
             })
     }
 
@@ -204,13 +200,21 @@ class DiscoverModel : ViewModel() {
     }
 
     @SuppressLint("CheckResult")
-    fun getTopResult() {
+    fun getTopResult(context: Context) {
         disPoTopResult?.dispose()
         songService.getTopResult().subscribeOn(Schedulers.newThread())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
                 topResult.value = it
+//                Observable.just(it)
+//                    .observeOn(Schedulers.newThread())
+//                    .subscribe{ AppDatabase.getInstance(context).itemSongDao().insetAll(it)}
             }, {
+//                val items = AppDatabase.getInstance(context)
+//                    .itemSongDao().getAllData()
+
+
+//                topResult.value = items
                 it.printStackTrace()
             }, {
                 disPoTopResult=null

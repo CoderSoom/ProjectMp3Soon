@@ -8,7 +8,7 @@ import android.os.Build
 import android.os.PowerManager
 import androidx.annotation.RequiresApi
 
-class PLayMusic : MediaPlayer.OnErrorListener, MediaPlayer.OnPreparedListener,
+class PlayMusic : MediaPlayer.OnErrorListener, MediaPlayer.OnPreparedListener,
     MediaPlayer.OnBufferingUpdateListener {
     var player: MediaPlayer? = null
     var inter: IPlayMusic? = null

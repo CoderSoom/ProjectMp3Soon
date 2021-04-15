@@ -56,7 +56,7 @@ class TopicSearchAlbumAdapter : RecyclerView.Adapter<TopicSearchAlbumAdapter.Ite
 
             override fun getSearchAlbumData(chilPosition: Int): ItemSong {
                 if (data?.values.isNullOrEmpty()){
-                    return ItemSong("1", "", "", "", "", "", "", "", "", "" )
+                    return ItemSong("1", "", "", "", "", "", "", "", "", "" , "")
                 }
                 return  data!!.values[chilPosition]
             }

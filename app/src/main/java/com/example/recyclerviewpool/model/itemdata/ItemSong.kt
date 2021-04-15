@@ -1,7 +1,14 @@
 package com.example.recyclerviewpool.model.itemdata
 
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+
+
+@Entity(tableName = "item_song")
 data class ItemSong(
-    var id: String?,
+
+    @PrimaryKey
+    var id: String,
     var linkMusic: String?,
     var imgSong: String,
     var nameSong: String,
@@ -10,6 +17,7 @@ data class ItemSong(
     var quality: String?,
     var hoursAgo: String?,
     var views: String?,
-    var time: String?
+    var time: String?,
+    var keySearch: String
 )
-//key
+
