@@ -25,8 +25,6 @@ class TabMusic(var managerRanking: ManagerRanking, val title: String) : Fragment
     private lateinit var binding: TabMusicVideoBinding
 
     private lateinit var model: MainActivity
-    private lateinit var modelRanking: RankingModel
-    private lateinit var modelDiscoverModel: DiscoverModel
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -34,14 +32,12 @@ class TabMusic(var managerRanking: ManagerRanking, val title: String) : Fragment
     ): View? {
 
         binding = TabMusicVideoBinding.inflate(inflater, container, false)
-        modelRanking = RankingModel()
         model = (activity as MainActivity)
-        modelDiscoverModel = DiscoverModel()
         binding.rcCountry.apply {
             layoutManager = LinearLayoutManager(context)
             adapter = CountryMusicAdapter(this@TabMusic)
         }
-        modelRanking.getMusicRanking(title)
+        model.getRankingModel().getMusicRanking(title)
         reg()
         //setToggle
 
@@ -51,34 +47,34 @@ class TabMusic(var managerRanking: ManagerRanking, val title: String) : Fragment
     }
 
     private fun reg() {
-        modelRanking.rankingMusicCountry.observe(viewLifecycleOwner, Observer {
+        model.getRankingModel().rankingMusicCountry.observe(viewLifecycleOwner, Observer {
             binding.rcCountry.adapter!!.notifyDataSetChanged()
         })
     }
 
     override fun getCountryMusicCount(): Int {
-        if (modelRanking.rankingMusicCountry.value == null) {
+        if (model.getRankingModel().rankingMusicCountry.value == null) {
             return 0
 
         } else {
-            return modelRanking.rankingMusicCountry.value!!.size
+            return model.getRankingModel().rankingMusicCountry.value!!.size
         }
     }
 
     override fun getCountryMusicData(position: Int): ItemSong {
-        return modelRanking.rankingMusicCountry.value!![position]
+        return model.getRankingModel().rankingMusicCountry.value!![position]
     }
 
     override fun getCountryMusicOnClick(position: Int) {
 
         (activity as MainActivity).getDiscoverModel()
-            .getInfo(modelRanking.rankingMusicCountry.value!![position].linkSong)
+            .getInfo(model.getRankingModel().rankingMusicCountry.value!![position].linkSong)
 
         (activity as MainActivity).getDiscoverModel()
-            .getRelateSong(modelRanking.rankingMusicCountry.value!![position].linkSong)
+            .getRelateSong(model.getRankingModel().rankingMusicCountry.value!![position].linkSong)
 
         (activity as MainActivity).getDiscoverModel()
-            .getMVSong(modelRanking.rankingMusicCountry.value!![position].linkSong)
+            .getMVSong(model.getRankingModel().rankingMusicCountry.value!![position].linkSong)
 
         ((activity as MainActivity).getSlidingPanelUp()).panelState =
             SlidingUpPanelLayout.PanelState.EXPANDED
@@ -103,7 +99,7 @@ class TabMusic(var managerRanking: ManagerRanking, val title: String) : Fragment
             }
         })
 
-       modelRanking.rankingMusicCountry.observe(viewLifecycleOwner, Observer
+       model.getRankingModel().rankingMusicCountry.observe(viewLifecycleOwner, Observer
         {
             (activity as MainActivity).getSlidingPanelUp().slide_play_song_big.play_nameSong.text =
                 it[position].nameSong
@@ -125,9 +121,9 @@ class TabMusic(var managerRanking: ManagerRanking, val title: String) : Fragment
                 (model.getSlidingPanelUp()).bg_song,
                 it.imgSong)
 
-            modelRanking.rankingMusicCountry.value!![(activity as MainActivity).getPlaySevice()!!.currentPositionSong].linkMusic =
+            model.getRankingModel().rankingMusicCountry.value!![(activity as MainActivity).getPlaySevice()!!.currentPositionSong].linkMusic =
                 it.linkMusic
-            modelRanking.rankingMusicCountry.value!![(activity as MainActivity).getPlaySevice()!!.currentPositionSong].nameSong =
+            model.getRankingModel().rankingMusicCountry.value!![(activity as MainActivity).getPlaySevice()!!.currentPositionSong].nameSong =
                 it.nameSong
 
 
@@ -135,9 +131,9 @@ class TabMusic(var managerRanking: ManagerRanking, val title: String) : Fragment
 
             (activity as MainActivity).getPlaySevice()!!.releaseMusic()
             (activity as MainActivity).getPlaySevice()!!
-                .setDataMusicOnline(modelRanking.rankingMusicCountry.value!![ (activity as MainActivity).getPlaySevice()!!.currentPositionSong],
+                .setDataMusicOnline(model.getRankingModel().rankingMusicCountry.value!![ (activity as MainActivity).getPlaySevice()!!.currentPositionSong],
                     position,
-                    modelRanking.rankingMusicCountry.value!!)
+                    model.getRankingModel().rankingMusicCountry.value!!)
 
         })
 

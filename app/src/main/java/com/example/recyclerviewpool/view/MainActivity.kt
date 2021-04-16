@@ -24,6 +24,7 @@ import com.example.recyclerviewpool.checkconnect.NetworkChangeReceiver
 import com.example.recyclerviewpool.checkconnect.NetworkUtil
 import com.example.recyclerviewpool.databinding.ActivityMainBinding
 import com.example.recyclerviewpool.lyricsong.LyricManager
+import com.example.recyclerviewpool.model.itemdata.ItemSong
 import com.example.recyclerviewpool.model.itemlyric.LineInfo
 import com.example.recyclerviewpool.playmusic.PlayMusic
 import com.example.recyclerviewpool.playmusic.service.CreateNotification
@@ -56,14 +57,14 @@ class MainActivity : AppCompatActivity(), PlayMusic.IPlayMusic, Playable, View.O
     private var playService: PlayService? = null
     private lateinit var personalFragment: PersonalFragment
 
-
+    private var songAlbums: MutableList<ItemSong>? = null
     private lateinit var conn: ServiceConnection
     private lateinit var broadcastReceiver: BroadcastReceiver
     private lateinit var managerDiscover: ManagerFragmentDiscover
     private lateinit var navigationBar: TabLayout
     lateinit var slidingUpPanelLayout: SlidingUpPanelLayout
     private lateinit var discoverModel: DiscoverModel
-    private lateinit var rankingModel : RankingModel
+    private lateinit var rankingModel: RankingModel
     private lateinit var modelPersonal: PersonalModel
     private val mFragmentList: MutableList<Fragment> = ArrayList()
     private val mFragmentListSlideSong: MutableList<Fragment> = ArrayList()
@@ -119,7 +120,14 @@ class MainActivity : AppCompatActivity(), PlayMusic.IPlayMusic, Playable, View.O
         startService(Intent(this, PlayService::class.java))
 
 
+    }
 
+    private fun checkDataSong() {
+        if (discoverModel.songAlbums.value!=null) {
+            songAlbums  = discoverModel.songAlbums.value!!
+        }else if (rankingModel.rankingMusicCountry.value!=null){
+            songAlbums = rankingModel.rankingMusicCountry.value!!
+        }
     }
 
 
@@ -138,7 +146,7 @@ class MainActivity : AppCompatActivity(), PlayMusic.IPlayMusic, Playable, View.O
             }
 
             override fun onStartTrackingTouch(seekBar: SeekBar?) {
-//                asyPlay!!.isRunning = false
+                asyPlay!!.isRunning = false
             }
 
             override fun onStopTrackingTouch(seekBar: SeekBar?) {
@@ -266,6 +274,7 @@ class MainActivity : AppCompatActivity(), PlayMusic.IPlayMusic, Playable, View.O
     }
 
     override fun onClick(v: View?) {
+
         when (v) {
             v!!.play_song -> {
                 if (isPlaying) {
@@ -314,16 +323,17 @@ class MainActivity : AppCompatActivity(), PlayMusic.IPlayMusic, Playable, View.O
                 binding.slide.repeatAll.visibility = View.INVISIBLE
             }
             v!!.repeat_off -> {
+                checkDataSong()
                 playService!!.setLooping(false)
-                if (playService!!.currentPositionSong == discoverModel.songAlbums.value!!.size - 1) {
+                if (playService!!.currentPositionSong == songAlbums!!.size - 1) {
                     playService!!.currentPositionSong = 0
-                    discoverModel.getInfo(discoverModel.songAlbums.value!![playService!!.currentPositionSong].linkSong)
+                    discoverModel.getInfo(songAlbums!![playService!!.currentPositionSong].linkSong)
                     discoverModel.infoAlbum.observe(this, Observer {
                         playService!!.createNotification(this,
-                            discoverModel.songAlbums.value!![playService!!.currentPositionSong],
+                            songAlbums!![playService!!.currentPositionSong],
                             R.drawable.ic_pause_black_24dp,
                             playService!!.currentPositionSong,
-                            discoverModel.songAlbums.value!!.size - 1)
+                            songAlbums!!.size - 1)
                         binding.slide.nameSong.text = it.nameSong
                         binding.slide.singerSong.text =
 
@@ -455,16 +465,16 @@ class MainActivity : AppCompatActivity(), PlayMusic.IPlayMusic, Playable, View.O
     override fun setOnCompletionListener() {
         asyPlay!!.cancel(true)
         if (onRamdom == 1) {
-            var rd = (0 until discoverModel.songAlbums.value!!.size).random()
+            var rd = (0 until songAlbums!!.size).random()
             while (rd == playService!!.currentPositionSong) {
-                rd = (0 until discoverModel.songAlbums.value!!.size).random()
+                rd = (0 until songAlbums!!.size).random()
             }
-            discoverModel.getInfo(discoverModel.songAlbums.value!![rd].linkSong)
+            discoverModel.getInfo(songAlbums!![rd].linkSong)
             discoverModel.infoAlbum.observe(this, Observer {
                 playService!!.createNotification(this,
-                    discoverModel.songAlbums.value!![rd],
+                    songAlbums!![rd],
                     R.drawable.ic_pause_black_24dp, rd,
-                    discoverModel.songAlbums.value!!.size - 1)
+                    songAlbums!!.size - 1)
                 binding.slide.nameSong.text = it.nameSong
                 binding.slide.singerSong.text =
                     it.singerSong.substring(7 until it.singerSong.length)
@@ -481,9 +491,9 @@ class MainActivity : AppCompatActivity(), PlayMusic.IPlayMusic, Playable, View.O
                 discoverModel!!.getInfo(discoverModel!!.songAlbums.value!![playService!!.currentPositionSong].linkSong)
                 discoverModel.infoAlbum.observe(this, Observer {
                     playService!!.createNotification(this,
-                        discoverModel.songAlbums.value!![playService!!.currentPositionSong],
+                        songAlbums!![playService!!.currentPositionSong],
                         R.drawable.ic_pause_black_24dp, playService!!.currentPositionSong,
-                        discoverModel.songAlbums.value!!.size - 1)
+                        songAlbums!!.size - 1)
                     binding.slide.nameSong.text = it.nameSong
                     binding.slide.singerSong.text =
                         it.singerSong.substring(7 until it.singerSong.length)
@@ -508,7 +518,7 @@ class MainActivity : AppCompatActivity(), PlayMusic.IPlayMusic, Playable, View.O
         @SuppressLint("WrongThread")
         override fun doInBackground(vararg params: Void?): Void? {
             while (isRunning) {
-                publishProgress(playService!!.getCurrentPosition())
+//                publishProgress(playService!!.getCurrentPosition())
                 SystemClock.sleep(500)
             }
 
@@ -560,17 +570,19 @@ class MainActivity : AppCompatActivity(), PlayMusic.IPlayMusic, Playable, View.O
     }
 
     override fun onMusicPrevious() {
+        checkDataSong()
         asyPlay!!.cancel(true)
         playService!!.currentPositionSong--
         if (playService!!.currentPositionSong >= 0) {
-            discoverModel.getInfo(discoverModel.songAlbums.value!![playService!!.currentPositionSong].linkSong)
+            discoverModel.getInfo(songAlbums!![playService!!.currentPositionSong].linkSong)
+            Log.d("ASFDF", songAlbums!![playService!!.currentPositionSong].linkSong)
             discoverModel.infoAlbum.observe(this, Observer {
-                discoverModel.songAlbums.value!![playService!!.currentPositionSong].linkMusic =
+                songAlbums!![playService!!.currentPositionSong].linkMusic =
                     it.linkMusic
                 playService!!.createNotification(this,
-                    discoverModel.songAlbums.value!![playService!!.currentPositionSong],
+                    songAlbums!![playService!!.currentPositionSong],
                     R.drawable.ic_pause_black_24dp, playService!!.currentPositionSong,
-                    discoverModel.songAlbums.value!!.size - 1)
+                    songAlbums!!.size - 1)
                 binding.slide.nameSong.text = it.nameSong
                 binding.slide.singerSong.text =
                     it.singerSong.substring(7 until it.singerSong.length)
@@ -580,15 +592,15 @@ class MainActivity : AppCompatActivity(), PlayMusic.IPlayMusic, Playable, View.O
             })
 
         } else {
-            playService!!.currentPositionSong = discoverModel.songAlbums.value!!.size - 1
-            discoverModel.getInfo(discoverModel.songAlbums.value!![playService!!.currentPositionSong].linkSong)
+            playService!!.currentPositionSong = songAlbums!!.size - 1
+            discoverModel.getInfo(songAlbums!![playService!!.currentPositionSong].linkSong)
             discoverModel.infoAlbum.observe(this, Observer {
-                discoverModel.songAlbums.value!![playService!!.currentPositionSong].linkMusic =
+                songAlbums!![playService!!.currentPositionSong].linkMusic =
                     it.linkMusic
                 playService!!.createNotification(this,
-                    discoverModel.songAlbums.value!![playService!!.currentPositionSong],
+                    songAlbums!![playService!!.currentPositionSong],
                     R.drawable.ic_pause_black_24dp, playService!!.currentPositionSong,
-                    discoverModel.songAlbums.value!!.size - 1)
+                    songAlbums!!.size - 1)
                 binding.slide.nameSong.text = it.nameSong
                 binding.slide.singerSong.text =
                     it.singerSong.substring(7 until it.singerSong.length)
@@ -602,12 +614,13 @@ class MainActivity : AppCompatActivity(), PlayMusic.IPlayMusic, Playable, View.O
 
 
     override fun onMusicPlay() {
+        checkDataSong()
         playService!!.pauseMusic()
         playService!!.createNotification(this,
-            discoverModel.songAlbums.value!![playService!!.currentPositionSong],
+            songAlbums!![playService!!.currentPositionSong],
             R.drawable.ic_play_arrow_black_24dp,
             playService!!.currentPositionSong,
-            discoverModel.songAlbums.value!!.size - 1)
+            songAlbums!!.size - 1)
         binding.slide.playSong.setImageResource(R.drawable.ic_play_arrow_black_48dp)
         binding.slide.play.setImageResource(R.drawable.ic_play_arrow_black_48dp)
         isPlaying = true
@@ -615,12 +628,13 @@ class MainActivity : AppCompatActivity(), PlayMusic.IPlayMusic, Playable, View.O
     }
 
     override fun onMusicPause() {
+        checkDataSong()
         playService!!.playMusic()
         playService!!.createNotification(this,
-            discoverModel.songAlbums.value!![playService!!.currentPositionSong],
+            songAlbums!![playService!!.currentPositionSong],
             R.drawable.ic_pause_black_24dp,
             playService!!.currentPositionSong,
-            discoverModel.songAlbums.value!!.size - 1)
+            songAlbums!!.size - 1)
         binding.slide.playSong.setImageResource(R.drawable.ic_pause_black_48dp)
         binding.slide.play.setImageResource(R.drawable.ic_pause_black_48dp)
         isPlaying = false
@@ -629,17 +643,18 @@ class MainActivity : AppCompatActivity(), PlayMusic.IPlayMusic, Playable, View.O
 
 
     override fun onMusicNext() {
+        checkDataSong()
         asyPlay!!.cancel(true)
         playService!!.releaseMusic()
         playService!!.currentPositionSong++
-        if (playService!!.currentPositionSong <= discoverModel.songAlbums.value!!.size - 1) {
-            discoverModel.getInfo(discoverModel.songAlbums.value!![playService!!.currentPositionSong].linkSong)
+        if (playService!!.currentPositionSong <= songAlbums!!.size - 1) {
+            discoverModel.getInfo(songAlbums!![playService!!.currentPositionSong].linkSong)
             discoverModel.infoAlbum.observe(this, Observer {
                 playService!!.createNotification(this,
-                    discoverModel.songAlbums.value!![playService!!.currentPositionSong],
+                    songAlbums!![playService!!.currentPositionSong],
                     R.drawable.ic_pause_black_24dp,
                     playService!!.currentPositionSong,
-                    discoverModel.songAlbums.value!!.size - 1)
+                    songAlbums!!.size - 1)
                 binding.slide.nameSong.text = it.nameSong
                 binding.slide.singerSong.text =
                     it.singerSong.substring(7 until it.singerSong.length)
@@ -650,13 +665,13 @@ class MainActivity : AppCompatActivity(), PlayMusic.IPlayMusic, Playable, View.O
 
         } else {
             playService!!.currentPositionSong = 0
-            discoverModel.getInfo(discoverModel.songAlbums.value!![playService!!.currentPositionSong].linkSong)
+            discoverModel.getInfo(songAlbums!![playService!!.currentPositionSong].linkSong)
             discoverModel.infoAlbum.observe(this, Observer {
                 playService!!.createNotification(this,
-                    discoverModel.songAlbums.value!![playService!!.currentPositionSong],
+                    songAlbums!![playService!!.currentPositionSong],
                     R.drawable.ic_pause_black_24dp,
                     playService!!.currentPositionSong,
-                    discoverModel.songAlbums.value!!.size - 1)
+                    songAlbums!!.size - 1)
                 binding.slide.nameSong.text = it.nameSong
                 binding.slide.singerSong.text =
                     it.singerSong.substring(7 until it.singerSong.length)
@@ -666,11 +681,6 @@ class MainActivity : AppCompatActivity(), PlayMusic.IPlayMusic, Playable, View.O
             })
         }
     }
-
-    override fun onMusicClose() {
-
-    }
-
 
     override fun onDestroy() {
         unbindService(conn)

@@ -203,12 +203,8 @@ class AddAlbumFragment : Fragment, SongAlbumsAdapter.IAlbum, View.OnClickListene
 override fun onClick(v: View?) {
     when (v?.id) {
         R.id.btn_back -> {
-            if (managerDiscover != null) {
-                managerDiscover.childFragmentManager.popBackStack()
-            }
-            if (managerRanking != null) {
-                managerRanking.childFragmentManager.popBackStack()
-            }
+            managerDiscover.childFragmentManager.popBackStack()
+            managerRanking.childFragmentManager.popBackStack()
         }
     }
 }
