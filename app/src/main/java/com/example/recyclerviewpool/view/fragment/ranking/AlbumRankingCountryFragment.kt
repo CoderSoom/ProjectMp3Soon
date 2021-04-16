@@ -1,9 +1,11 @@
 package com.example.recyclerviewpool.view.fragment.discover.albumsong
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -13,6 +15,7 @@ import com.example.recyclerviewpool.model.itemdata.ItemSong
 import com.example.recyclerviewpool.view.MainActivity
 import com.example.recyclerviewpool.adapter.discover.song.SongAlbumsAdapter
 import com.example.recyclerviewpool.view.fragment.discover.ManagerFragmentDiscover
+import com.example.recyclerviewpool.view.fragment.search.ManagerFragmentSearch
 import com.example.recyclerviewpool.viewmodel.DiscoverModel
 import com.example.recyclerviewpool.viewmodel.LoadDataUtils
 import com.sothree.slidinguppanel.SlidingUpPanelLayout.PanelState
@@ -22,11 +25,14 @@ class AlbumRankingCountryFragment : Fragment, SongAlbumsAdapter.IAlbum {
     private lateinit var sharedViewModel: DiscoverModel
     private  lateinit var playService: MainActivity
     private lateinit  var slidingUpPanelLayout: MainActivity
-    private var managerDiscover: ManagerFragmentDiscover
+    private lateinit var managerDiscover: ManagerFragmentDiscover
+    private lateinit var managerSearch: ManagerFragmentSearch
 
     constructor( managerDiscover: ManagerFragmentDiscover) {
-        this.managerDiscover = managerDiscover
-
+            this.managerDiscover = managerDiscover
+    }
+    constructor(managerSearch: ManagerFragmentSearch){
+        this.managerSearch  = managerSearch
     }
 
 
@@ -90,10 +96,7 @@ class AlbumRankingCountryFragment : Fragment, SongAlbumsAdapter.IAlbum {
         model.getDiscoverModel()
             .getRelateVideo(model.getDiscoverModel().songAlbums.value!![position].linkSong)
 
-        model.getDiscoverModel()
-            .getMVSong(model.getDiscoverModel().songAlbums.value!![position].linkSong)
-
-        managerDiscover.openVideo()
+        managerSearch.openVideo()
     }
 
 

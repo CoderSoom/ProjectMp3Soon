@@ -15,7 +15,6 @@ import com.example.recyclerviewpool.view.fragment.discover.ManagerFragmentDiscov
 import com.example.recyclerviewpool.viewmodel.DiscoverModel
 
 class DetailSearchFragment : Fragment, TopicDetailSearchAdapter.ICategories, View.OnClickListener {
-    private lateinit var sharedViewModel: DiscoverModel
     private var managerSearch: ManagerFragmentSearch
     private lateinit var model: MainActivity
     private lateinit var binding: FragmentDetailSearchBinding
@@ -34,7 +33,7 @@ class DetailSearchFragment : Fragment, TopicDetailSearchAdapter.ICategories, Vie
         //setUpCategoriesCountry
         binding.rcSugCountry.apply {
             layoutManager = LinearLayoutManager(context)
-            adapter = TopicDetailSearchAdapter( this@DetailSearchFragment, model )
+            adapter = TopicDetailSearchAdapter( this@DetailSearchFragment, model, managerSearch)
 
         }
 
@@ -54,7 +53,7 @@ class DetailSearchFragment : Fragment, TopicDetailSearchAdapter.ICategories, Vie
 
     override fun onClick(v: View?) {
         var fg = managerSearch.childFragmentManager!!.beginTransaction()
-        fg.replace(R.id.content, SearchFragment(managerSearch))
+        fg.replace(R.id.frame_layout_search, SearchFragment(managerSearch))
         fg.addToBackStack(null)
         fg.commit()
     }
@@ -63,7 +62,7 @@ class DetailSearchFragment : Fragment, TopicDetailSearchAdapter.ICategories, Vie
         return if (model.getDiscoverModel().categoriesCountry.value == null) {
             0
         } else {
-            1
+            model.getDiscoverModel().categoriesCountry.value!!.size
         }
     }
 
@@ -71,6 +70,5 @@ class DetailSearchFragment : Fragment, TopicDetailSearchAdapter.ICategories, Vie
         model.getDiscoverModel().categoriesCountry.value!![position]
 
 
-    /////////////////////////////
 
 }

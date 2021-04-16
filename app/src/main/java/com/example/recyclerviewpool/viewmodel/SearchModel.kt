@@ -21,7 +21,7 @@ class SearchModel :ViewModel(){
     private var disPolistAlbums:Disposable?=null
     private var disPolistVideos:Disposable?=null
     private val songService =
-        RetrofitUtils.createRetrofit("http://192.168.1.5:5000", SongService::class.java)
+        RetrofitUtils.createRetrofit("http://192.168.1.4:5000", SongService::class.java)
 
     var sharedInfoAlbum = MutableLiveData<ItemSharedAlbums>()
 

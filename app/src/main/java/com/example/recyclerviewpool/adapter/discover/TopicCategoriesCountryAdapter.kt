@@ -1,7 +1,9 @@
 package com.example.recyclerviewpool.adapter.discover
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.recyclerviewpool.databinding.ItemTopicAlbumSongBinding
@@ -76,10 +78,12 @@ class TopicCategoriesCountryAdapter : RecyclerView.Adapter<TopicCategoriesCountr
 
                     model.getDiscoverModel().albumsChil(data.values[position].linkCategory)
                     model.getDiscoverModel().getInfo(data.values[position].linkCategory)
+                    Log.d("TAF", data.values[position].imgCategory)
                     managerDiscover.openAlbumRankingCountry()
                 }else {
                     model.getDiscoverModel().albumsChil(data.values[position].linkCategory)
                     model.getDiscoverModel().getInfo(data.values[position].linkCategory)
+                    Log.d("TAF", data.values[position].imgCategory)
                     managerDiscover.openSongAlbums()
                 }
             }

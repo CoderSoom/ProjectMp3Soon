@@ -49,7 +49,7 @@ class ManagerFragmentDiscover : Fragment() {
         var fg = childFragmentManager!!
         var tran = fg.beginTransaction()
         tran.replace(R.id.manager_discover_layout,
-            AddAlbumFragment(this, null), AddAlbumFragment::class.java.name)
+            AddAlbumFragment(this), AddAlbumFragment::class.java.name)
         tran.addToBackStack(null)
         tran.commit()
     }

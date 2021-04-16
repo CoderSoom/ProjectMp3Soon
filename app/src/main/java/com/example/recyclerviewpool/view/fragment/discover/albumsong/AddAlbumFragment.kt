@@ -33,15 +33,14 @@ class AddAlbumFragment : Fragment, SongAlbumsAdapter.IAlbum, View.OnClickListene
     private lateinit var playService: MainActivity
     private lateinit var slidingUpPanelLayout: MainActivity
     lateinit var managerDiscover: ManagerFragmentDiscover
-    lateinit var managerRanking: ManagerRanking
 
-    constructor(managerDiscover: ManagerFragmentDiscover?, managerRanking: ManagerRanking?) {
-        if (managerDiscover != null) {
-            this.managerDiscover = managerDiscover
-        }
-        if (managerRanking != null) {
-            this.managerRanking = managerRanking
-        }
+    lateinit var managerSearch: ManagerFragmentSearch
+
+    constructor(managerDiscover: ManagerFragmentDiscover) {
+        this.managerDiscover = managerDiscover
+    }
+    constructor(managerSearch: ManagerFragmentSearch) {
+        this.managerSearch = managerSearch
     }
 
 
@@ -141,7 +140,7 @@ class AddAlbumFragment : Fragment, SongAlbumsAdapter.IAlbum, View.OnClickListene
                 }
             }
         })
-        if (model.getDiscoverModel().songAlbums.value!=null) {
+        if (model.getDiscoverModel().songAlbums.value != null) {
             model.getDiscoverModel()
                 .getInfo(model.getDiscoverModel().songAlbums.value!![position].linkSong)
             model.getDiscoverModel()
@@ -151,52 +150,59 @@ class AddAlbumFragment : Fragment, SongAlbumsAdapter.IAlbum, View.OnClickListene
         }
 
 
-    /////SetLink Music Player
-    model.getDiscoverModel().infoAlbum.observe(this, Observer
-    {
-        LoadDataUtils.loadImgBitMapBlur(context,
-            (slidingUpPanelLayout.getSlidingPanelUp()).bg_song,
-            it.imgSong)
-        model.getDiscoverModel().songAlbums.value!![playService.getPlaySevice()!!.currentPositionSong].linkMusic =
-            it.linkMusic
-        model.getDiscoverModel().songAlbums.value!![playService.getPlaySevice()!!.currentPositionSong].nameSong =
-            it.nameSong
+        /////SetLink Music Player
+        model.getDiscoverModel().infoAlbum.observe(this, Observer
+        {
+            LoadDataUtils.loadImgBitMapBlur(context,
+                (slidingUpPanelLayout.getSlidingPanelUp()).bg_song,
+                it.imgSong)
+            model.getDiscoverModel().songAlbums.value!![playService.getPlaySevice()!!
+                .currentPositionSong].linkMusic =
+                it.linkMusic
+            model.getDiscoverModel().songAlbums.value!![playService.getPlaySevice()!!
+                .currentPositionSong].nameSong =
+                it.nameSong
 
 
-        playService.getPlaySevice()!!.releaseMusic()
-        playService.getPlaySevice()!!
-            .setDataMusicOnline(model.getDiscoverModel().songAlbums.value!![playService.getPlaySevice()!!.currentPositionSong],
-                position,
-                model.getDiscoverModel().songAlbums.value!!)
+            playService.getPlaySevice()!!.releaseMusic()
+            playService.getPlaySevice()!!
+                .setDataMusicOnline(model.getDiscoverModel().songAlbums.value!!
+                        [playService.getPlaySevice()!!.currentPositionSong],
+                    position,
+                    model.getDiscoverModel().songAlbums.value!!)
 
-    })
-
-
-
-    model.getDiscoverModel().songAlbums.observe(viewLifecycleOwner, Observer
-            {
-                (slidingUpPanelLayout.getSlidingPanelUp()).slide_play_song_big.play_nameSong.text =
-                    it[position].nameSong
-                (slidingUpPanelLayout.getSlidingPanelUp()).slide_play_song_big.play_singerSong.text =
-                    it[position].singerSong
+        })
 
 
-        //setName Slide Panel Up
-        (slidingUpPanelLayout.getSlidingPanelUp()).slide_play_song_mini.nameSong.text =
-            it[position].nameSong
-        (slidingUpPanelLayout.getSlidingPanelUp()).slide_play_song_mini.singerSong.text =
-            it[position].singerSong
-    })
+
+        model.getDiscoverModel().songAlbums.observe(viewLifecycleOwner, Observer
+        {
+            (slidingUpPanelLayout.getSlidingPanelUp())
+                .slide_play_song_big.play_nameSong.text =
+                it[position].nameSong
+            (slidingUpPanelLayout.getSlidingPanelUp())
+                .slide_play_song_big.play_singerSong.text =
+                it[position].singerSong
 
 
-}
+            //setName Slide Panel Up
+            (slidingUpPanelLayout.getSlidingPanelUp())
+                .slide_play_song_mini.nameSong.text =
+                it[position].nameSong
+            (slidingUpPanelLayout.getSlidingPanelUp())
+                .slide_play_song_mini.singerSong.text =
+                it[position].singerSong
+        })
 
-override fun onClick(v: View?) {
-    when (v?.id) {
-        R.id.btn_back -> {
-            managerDiscover.childFragmentManager.popBackStack()
-            managerRanking.childFragmentManager.popBackStack()
+
+    }
+
+    override fun onClick(v: View?) {
+        when (v?.id) {
+            R.id.btn_back -> {
+                managerDiscover.childFragmentManager.popBackStack()
+                managerSearch.childFragmentManager.popBackStack()
+            }
         }
     }
-}
 }

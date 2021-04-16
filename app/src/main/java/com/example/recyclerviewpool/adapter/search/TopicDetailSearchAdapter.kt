@@ -3,6 +3,7 @@ package com.example.recyclerviewpool.adapter.search
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.recyclerviewpool.databinding.ItemTopicAlbumSongBinding
@@ -16,19 +17,21 @@ import com.example.recyclerviewpool.viewmodel.SearchModel
 
 class TopicDetailSearchAdapter :
     RecyclerView.Adapter<TopicDetailSearchAdapter.ItemCategoriesHolder> {
-    private  var managerDiscover= ManagerFragmentDiscover()
+    private var managerDiscover = ManagerFragmentDiscover()
     private var iCategories: ICategories
+    private var managerSearch: ManagerFragmentSearch
 
-    private var model : MainActivity
+    private var model: MainActivity
 
     constructor(
 
-         iCategories: ICategories, model: MainActivity
+        iCategories: ICategories, model: MainActivity,
+        managerSearch: ManagerFragmentSearch
     ) {
 
         this.iCategories = iCategories
         this.model = model
-
+        this.managerSearch = managerSearch
 
 
     }
@@ -69,23 +72,18 @@ class TopicDetailSearchAdapter :
             override fun getCategoriesCountryCount() = data.values.size
 
             override fun getCategoriesCountryOnClick(position: Int) {
-//                sharedViewModel.setData(
-//                    data.values[position].imgCategory,
-//                    data.values[position].nameCategory,
-//                    ""
-//                )
+
                 var endLink = data.values[position].linkCategory.endsWith("video.html")
-                if (endLink){
+                if (endLink) {
 
                     model.getDiscoverModel().albumsChil(data.values[position].linkCategory)
                     model.getDiscoverModel().getInfo(data.values[position].linkCategory)
+                    managerSearch.openAlbumRankingCountry()
 
-                    managerDiscover.openAlbumRankingCountry()
-
-                }else {
+                } else {
                     model.getDiscoverModel().albumsChil(data.values[position].linkCategory)
                     model.getDiscoverModel().getInfo(data.values[position].linkCategory)
-                    managerDiscover.openSongAlbums()
+                    managerSearch.openSongAlbums()
                 }
 
             }
