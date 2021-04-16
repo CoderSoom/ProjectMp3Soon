@@ -15,7 +15,7 @@ import com.example.recyclerviewpool.viewmodel.DiscoverModel
 class TopicOutStandingSingerAdapter :
     RecyclerView.Adapter<TopicOutStandingSingerAdapter.ItemCategoriesHolder> {
     private var iCategories: ICategories
-    private var fragmentDiscoverManager: ManagerFragmentDiscover
+    private var managerDiscover: ManagerFragmentDiscover
     var model: MainActivity
     var sharedViewModel: DiscoverModel
 
@@ -23,12 +23,12 @@ class TopicOutStandingSingerAdapter :
         shareViewModel: DiscoverModel,
         model: MainActivity,
         iCategories: ICategories,
-        fragmentDiscoverManager: ManagerFragmentDiscover
+        managerDiscover: ManagerFragmentDiscover
     ) {
         this.sharedViewModel = shareViewModel
         this.model = model
         this.iCategories = iCategories
-        this.fragmentDiscoverManager = fragmentDiscoverManager
+        this.managerDiscover = managerDiscover
 
     }
 
@@ -74,7 +74,7 @@ class TopicOutStandingSingerAdapter :
                     data.values[position].nameCategory,
                    ""
                 )
-                fragmentDiscoverManager.openSongAlbumsSinger()
+                managerDiscover.openSongAlbumsSinger()
 
             }
 

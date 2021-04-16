@@ -14,7 +14,7 @@ import com.example.recyclerviewpool.viewmodel.DiscoverModel
 
 class TopicCategoriesStatusAdapter : RecyclerView.Adapter<TopicCategoriesStatusAdapter.ItemCategoriesHolder> {
     private var iCategories: ICategories
-    private var fragmentDiscoverManager: ManagerFragmentDiscover
+    private var managerDiscover: ManagerFragmentDiscover
     var model: MainActivity
     var sharedViewModel: DiscoverModel
 
@@ -22,12 +22,12 @@ class TopicCategoriesStatusAdapter : RecyclerView.Adapter<TopicCategoriesStatusA
         shareViewModel: DiscoverModel,
         model: MainActivity,
         iCategories: ICategories,
-        fragmentDiscoverManager: ManagerFragmentDiscover
+        managerDiscover: ManagerFragmentDiscover
     ) {
         this.sharedViewModel = shareViewModel
         this.model = model
         this.iCategories = iCategories
-        this.fragmentDiscoverManager = fragmentDiscoverManager
+        this.managerDiscover = managerDiscover
 
     }
 
@@ -70,7 +70,7 @@ class TopicCategoriesStatusAdapter : RecyclerView.Adapter<TopicCategoriesStatusA
 
             override fun getCategoriesStatusOnClick(position: Int) {
                 model.getDiscoverModel().childCategoriesStatus(model.getDiscoverModel().categoriesStatus.value!![0].values[position].linkCategory)
-                fragmentDiscoverManager.openAlbumCategoriesStatus()
+                managerDiscover.openAlbumCategoriesStatus()
 
             }
 

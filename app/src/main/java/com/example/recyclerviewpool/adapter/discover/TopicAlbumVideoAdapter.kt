@@ -13,7 +13,7 @@ import com.example.recyclerviewpool.viewmodel.DiscoverModel
 
 class TopicAlbumVideoAdapter : RecyclerView.Adapter<TopicAlbumVideoAdapter.ItemCategoriesHolder> {
     private var iCategories: ICategories
-    private var fragmentDiscoverManager: ManagerFragmentDiscover
+    private var managerDiscover: ManagerFragmentDiscover
     var model: MainActivity
     var sharedViewModel: DiscoverModel
 
@@ -21,12 +21,12 @@ class TopicAlbumVideoAdapter : RecyclerView.Adapter<TopicAlbumVideoAdapter.ItemC
         shareViewModel: DiscoverModel,
         model: MainActivity,
         iCategories: ICategories,
-        fragmentDiscoverManager: ManagerFragmentDiscover
+        managerDiscover: ManagerFragmentDiscover
     ) {
         this.sharedViewModel = shareViewModel
         this.model = model
         this.iCategories = iCategories
-        this.fragmentDiscoverManager = fragmentDiscoverManager
+        this.managerDiscover = managerDiscover
 
     }
 
@@ -68,7 +68,7 @@ class TopicAlbumVideoAdapter : RecyclerView.Adapter<TopicAlbumVideoAdapter.ItemC
                 model.getDiscoverModel()
                     .getRelateVideo(data.values[position].linkSong)
                 model.getDiscoverModel().sugVideoMusic(data.values[position].linkSong)
-                fragmentDiscoverManager.openVideo()
+                managerDiscover.openVideo()
 
             }
 

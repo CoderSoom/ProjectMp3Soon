@@ -125,7 +125,9 @@ class MainActivity : AppCompatActivity(), PlayMusic.IPlayMusic, Playable, View.O
     private fun checkDataSong() {
         if (discoverModel.songAlbums.value!=null) {
             songAlbums  = discoverModel.songAlbums.value!!
-        }else if (rankingModel.rankingMusicCountry.value!=null){
+    }
+        songAlbums = discoverModel.newSong.value!![0].values!!
+        if (rankingModel.rankingMusicCountry.value!=null){
             songAlbums = rankingModel.rankingMusicCountry.value!!
         }
     }
@@ -447,6 +449,7 @@ class MainActivity : AppCompatActivity(), PlayMusic.IPlayMusic, Playable, View.O
 
     fun getSlidingPanelUp() = slidingUpPanelLayout
     fun getNavigation() = navigationBar
+    fun getSongAlbum () = songAlbums
     fun getDiscoverModel() = discoverModel
     fun getRankingModel() = rankingModel
     fun getAsyPlay() = asyPlay
@@ -483,12 +486,11 @@ class MainActivity : AppCompatActivity(), PlayMusic.IPlayMusic, Playable, View.O
                     it.singerSong.substring(7 until it.singerSong.length)
             })
         } else {
-            Log.d("TAG", discoverModel.newSong.value!!.size.toString())
             if (discoverModel.newSong.value!!.size == 0) {
                 return
             } else {
                 playService!!.currentPositionSong++
-                discoverModel!!.getInfo(discoverModel!!.songAlbums.value!![playService!!.currentPositionSong].linkSong)
+                discoverModel!!.getInfo(songAlbums!![playService!!.currentPositionSong].linkSong)
                 discoverModel.infoAlbum.observe(this, Observer {
                     playService!!.createNotification(this,
                         songAlbums!![playService!!.currentPositionSong],
@@ -644,7 +646,7 @@ class MainActivity : AppCompatActivity(), PlayMusic.IPlayMusic, Playable, View.O
 
     override fun onMusicNext() {
         checkDataSong()
-        asyPlay!!.cancel(true)
+            asyPlay!!.cancel(true)
         playService!!.releaseMusic()
         playService!!.currentPositionSong++
         if (playService!!.currentPositionSong <= songAlbums!!.size - 1) {

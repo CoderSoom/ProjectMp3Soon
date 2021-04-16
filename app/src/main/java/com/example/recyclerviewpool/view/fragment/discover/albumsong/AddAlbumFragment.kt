@@ -150,15 +150,6 @@ class AddAlbumFragment : Fragment, SongAlbumsAdapter.IAlbum, View.OnClickListene
                 .getMVSong(model.getDiscoverModel().songAlbums.value!![position].linkSong)
         }
 
-//        if (model.getRankingModel().rankingMusicCountry.value != null) {
-//            model.getDiscoverModel()
-//                .getInfo(model.getRankingModel().rankingMusicCountry.value!![position].linkSong)
-//        Toast.makeText(context, "AAAA"+model.getRankingModel().rankingMusicCountry.value!![position].linkSong, Toast.LENGTH_SHORT).show()
-//            model.getDiscoverModel()
-//                .getRelateSong(model.getRankingModel().rankingMusicCountry.value!![position].linkSong)
-//            model.getDiscoverModel()
-//                .getMVSong(model.getRankingModel().rankingMusicCountry.value!![position].linkSong)
-//        }
 
     /////SetLink Music Player
     model.getDiscoverModel().infoAlbum.observe(this, Observer

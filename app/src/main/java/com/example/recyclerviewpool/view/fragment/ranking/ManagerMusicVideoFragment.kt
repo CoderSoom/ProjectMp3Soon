@@ -46,7 +46,7 @@ class ManagerMusicVideoFragment : Fragment {
         binding.tabMusic.setOnClickListener {
             openFragmentMusic()
         }
-        if (country == "france"|| country == "play-back") {
+        if (country == "france" || country == "play-back") {
             binding.tabVideo.visibility = View.GONE
         } else {
             binding.tabVideo.visibility = View.VISIBLE
@@ -69,7 +69,7 @@ class ManagerMusicVideoFragment : Fragment {
 
     private fun openFragmentVideo() {
         var fg = childFragmentManager.beginTransaction()
-        fg.replace(R.id.frame_layout, TabVideo(country))
+        fg.replace(R.id.frame_layout, TabVideo(country, managerRanking))
         fg.commit()
     }
 

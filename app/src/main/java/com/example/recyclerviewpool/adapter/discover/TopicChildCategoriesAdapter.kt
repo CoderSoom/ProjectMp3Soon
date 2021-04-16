@@ -20,7 +20,7 @@ class TopicChildCategoriesAdapter :
     RecyclerView.Adapter<TopicChildCategoriesAdapter.ItemCategoriesHolder> {
     private var sharedViewModel: DiscoverModel
     private var iCategories: ICategories
-    private var fragmentDiscoverManager: ManagerFragmentDiscover
+    private var managerDiscover: ManagerFragmentDiscover
     var model: MainActivity
     var lifecycleOwner: LifecycleOwner
 
@@ -28,14 +28,14 @@ class TopicChildCategoriesAdapter :
         sharedViewModel: DiscoverModel,
         model: MainActivity,
         iCategories: ICategories,
-        fragmentDiscoverManager: ManagerFragmentDiscover,
+        managerDiscover: ManagerFragmentDiscover,
         lifecycleOwner: LifecycleOwner
 
     ) {
         this.sharedViewModel = sharedViewModel
         this.model = model
         this.iCategories = iCategories
-        this.fragmentDiscoverManager = fragmentDiscoverManager
+        this.managerDiscover = managerDiscover
         this.lifecycleOwner = lifecycleOwner
 
     }
@@ -85,7 +85,7 @@ class TopicChildCategoriesAdapter :
                         it[0].values[position].singerSong)
                 })
 
-                fragmentDiscoverManager.openSongAlbums()
+                managerDiscover.openSongAlbums()
             }
 
 

@@ -13,7 +13,7 @@ import com.example.recyclerviewpool.viewmodel.DiscoverModel
 
 class TopicAlbumSongAdapter : RecyclerView.Adapter<TopicAlbumSongAdapter.ItemCategoriesHolder> {
     private var iCategories: ICategories
-    private var fragmentDiscoverManager: ManagerFragmentDiscover
+    private var managerDiscover: ManagerFragmentDiscover
     var model: MainActivity
     var sharedViewModel: DiscoverModel
 
@@ -21,12 +21,12 @@ class TopicAlbumSongAdapter : RecyclerView.Adapter<TopicAlbumSongAdapter.ItemCat
         shareViewModel: DiscoverModel,
         model: MainActivity,
         iCategories: ICategories,
-        fragmentDiscoverManager: ManagerFragmentDiscover
+        managerDiscover: ManagerFragmentDiscover
     ) {
         this.sharedViewModel = shareViewModel
         this.model = model
         this.iCategories = iCategories
-        this.fragmentDiscoverManager = fragmentDiscoverManager
+        this.managerDiscover = managerDiscover
 
     }
 
@@ -72,7 +72,7 @@ class TopicAlbumSongAdapter : RecyclerView.Adapter<TopicAlbumSongAdapter.ItemCat
                     data.values[position].nameSong,
                     data.values[position].singerSong
                 )
-                fragmentDiscoverManager.openSongAlbums()
+                managerDiscover.openSongAlbums()
 
             }
 

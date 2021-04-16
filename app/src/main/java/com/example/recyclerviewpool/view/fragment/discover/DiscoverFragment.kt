@@ -110,18 +110,18 @@ class DiscoverFragment : Fragment, TopicAlbumSongAdapter.ICategories,
 
         }
 
-        ///set Up newSong
-//        binding.rcNewSong.apply {
-//            layoutManager = PreCachingLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-//            hasFixedSize()
-//            setItemViewCacheSize(10)
-//            adapter =
-//                TopicNewSongAdapter(sharedViewModel,
-//                    model,
-//                    this@DiscoverFragment,
-//                    managerDiscover, slidingUpPanelLayout, viewLifecycleOwner)
-//
-//        }
+        //set Up newSong
+        binding.rcNewSong.apply {
+            layoutManager = PreCachingLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+            hasFixedSize()
+            setItemViewCacheSize(10)
+            adapter =
+                TopicNewSongAdapter(sharedViewModel,
+                    model,
+                    this@DiscoverFragment,
+                    managerDiscover, slidingUpPanelLayout, viewLifecycleOwner)
+
+        }
 
         //setUp OutStandingSinger
         binding.rcOutStandingSinger.apply {
@@ -152,7 +152,7 @@ class DiscoverFragment : Fragment, TopicAlbumSongAdapter.ICategories,
         model.getDiscoverModel().getTopResult(context!!)
         model.getDiscoverModel().categoriesStatus()
         model.getDiscoverModel().categoriesCountry()
-//        model.getDiscoverModel().newSong()
+        model.getDiscoverModel().newSong()
         model.getDiscoverModel().outstandingSinger()
         model.getDiscoverModel().sugVideoMusic("https://vi.chiasenhac.vn/mp3/quan-ap/bong-hoa-dep-nhat-tsvmq0csq8env4.html")
         return binding.root

@@ -20,7 +20,7 @@ import kotlinx.android.synthetic.main.sliding_up_panel.view.*
 
 class TopicNewSongAdapter : RecyclerView.Adapter<TopicNewSongAdapter.ItemCategoriesHolder> {
     private var iCategories: ICategories
-    private var fragmentDiscoverManager: ManagerFragmentDiscover
+    private var managerDiscover: ManagerFragmentDiscover
     var model: MainActivity
      var lifecycleOwner: LifecycleOwner
     private var slidingUpPanelLayout: MainActivity
@@ -30,7 +30,7 @@ class TopicNewSongAdapter : RecyclerView.Adapter<TopicNewSongAdapter.ItemCategor
         shareViewModel: DiscoverModel,
         model: MainActivity,
         iCategories: ICategories,
-        fragmentDiscoverManager: ManagerFragmentDiscover,
+        managerDiscover: ManagerFragmentDiscover,
         slidingUpPanelLayout: MainActivity,
         lifecycleOwner: LifecycleOwner
 
@@ -38,7 +38,7 @@ class TopicNewSongAdapter : RecyclerView.Adapter<TopicNewSongAdapter.ItemCategor
         this.sharedViewModel = shareViewModel
         this.model = model
         this.iCategories = iCategories
-        this.fragmentDiscoverManager = fragmentDiscoverManager
+        this.managerDiscover = managerDiscover
         this.slidingUpPanelLayout = slidingUpPanelLayout
         this.lifecycleOwner= lifecycleOwner
 
@@ -80,6 +80,8 @@ class TopicNewSongAdapter : RecyclerView.Adapter<TopicNewSongAdapter.ItemCategor
             override fun getNewSongCount()= 5
 
             override fun getNewSongOnClick(position: Int) {
+
+
                 model.getPlaySevice()!!.currentPositionSong = position
 
                 (slidingUpPanelLayout.getSlidingPanelUp()).panelState = SlidingUpPanelLayout.PanelState.EXPANDED

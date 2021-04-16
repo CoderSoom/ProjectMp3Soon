@@ -10,11 +10,13 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.recyclerviewpool.databinding.TabMusicVideoBinding
 import com.example.recyclerviewpool.model.itemdata.ItemSong
 import com.example.recyclerviewpool.adapter.ranking.CountryVideoAdapter
+import com.example.recyclerviewpool.view.MainActivity
 import com.example.recyclerviewpool.viewmodel.RankingModel
 
-class TabVideo(val title:String) : Fragment(), CountryVideoAdapter.ICountry {
+class TabVideo(val title: String, var managerRanking: ManagerRanking) : Fragment(),
+    CountryVideoAdapter.ICountry {
     private lateinit var binding: TabMusicVideoBinding
-    private lateinit var model:RankingModel
+    private lateinit var model: RankingModel
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -25,7 +27,7 @@ class TabVideo(val title:String) : Fragment(), CountryVideoAdapter.ICountry {
         model = RankingModel()
         binding.rcCountry.apply {
             layoutManager = LinearLayoutManager(context)
-            adapter =CountryVideoAdapter(this@TabVideo)
+            adapter = CountryVideoAdapter(this@TabVideo)
         }
         model.getVideoRanking(title)
         reg()
@@ -54,6 +56,9 @@ class TabVideo(val title:String) : Fragment(), CountryVideoAdapter.ICountry {
     }
 
     override fun getVideoCountryOnClick(position: Int) {
+        (activity as MainActivity).getDiscoverModel().getInfo(model.rankingVideoCountry.value!![position].linkSong)
+        (activity as MainActivity).getDiscoverModel().getRelateVideo(model.rankingVideoCountry.value!![position].linkSong)
+        managerRanking.openVideo()
 
     }
 
