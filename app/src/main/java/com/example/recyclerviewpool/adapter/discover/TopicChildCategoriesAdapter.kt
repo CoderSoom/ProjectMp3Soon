@@ -73,12 +73,12 @@ class TopicChildCategoriesAdapter :
 
             override fun getChildCategoriesStatusOnClick(position: Int) {
 
-                model.getModel()
-                    .getInfo(model.getModel().childCategoriesStatus.value!![0].values[position].linkSong)
+                model.getDiscoverModel()
+                    .getInfo(model.getDiscoverModel().childCategoriesStatus.value!![0].values[position].linkSong)
 
-                model.getModel().albumsChil(model.getModel().childCategoriesStatus.value!![0].values[position].linkSong)
+                model.getDiscoverModel().albumsChil(model.getDiscoverModel().childCategoriesStatus.value!![0].values[position].linkSong)
 
-                model.getModel().childCategoriesStatus.observe(lifecycleOwner, Observer {
+                model.getDiscoverModel().childCategoriesStatus.observe(lifecycleOwner, Observer {
 
                     sharedViewModel.setData(it[0].values[position].imgSong,
                         it[0].values[position].nameSong,
@@ -112,7 +112,7 @@ class TopicChildCategoriesAdapter :
         return if (position == 0) {
             0
         } else {
-            model.getModel().childCategoriesStatus.value!![position].hashCode().toLong()
+            model.getDiscoverModel().childCategoriesStatus.value!![position].hashCode().toLong()
         }
 
     }

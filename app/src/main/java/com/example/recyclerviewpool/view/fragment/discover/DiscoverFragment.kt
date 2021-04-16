@@ -111,17 +111,17 @@ class DiscoverFragment : Fragment, TopicAlbumSongAdapter.ICategories,
         }
 
         ///set Up newSong
-        binding.rcNewSong.apply {
-            layoutManager = PreCachingLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-            hasFixedSize()
-            setItemViewCacheSize(10)
-            adapter =
-                TopicNewSongAdapter(sharedViewModel,
-                    model,
-                    this@DiscoverFragment,
-                    managerDiscover, slidingUpPanelLayout, viewLifecycleOwner)
-
-        }
+//        binding.rcNewSong.apply {
+//            layoutManager = PreCachingLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+//            hasFixedSize()
+//            setItemViewCacheSize(10)
+//            adapter =
+//                TopicNewSongAdapter(sharedViewModel,
+//                    model,
+//                    this@DiscoverFragment,
+//                    managerDiscover, slidingUpPanelLayout, viewLifecycleOwner)
+//
+//        }
 
         //setUp OutStandingSinger
         binding.rcOutStandingSinger.apply {
@@ -147,14 +147,14 @@ class DiscoverFragment : Fragment, TopicAlbumSongAdapter.ICategories,
 
         reg()
         //Call API
-        model.getModel().albumsSong()
-        model.getModel().albumsVideo()
-        model.getModel().getTopResult(context!!)
-        model.getModel().categoriesStatus()
-        model.getModel().categoriesCountry()
-        model.getModel().newSong()
-        model.getModel().outstandingSinger()
-        model.getModel().sugVideoMusic("https://vi.chiasenhac.vn/mp3/quan-ap/bong-hoa-dep-nhat-tsvmq0csq8env4.html")
+        model.getDiscoverModel().albumsSong()
+        model.getDiscoverModel().albumsVideo()
+        model.getDiscoverModel().getTopResult(context!!)
+        model.getDiscoverModel().categoriesStatus()
+        model.getDiscoverModel().categoriesCountry()
+//        model.getDiscoverModel().newSong()
+        model.getDiscoverModel().outstandingSinger()
+        model.getDiscoverModel().sugVideoMusic("https://vi.chiasenhac.vn/mp3/quan-ap/bong-hoa-dep-nhat-tsvmq0csq8env4.html")
         return binding.root
 
     }
@@ -162,46 +162,46 @@ class DiscoverFragment : Fragment, TopicAlbumSongAdapter.ICategories,
 
     private fun reg() {
         ///TopResult
-        model.getModel().topResult.observe(viewLifecycleOwner, Observer {
+        model.getDiscoverModel().topResult.observe(viewLifecycleOwner, Observer {
             binding.rcTopResult.adapter!!.notifyDataSetChanged()
 
 
         })
         ///outstanding
-        model.getModel().outstandingSinger.observe(viewLifecycleOwner, Observer {
+        model.getDiscoverModel().outstandingSinger.observe(viewLifecycleOwner, Observer {
             binding.rcOutStandingSinger.adapter!!.notifyDataSetChanged()
 
         })
 
 
         //Albums SongNew
-        model.getModel().albumsSong.observe(viewLifecycleOwner, Observer {
+        model.getDiscoverModel().albumsSong.observe(viewLifecycleOwner, Observer {
             binding.rcAlbums.adapter!!.notifyDataSetChanged()
 
         })
         //Albums VideoNew
-        model.getModel().albumsVideo.observe(viewLifecycleOwner, Observer {
+        model.getDiscoverModel().albumsVideo.observe(viewLifecycleOwner, Observer {
             binding.rcAlbumsVideo.adapter!!.notifyDataSetChanged()
 
         })
 
         ///newSong
-        model.getModel().newSong.observe(viewLifecycleOwner, Observer {
+        model.getDiscoverModel().newSong.observe(viewLifecycleOwner, Observer {
             binding.rcNewSong.adapter!!.notifyDataSetChanged()
 
         })
         //categories
-        model.getModel().categoriesStatus.observe(viewLifecycleOwner, Observer {
+        model.getDiscoverModel().categoriesStatus.observe(viewLifecycleOwner, Observer {
             binding.rcCategoriesStatus.adapter!!.notifyDataSetChanged()
 
         })
-        model.getModel().categoriesCountry.observe(viewLifecycleOwner, Observer {
+        model.getDiscoverModel().categoriesCountry.observe(viewLifecycleOwner, Observer {
             binding.rcCategoriesCountry.adapter!!.notifyDataSetChanged()
 
         })
 
         //sug
-        model.getModel().sugAlbums.observe(viewLifecycleOwner, Observer {
+        model.getDiscoverModel().sugAlbums.observe(viewLifecycleOwner, Observer {
             binding.rcSug.adapter!!.notifyDataSetChanged()
         })
 
@@ -209,15 +209,15 @@ class DiscoverFragment : Fragment, TopicAlbumSongAdapter.ICategories,
     }
 
     override fun getTopResultCount(): Int {
-        return if (model.getModel().topResult.value == null) {
+        return if (model.getDiscoverModel().topResult.value == null) {
             0
         } else {
-            model.getModel().topResult.value!!.size
+            model.getDiscoverModel().topResult.value!!.size
         }
     }
 
     override fun getTopResultData(position: Int): ItemMusicList<ItemSong> {
-        return model.getModel().topResult.value!![position]
+        return model.getDiscoverModel().topResult.value!![position]
     }
 
 
@@ -225,27 +225,27 @@ class DiscoverFragment : Fragment, TopicAlbumSongAdapter.ICategories,
 
 
     override fun getSugDataCout(): Int {
-        return if (model.getModel().sugAlbums.value == null) {
+        return if (model.getDiscoverModel().sugAlbums.value == null) {
             0
         } else {
-            model.getModel().sugAlbums.value!!.size
+            model.getDiscoverModel().sugAlbums.value!!.size
         }
     }
 
     override fun getSugData(position: Int): ItemMusicList<ItemSong> {
-        return model.getModel().sugAlbums.value!![position]
+        return model.getDiscoverModel().sugAlbums.value!![position]
     }
 
     override fun getNewSongCount(): Int {
-        return if (model.getModel().newSong.value == null) {
+        return if (model.getDiscoverModel().newSong.value == null) {
             0
         } else {
-            model.getModel().newSong.value!!.size
+            model.getDiscoverModel().newSong.value!!.size
         }
     }
 
     override fun getNewSongData(position: Int): ItemMusicList<ItemSong> {
-        return model.getModel().newSong.value!![position]
+        return model.getDiscoverModel().newSong.value!![position]
     }
 
 
@@ -253,22 +253,22 @@ class DiscoverFragment : Fragment, TopicAlbumSongAdapter.ICategories,
 
 
     override fun getCategoriesCountryCount(): Int {
-        return if (model.getModel().categoriesCountry.value == null) {
+        return if (model.getDiscoverModel().categoriesCountry.value == null) {
             0
         } else {
-            model.getModel().categoriesCountry.value!!.size
+            model.getDiscoverModel().categoriesCountry.value!!.size
         }
     }
 
     override fun getCategoriesCountryData(position: Int): ItemMusicList<ItemCategories> {
-        return model.getModel().categoriesCountry.value!![position]
+        return model.getDiscoverModel().categoriesCountry.value!![position]
     }
 
     override fun getOutStandingSingerCount(): Int {
-        return if (model.getModel().outstandingSinger.value == null) {
+        return if (model.getDiscoverModel().outstandingSinger.value == null) {
             0
         } else {
-            model.getModel().outstandingSinger.value!!.size
+            model.getDiscoverModel().outstandingSinger.value!!.size
         }
     }
 
@@ -276,43 +276,43 @@ class DiscoverFragment : Fragment, TopicAlbumSongAdapter.ICategories,
     ///////////////////////////
 
     override fun getOutStandingSingerData(position: Int): ItemMusicList<ItemCategories> {
-        return model.getModel().outstandingSinger.value!![position]
+        return model.getDiscoverModel().outstandingSinger.value!![position]
     }
 
     override fun getCategoriesStatusCount(): Int {
-        return if (model.getModel().categoriesStatus.value == null || model.getModel().categoriesStatus.value!!.size==0) {
+        return if (model.getDiscoverModel().categoriesStatus.value == null || model.getDiscoverModel().categoriesStatus.value!!.size==0) {
             0
         } else {
-            model.getModel().categoriesStatus.value!!.size
+            model.getDiscoverModel().categoriesStatus.value!!.size
         }
     }
 
     override fun getCategoriesStatusData(position: Int): ItemMusicList<ItemCategories> {
-        return model.getModel().categoriesStatus.value!![position]
+        return model.getDiscoverModel().categoriesStatus.value!![position]
     }
 
     override fun getAlbumVideoCount(): Int {
-        return if (model.getModel().albumsVideo.value == null) {
+        return if (model.getDiscoverModel().albumsVideo.value == null) {
             0
         } else {
-            model.getModel().albumsVideo.value!!.size
+            model.getDiscoverModel().albumsVideo.value!!.size
         }
     }
 
     override fun getAlbumVideoData(position: Int): ItemMusicList<ItemSong> {
-        return model.getModel().albumsVideo.value!![position]
+        return model.getDiscoverModel().albumsVideo.value!![position]
     }
 
     override fun getNewAlbumCount(): Int {
-        return if (model.getModel().albumsSong.value==null){
+        return if (model.getDiscoverModel().albumsSong.value==null){
             0
         }else{
-            model.getModel().albumsSong.value!!.size
+            model.getDiscoverModel().albumsSong.value!!.size
         }
     }
 
     override fun getNewAlbumData(position: Int): ItemMusicList<ItemSong> {
-      return model.getModel().albumsSong.value!![position]
+      return model.getDiscoverModel().albumsSong.value!![position]
     }
 
 

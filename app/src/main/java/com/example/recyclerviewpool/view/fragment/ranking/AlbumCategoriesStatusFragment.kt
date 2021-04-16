@@ -52,13 +52,13 @@ class AlbumCategoriesStatusFragment : Fragment , TopicChildCategoriesAdapter.ICa
 
     private fun reg() {
 
-        model.getModel().childCategoriesStatus.observe(viewLifecycleOwner, Observer {
+        model.getDiscoverModel().childCategoriesStatus.observe(viewLifecycleOwner, Observer {
             binding.rcAlbums.adapter!!.notifyDataSetChanged()
         })
     }
 
     override fun getChildCategoriesStatusCount(): Int {
-        if (model.getModel().childCategoriesStatus.value ==null){
+        if (model.getDiscoverModel().childCategoriesStatus.value ==null){
             return 0
 
         }else{
@@ -67,6 +67,6 @@ class AlbumCategoriesStatusFragment : Fragment , TopicChildCategoriesAdapter.ICa
     }
 
     override fun getChildCategoriesStatusData(position: Int): ItemMusicList<ItemSong> {
-       return model.getModel().childCategoriesStatus.value!![position]
+       return model.getDiscoverModel().childCategoriesStatus.value!![position]
     }
 }

@@ -68,7 +68,7 @@ class TopicOutStandingSingerAdapter :
             override fun getOutStandingCount() = data.values!!.size
 
             override fun getOutStandingOnClick(position: Int) {
-                model.getModel().albumsChilSinger(model.getModel().outstandingSinger.value!![0].values[position].linkCategory)
+                model.getDiscoverModel().albumsChilSinger(model.getDiscoverModel().outstandingSinger.value!![0].values[position].linkCategory)
                 sharedViewModel.setData(
                     data.values[position].imgCategory,
                     data.values[position].nameCategory,
@@ -101,7 +101,7 @@ class TopicOutStandingSingerAdapter :
         return if (position == 0) {
             0
         } else {
-            model.getModel().outstandingSinger.value!![position].hashCode().toLong()
+            model.getDiscoverModel().outstandingSinger.value!![position].hashCode().toLong()
         }
 
     }

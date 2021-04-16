@@ -68,7 +68,7 @@ class TopicTopResultAdapter : RecyclerView.Adapter<TopicTopResultAdapter.ItemCat
             override fun getTopResultCount()=data.values!!.size
 
             override fun getTopResultOnClick(position: Int) {
-                model.getModel().albumsChil(data.values[position].linkSong)
+                model.getDiscoverModel().albumsChil(data.values[position].linkSong)
                 sharedViewModel.setData(
                     data.values[position].imgSong,
                     data.values[position].nameSong,
@@ -125,7 +125,7 @@ class TopicTopResultAdapter : RecyclerView.Adapter<TopicTopResultAdapter.ItemCat
         return if (position == 0) {
             0
         } else {
-            model.getModel().topResult.value!![position].hashCode().toLong()
+            model.getDiscoverModel().topResult.value!![position].hashCode().toLong()
         }
 
     }

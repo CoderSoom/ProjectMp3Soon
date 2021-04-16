@@ -63,7 +63,7 @@ class ManagerMusicVideoFragment : Fragment {
 
     private fun openFragmentMusic() {
         var fg = childFragmentManager.beginTransaction()
-        fg.replace(R.id.frame_layout, TabMusic(country))
+        fg.replace(R.id.frame_layout, TabMusic(managerRanking, country))
         fg.commit()
     }
 

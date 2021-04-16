@@ -69,7 +69,7 @@ class TopicCategoriesStatusAdapter : RecyclerView.Adapter<TopicCategoriesStatusA
             override fun getCategoriesStatusCount()=data.values!!.size
 
             override fun getCategoriesStatusOnClick(position: Int) {
-                model.getModel().childCategoriesStatus(model.getModel().categoriesStatus.value!![0].values[position].linkCategory)
+                model.getDiscoverModel().childCategoriesStatus(model.getDiscoverModel().categoriesStatus.value!![0].values[position].linkCategory)
                 fragmentDiscoverManager.openAlbumCategoriesStatus()
 
             }
@@ -96,7 +96,7 @@ class TopicCategoriesStatusAdapter : RecyclerView.Adapter<TopicCategoriesStatusA
         return if (position == 0) {
             0
         } else {
-            model.getModel().categoriesStatus.value!![position].hashCode().toLong()
+            model.getDiscoverModel().categoriesStatus.value!![position].hashCode().toLong()
         }
 
     }

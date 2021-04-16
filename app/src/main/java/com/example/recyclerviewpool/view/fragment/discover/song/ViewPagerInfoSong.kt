@@ -53,12 +53,12 @@ class ViewPagerInfoSong : Fragment, TopicRelateSongAlbumAdapter.ICategories,
     }
 
     private fun regRelate() {
-        model.getModel().relateSong.observe(viewLifecycleOwner, Observer {
+        model.getDiscoverModel().relateSong.observe(viewLifecycleOwner, Observer {
             model.rcRelateSong.adapter!!.notifyDataSetChanged()
         })
-        model.getModel().mvSong.observe(viewLifecycleOwner, Observer {
+        model.getDiscoverModel().mvSong.observe(viewLifecycleOwner, Observer {
             model.rcMVSong.adapter!!.notifyDataSetChanged()
-            if (model.getModel().mvSong.value!![0].nameSong!="" ){
+            if (model.getDiscoverModel().mvSong.value!![0].nameSong!="" ){
                 binding.rcMVSong.visibility = View.VISIBLE
             }else{
                 binding.rcMVSong.visibility = View.GONE
@@ -67,7 +67,7 @@ class ViewPagerInfoSong : Fragment, TopicRelateSongAlbumAdapter.ICategories,
     }
 
     private fun reg() {
-        model.getModel().infoAlbum.observe(viewLifecycleOwner, Observer {
+        model.getDiscoverModel().infoAlbum.observe(viewLifecycleOwner, Observer {
             binding.infoSong = it
             when {
                 it.albumsSong == "" || it.albumsSong == null -> {
@@ -97,27 +97,27 @@ class ViewPagerInfoSong : Fragment, TopicRelateSongAlbumAdapter.ICategories,
 
 
     override fun getSizeCategories(): Int {
-        if (model.getModel().relateSong.value == null) {
+        if (model.getDiscoverModel().relateSong.value == null) {
             return 0
         } else {
-            return model.getModel().relateSong.value!!.size
+            return model.getDiscoverModel().relateSong.value!!.size
         }
     }
 
     override fun getItemCategories(position: Int): ItemMusicList<ItemSong> {
-        return model.getModel().relateSong.value!![position]
+        return model.getDiscoverModel().relateSong.value!![position]
     }
 
     override fun getMVCount(): Int {
-        if (model.getModel().mvSong.value==null){
+        if (model.getDiscoverModel().mvSong.value==null){
             return 0
         }else {
-            return model.getModel().mvSong.value!!.size
+            return model.getDiscoverModel().mvSong.value!!.size
         }
     }
 
     override fun getMVData(position: Int): ItemSong {
-       return model.getModel().mvSong.value!![position]
+       return model.getDiscoverModel().mvSong.value!![position]
     }
 
     override fun getOnClickMVItem(position: Int) {

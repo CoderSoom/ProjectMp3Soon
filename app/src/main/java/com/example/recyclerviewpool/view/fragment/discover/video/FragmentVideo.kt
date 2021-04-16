@@ -52,11 +52,11 @@ class FragmentVideo : Fragment(), RelateVideoAdapter.IRelateVideo, TopicSugVideo
 
         }
 
-        model.getModel().relateVideo.observe(viewLifecycleOwner, Observer {
+        model.getDiscoverModel().relateVideo.observe(viewLifecycleOwner, Observer {
             binding.rcRelate.adapter!!.notifyDataSetChanged()
         })
 
-        model.getModel().sugAlbums.observe(viewLifecycleOwner, Observer {
+        model.getDiscoverModel().sugAlbums.observe(viewLifecycleOwner, Observer {
             binding.rcSugVideo.adapter!!.notifyDataSetChanged()
         })
 
@@ -64,7 +64,7 @@ class FragmentVideo : Fragment(), RelateVideoAdapter.IRelateVideo, TopicSugVideo
 
     @SuppressLint("SetTextI18n")
     private fun setUpModel() {
-        model.getModel().infoAlbum.observe(viewLifecycleOwner, Observer {
+        model.getDiscoverModel().infoAlbum.observe(viewLifecycleOwner, Observer {
             binding.viewVideo.text = it.listenSong + " lượt xem"
             binding.infoVideoData = it
             binding.videoplayer.setUp(it.linkMusic,
@@ -72,16 +72,16 @@ class FragmentVideo : Fragment(), RelateVideoAdapter.IRelateVideo, TopicSugVideo
                 it.nameSong)
 
             LoadDataUtils.loadImgBitMap(context, binding.videoplayer.thumbImageView, it.imgSong)
-            if (model.getModel().infoAlbum.value!!.category ==""){
+            if (model.getDiscoverModel().infoAlbum.value!!.category ==""){
                 binding.categories.visibility = View.GONE
             }
-            if (model.getModel().infoAlbum.value!!.singerSong ==""){
+            if (model.getDiscoverModel().infoAlbum.value!!.singerSong ==""){
                 binding.singerSong.visibility = View.GONE
             }
-            if (model.getModel().infoAlbum.value!!.yearSong ==""){
+            if (model.getDiscoverModel().infoAlbum.value!!.yearSong ==""){
                 binding.yearSong.visibility = View.GONE
             }
-            if (model.getModel().infoAlbum.value!!.authorSong ==""){
+            if (model.getDiscoverModel().infoAlbum.value!!.authorSong ==""){
                 binding.authorSong.visibility = View.GONE
             }
         })
@@ -134,14 +134,14 @@ class FragmentVideo : Fragment(), RelateVideoAdapter.IRelateVideo, TopicSugVideo
     }
 
     override fun getRelateVideoData(position: Int): ItemSong {
-        return model.getModel().relateVideo.value!![position]
+        return model.getDiscoverModel().relateVideo.value!![position]
 
     }
 
     override fun getOnClickRelateVideo(position: Int) {
-        model.getModel().getRelateVideo(model.getModel().relateVideo.value!![position].linkSong)
-        model.getModel().getInfo(model.getModel().relateVideo.value!![position].linkSong)
-        model.getModel().sugVideoMusic(model.getModel().relateVideo.value!![position].linkSong)
+        model.getDiscoverModel().getRelateVideo(model.getDiscoverModel().relateVideo.value!![position].linkSong)
+        model.getDiscoverModel().getInfo(model.getDiscoverModel().relateVideo.value!![position].linkSong)
+        model.getDiscoverModel().sugVideoMusic(model.getDiscoverModel().relateVideo.value!![position].linkSong)
         binding.rcRelate.animate().translationY(0f)
         binding.rcSugVideo.animate().translationY(0f)
 
@@ -149,27 +149,27 @@ class FragmentVideo : Fragment(), RelateVideoAdapter.IRelateVideo, TopicSugVideo
     }
 
     override fun getRelateVideoCount(): Int {
-        return if (model.getModel().relateVideo.value == null) {
+        return if (model.getDiscoverModel().relateVideo.value == null) {
             0
 
         } else {
-            model.getModel().relateVideo.value!!.size
+            model.getDiscoverModel().relateVideo.value!!.size
         }
     }
 
 
 
     override fun getSugAlbumsCout(): Int {
-        return if (model.getModel().sugAlbums.value == null) {
+        return if (model.getDiscoverModel().sugAlbums.value == null) {
             0
 
         } else {
-            model.getModel().sugAlbums.value!!.size
+            model.getDiscoverModel().sugAlbums.value!!.size
         }
     }
 
     override fun getSugAlbumsData(position: Int): ItemMusicList<ItemSong> {
-        return model.getModel().sugAlbums.value!![position]
+        return model.getDiscoverModel().sugAlbums.value!![position]
     }
 
 

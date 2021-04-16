@@ -31,7 +31,7 @@ open class ViewPagerPlaySong : Fragment(){
         return binding.root
     }
     fun reg(){
-        model.getModel().infoAlbum.observe(viewLifecycleOwner, Observer {
+        model.getDiscoverModel().infoAlbum.observe(viewLifecycleOwner, Observer {
             binding.mainSong = it
         })
 

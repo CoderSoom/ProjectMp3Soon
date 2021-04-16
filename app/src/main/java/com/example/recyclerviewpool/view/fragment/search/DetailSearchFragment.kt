@@ -40,12 +40,12 @@ class DetailSearchFragment : Fragment, TopicDetailSearchAdapter.ICategories, Vie
 
         binding.search.setOnClickListener(this)
         reg()
-        model.getModel().categoriesCountry()
+        model.getDiscoverModel().categoriesCountry()
         return binding.root
     }
 
     private fun reg() {
-        model.getModel().categoriesCountry.observe(viewLifecycleOwner, Observer {
+        model.getDiscoverModel().categoriesCountry.observe(viewLifecycleOwner, Observer {
             binding.rcSugCountry.adapter!!.notifyDataSetChanged()
 
         })
@@ -60,7 +60,7 @@ class DetailSearchFragment : Fragment, TopicDetailSearchAdapter.ICategories, Vie
     }
 
     override fun getCategoriesCountryCount(): Int {
-        return if (model.getModel().categoriesCountry.value == null) {
+        return if (model.getDiscoverModel().categoriesCountry.value == null) {
             0
         } else {
             1
@@ -68,7 +68,7 @@ class DetailSearchFragment : Fragment, TopicDetailSearchAdapter.ICategories, Vie
     }
 
     override fun getCategoriesCountryData(position: Int) =
-        model.getModel().categoriesCountry.value!![position]
+        model.getDiscoverModel().categoriesCountry.value!![position]
 
 
     /////////////////////////////

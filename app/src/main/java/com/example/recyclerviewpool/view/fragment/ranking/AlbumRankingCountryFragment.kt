@@ -56,7 +56,7 @@ class AlbumRankingCountryFragment : Fragment, SongAlbumsAdapter.IAlbum {
     }
 
     private fun reg() {
-        model.getModel().songAlbums.observe(viewLifecycleOwner, Observer {
+        model.getDiscoverModel().songAlbums.observe(viewLifecycleOwner, Observer {
             binding.rcAlbums.adapter!!.notifyDataSetChanged()
 
         })
@@ -71,27 +71,27 @@ class AlbumRankingCountryFragment : Fragment, SongAlbumsAdapter.IAlbum {
     }
 
     override fun getCount(): Int {
-        if (model.getModel().songAlbums.value == null) {
+        if (model.getDiscoverModel().songAlbums.value == null) {
             return 0
         } else {
-            return model.getModel().songAlbums.value!!.size
+            return model.getDiscoverModel().songAlbums.value!!.size
         }
     }
 
     override fun getData(position: Int): ItemSong {
-        return model.getModel().songAlbums.value!![position]
+        return model.getDiscoverModel().songAlbums.value!![position]
     }
 
     override fun getOnClickSong(position: Int) {
 
-        model.getModel()
-            .getInfo(model.getModel().songAlbums.value!![position].linkSong)
+        model.getDiscoverModel()
+            .getInfo(model.getDiscoverModel().songAlbums.value!![position].linkSong)
 
-        model.getModel()
-            .getRelateVideo(model.getModel().songAlbums.value!![position].linkSong)
+        model.getDiscoverModel()
+            .getRelateVideo(model.getDiscoverModel().songAlbums.value!![position].linkSong)
 
-        model.getModel()
-            .getMVSong(model.getModel().songAlbums.value!![position].linkSong)
+        model.getDiscoverModel()
+            .getMVSong(model.getDiscoverModel().songAlbums.value!![position].linkSong)
 
         managerDiscover.openVideo()
     }

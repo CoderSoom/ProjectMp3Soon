@@ -35,7 +35,7 @@ class ViewPagerInfoAlbum : Fragment(){
         })
     }
     private fun getInfo(){
-        model.getModel().infoAlbum.observe(viewLifecycleOwner, Observer {
+        model.getDiscoverModel().infoAlbum.observe(viewLifecycleOwner, Observer {
             binding.infoAlbum = it
         })
 

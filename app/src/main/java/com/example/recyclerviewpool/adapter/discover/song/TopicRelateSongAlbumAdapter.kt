@@ -69,7 +69,7 @@ class TopicRelateSongAlbumAdapter : RecyclerView.Adapter<TopicRelateSongAlbumAda
             override fun getData(chilPosition: Int) = data.values[chilPosition]
 
             override fun getOnClickItem(position: Int) {
-                model.getModel().albumsChil(data.values[position].linkSong)
+                model.getDiscoverModel().albumsChil(data.values[position].linkSong)
 //                model.getModel().getInfo(data.values[position].linkSong)
                 managerDiscover.openSongAlbums()
 

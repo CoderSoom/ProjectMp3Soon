@@ -107,32 +107,32 @@ class TopicNewSongAdapter : RecyclerView.Adapter<TopicNewSongAdapter.ItemCategor
 //            (activity as MainActivity).getAsyPlay()!!.cancel(true)
 //            (activity as MainActivity).panelAsynTask()
 //        }
-                model.getModel().getInfo(model.getModel().newSong.value!![0]!!.values[position].linkSong)
-                model.getModel().getRelateSong(model.getModel().newSong.value!![0]!!.values[position].linkSong)
-                model.getModel().getMVSong(model.getModel().newSong.value!![0]!!.values[position].linkSong)
+                model.getDiscoverModel().getInfo(model.getDiscoverModel().newSong.value!![0]!!.values[position].linkSong)
+                model.getDiscoverModel().getRelateSong(model.getDiscoverModel().newSong.value!![0]!!.values[position].linkSong)
+                model.getDiscoverModel().getMVSong(model.getDiscoverModel().newSong.value!![0]!!.values[position].linkSong)
 
                 /////SetLink Music Player
-                model.getModel().infoAlbum.observe(lifecycleOwner, Observer {
+                model.getDiscoverModel().infoAlbum.observe(lifecycleOwner, Observer {
                     LoadDataUtils.loadImgBitMapBlur(model,
                         (slidingUpPanelLayout.getSlidingPanelUp()).bg_song,
                         it.imgSong)
-                    model.getModel().newSong.value!![0]!!.values[model.getPlaySevice()!!.currentPositionSong].linkMusic =
+                    model.getDiscoverModel().newSong.value!![0]!!.values[model.getPlaySevice()!!.currentPositionSong].linkMusic =
                         it.linkMusic
-                    model.getModel().newSong.value!![0]!!.values[model.getPlaySevice()!!.currentPositionSong].nameSong =
+                    model.getDiscoverModel().newSong.value!![0]!!.values[model.getPlaySevice()!!.currentPositionSong].nameSong =
                         it.nameSong
 
 
                     model.getPlaySevice()!!.releaseMusic()
                     model.getPlaySevice()!!
-                        .setDataMusicOnline(model.getModel().newSong.value!![0]!!.values[model.getPlaySevice()!!.currentPositionSong],
+                        .setDataMusicOnline(model.getDiscoverModel().newSong.value!![0]!!.values[model.getPlaySevice()!!.currentPositionSong],
                             position,
-                            model.getModel().newSong.value!![0]!!.values!!)
+                            model.getDiscoverModel().newSong.value!![0]!!.values!!)
 
                 })
 
 
 
-                model.getModel().newSong.observe(lifecycleOwner, Observer
+                model.getDiscoverModel().newSong.observe(lifecycleOwner, Observer
                 {
                     (slidingUpPanelLayout.getSlidingPanelUp()).slide_play_song_big.play_nameSong.text =
                         it[0].values[position].nameSong
@@ -171,7 +171,7 @@ class TopicNewSongAdapter : RecyclerView.Adapter<TopicNewSongAdapter.ItemCategor
         return if (position == 0) {
             0
         } else {
-            model.getModel().newSong.value!![position].hashCode().toLong()
+            model.getDiscoverModel().newSong.value!![position].hashCode().toLong()
         }
 
     }

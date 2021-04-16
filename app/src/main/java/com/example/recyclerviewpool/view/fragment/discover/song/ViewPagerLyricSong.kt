@@ -32,11 +32,11 @@ class ViewPagerLyricSong : Fragment(), View.OnClickListener {
     }
 
     private fun reg() {
-        model.getModel().infoAlbum.observe(viewLifecycleOwner, Observer {
+        model.getDiscoverModel().infoAlbum.observe(viewLifecycleOwner, Observer {
             if (it.lyricKaraoke == "") {
-                binding.lyricA.setText(model.getModel().infoAlbum.value!!.lyricSong)
+                binding.lyricA.setText(model.getDiscoverModel().infoAlbum.value!!.lyricSong)
             } else {
-                binding.lyricA.setText(model.getModel().infoAlbum.value!!.lyricKaraoke)
+                binding.lyricA.setText(model.getDiscoverModel().infoAlbum.value!!.lyricKaraoke)
 
             }
             lyricManager.setLyricString("[00:00.00]Bài hát: Giàu Vì Bạn, Sang Vì Vợ - RPT MCK\n" +

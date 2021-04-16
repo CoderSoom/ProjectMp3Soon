@@ -61,9 +61,9 @@ class TopicSugAdapter : RecyclerView.Adapter<TopicSugAdapter.ItemCategoriesHolde
             override fun getSugData(chilPosition: Int)= data.values[chilPosition]
 
             override fun getOnClickSug(position: Int) {
-                model.getModel().getRelateVideo(data.values[position].linkSong)
-                model.getModel().getInfo(data.values[position].linkSong)
-                model.getModel().sugVideoMusic(data.values[position].linkSong)
+                model.getDiscoverModel().getRelateVideo(data.values[position].linkSong)
+                model.getDiscoverModel().getInfo(data.values[position].linkSong)
+                model.getDiscoverModel().sugVideoMusic(data.values[position].linkSong)
                 managerDiscover.openSongAlbums()
 
             }

@@ -27,6 +27,14 @@ class ManagerFragmentSearch : Fragment(){
         fg.add(R.id.content, DetailSearchFragment(this) )
         fg.commit()
     }
+//    fun openSongAlbums() {
+//        var fg = childFragmentManager!!
+//        var tran = fg.beginTransaction()
+//        tran.replace(R.id.manager_discover_layout,
+//            AddAlbumFragment(this), AddAlbumFragment::class.java.name)
+//        tran.addToBackStack(null)
+//        tran.commit()
+//    }
 
 
 

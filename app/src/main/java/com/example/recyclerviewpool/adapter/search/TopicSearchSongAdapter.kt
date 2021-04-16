@@ -75,8 +75,8 @@ class TopicSearchSongAdapter : RecyclerView.Adapter<TopicSearchSongAdapter.ItemC
             }
 
             override fun getSearchSongOnClickItem(position: Int) {
-                model.getModel().albumsChil(data!!.values[position].linkSong)
-                model.getModel().getInfo(data.values[position].linkSong)
+                model.getDiscoverModel().albumsChil(data!!.values[position].linkSong)
+                model.getDiscoverModel().getInfo(data.values[position].linkSong)
                 sharedViewModel.setData(
                     data.values[position].imgSong,
                     data.values[position].nameSong,

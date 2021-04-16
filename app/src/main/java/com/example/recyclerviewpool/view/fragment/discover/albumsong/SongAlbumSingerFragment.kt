@@ -58,7 +58,7 @@ class SongAlbumSingerFragment : Fragment, SongAlbumSingerAdapter.IAlbum {
     }
 
     private fun reg() {
-        model.getModel().songChilSinger.observe(viewLifecycleOwner, Observer {
+        model.getDiscoverModel().songChilSinger.observe(viewLifecycleOwner, Observer {
             binding.rcAlbums.adapter!!.notifyDataSetChanged()
 
         })
@@ -73,27 +73,27 @@ class SongAlbumSingerFragment : Fragment, SongAlbumSingerAdapter.IAlbum {
     }
 
     override fun getAlbumSingerCount(): Int {
-        if (model.getModel().songChilSinger.value == null) {
+        if (model.getDiscoverModel().songChilSinger.value == null) {
             return 0
         } else {
-            return model.getModel().songChilSinger.value!!.size
+            return model.getDiscoverModel().songChilSinger.value!!.size
         }
     }
 
     override fun getAlbumSingerData(position: Int): ItemSong {
-        return model.getModel().songChilSinger.value!![position]
+        return model.getDiscoverModel().songChilSinger.value!![position]
     }
 
     override fun getOnClickAlbumSinger(position: Int) {
 
-        model.getModel()
-            .getInfo(model.getModel().songChilSinger.value!![position].linkSong)
+        model.getDiscoverModel()
+            .getInfo(model.getDiscoverModel().songChilSinger.value!![position].linkSong)
 
-        model.getModel()
-            .getRelateSong(model.getModel().songChilSinger.value!![position].linkSong)
+        model.getDiscoverModel()
+            .getRelateSong(model.getDiscoverModel().songChilSinger.value!![position].linkSong)
 
-        model.getModel()
-            .getMVSong(model.getModel().songChilSinger.value!![position].linkSong)
+        model.getDiscoverModel()
+            .getMVSong(model.getDiscoverModel().songChilSinger.value!![position].linkSong)
 
         (slidingUpPanelLayout.getSlidingPanelUp()).panelState = PanelState.EXPANDED
         (slidingUpPanelLayout.getSlidingPanelUp()).addPanelSlideListener(object :

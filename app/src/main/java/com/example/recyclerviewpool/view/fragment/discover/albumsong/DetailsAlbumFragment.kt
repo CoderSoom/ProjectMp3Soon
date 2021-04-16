@@ -42,7 +42,7 @@ class DetailsAlbumFragment : Fragment() {
             if (!endImg){
                 LoadDataUtils.loadImg(binding.imgAlbum, it.imgSong)
             }else{
-                (activity as MainActivity).getModel().infoAlbum.observe(viewLifecycleOwner, Observer {
+                (activity as MainActivity).getDiscoverModel().infoAlbum.observe(viewLifecycleOwner, Observer {
                     LoadDataUtils.loadImg(binding.imgAlbum, it.imgSong)
                 })
             }

@@ -1,6 +1,7 @@
 package com.example.recyclerviewpool.view.fragment.discover.albumsong
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,11 +17,14 @@ import com.example.recyclerviewpool.model.itemdata.ItemSong
 import com.example.recyclerviewpool.view.MainActivity
 import com.example.recyclerviewpool.adapter.discover.song.SongAlbumsAdapter
 import com.example.recyclerviewpool.view.fragment.discover.ManagerFragmentDiscover
+import com.example.recyclerviewpool.view.fragment.ranking.ManagerRanking
+import com.example.recyclerviewpool.view.fragment.search.ManagerFragmentSearch
 import com.example.recyclerviewpool.viewmodel.DiscoverModel
 import com.example.recyclerviewpool.viewmodel.LoadDataUtils
 import com.sothree.slidinguppanel.SlidingUpPanelLayout
 import com.sothree.slidinguppanel.SlidingUpPanelLayout.PanelState
 import kotlinx.android.synthetic.main.sliding_up_panel.view.*
+import kotlin.math.log
 
 
 class AddAlbumFragment : Fragment, SongAlbumsAdapter.IAlbum, View.OnClickListener {
@@ -28,10 +32,16 @@ class AddAlbumFragment : Fragment, SongAlbumsAdapter.IAlbum, View.OnClickListene
 
     private lateinit var playService: MainActivity
     private lateinit var slidingUpPanelLayout: MainActivity
-    var managerDiscover: ManagerFragmentDiscover
+    lateinit var managerDiscover: ManagerFragmentDiscover
+    lateinit var managerRanking: ManagerRanking
 
-    constructor(managerDiscover: ManagerFragmentDiscover) {
-        this.managerDiscover = managerDiscover
+    constructor(managerDiscover: ManagerFragmentDiscover?, managerRanking: ManagerRanking?) {
+        if (managerDiscover != null) {
+            this.managerDiscover = managerDiscover
+        }
+        if (managerRanking != null) {
+            this.managerRanking = managerRanking
+        }
     }
 
 
@@ -88,21 +98,21 @@ class AddAlbumFragment : Fragment, SongAlbumsAdapter.IAlbum, View.OnClickListene
 
 
     private fun reg() {
-        model.getModel().songAlbums.observe(viewLifecycleOwner, Observer {
+        model.getDiscoverModel().songAlbums.observe(viewLifecycleOwner, Observer {
             binding.rcAlbums.adapter!!.notifyDataSetChanged()
         })
     }
 
     override fun getCount(): Int {
-        if (model.getModel().songAlbums.value == null) {
+        if (model.getDiscoverModel().songAlbums.value == null) {
             return 0
         } else {
-            return model.getModel().songAlbums.value!!.size
+            return model.getDiscoverModel().songAlbums.value!!.size
         }
     }
 
     override fun getData(position: Int): ItemSong {
-        return model.getModel().songAlbums.value!![position]
+        return model.getDiscoverModel().songAlbums.value!![position]
     }
 
     override fun getOnClickSong(position: Int) {
@@ -131,58 +141,75 @@ class AddAlbumFragment : Fragment, SongAlbumsAdapter.IAlbum, View.OnClickListene
                 }
             }
         })
-//        if ((activity as MainActivity).getAsyPlay()!!.isRunning) {
-//            (activity as MainActivity).getAsyPlay()!!.cancel(true)
-//            (activity as MainActivity).panelAsynTask()
+        if (model.getDiscoverModel().songAlbums.value!=null) {
+            model.getDiscoverModel()
+                .getInfo(model.getDiscoverModel().songAlbums.value!![position].linkSong)
+            model.getDiscoverModel()
+                .getRelateSong(model.getDiscoverModel().songAlbums.value!![position].linkSong)
+            model.getDiscoverModel()
+                .getMVSong(model.getDiscoverModel().songAlbums.value!![position].linkSong)
+        }
+
+//        if (model.getRankingModel().rankingMusicCountry.value != null) {
+//            model.getDiscoverModel()
+//                .getInfo(model.getRankingModel().rankingMusicCountry.value!![position].linkSong)
+//        Toast.makeText(context, "AAAA"+model.getRankingModel().rankingMusicCountry.value!![position].linkSong, Toast.LENGTH_SHORT).show()
+//            model.getDiscoverModel()
+//                .getRelateSong(model.getRankingModel().rankingMusicCountry.value!![position].linkSong)
+//            model.getDiscoverModel()
+//                .getMVSong(model.getRankingModel().rankingMusicCountry.value!![position].linkSong)
 //        }
-        model.getModel().getInfo(model.getModel().songAlbums.value!![position].linkSong)
-        model.getModel().getRelateSong(model.getModel().songAlbums.value!![position].linkSong)
-        model.getModel().getMVSong(model.getModel().songAlbums.value!![position].linkSong)
 
-        /////SetLink Music Player
-        model.getModel().infoAlbum.observe(this, Observer {
-            LoadDataUtils.loadImgBitMapBlur(context,
-                (slidingUpPanelLayout.getSlidingPanelUp()).bg_song,
-                it.imgSong)
-            model.getModel().songAlbums.value!![playService.getPlaySevice()!!.currentPositionSong].linkMusic =
-                it.linkMusic
-            model.getModel().songAlbums.value!![playService.getPlaySevice()!!.currentPositionSong].nameSong =
-                it.nameSong
+    /////SetLink Music Player
+    model.getDiscoverModel().infoAlbum.observe(this, Observer
+    {
+        LoadDataUtils.loadImgBitMapBlur(context,
+            (slidingUpPanelLayout.getSlidingPanelUp()).bg_song,
+            it.imgSong)
+        model.getDiscoverModel().songAlbums.value!![playService.getPlaySevice()!!.currentPositionSong].linkMusic =
+            it.linkMusic
+        model.getDiscoverModel().songAlbums.value!![playService.getPlaySevice()!!.currentPositionSong].nameSong =
+            it.nameSong
 
 
-            playService.getPlaySevice()!!.releaseMusic()
-            playService.getPlaySevice()!!
-                .setDataMusicOnline(model.getModel().songAlbums.value!![playService.getPlaySevice()!!.currentPositionSong],
-                    position,
-                    model.getModel().songAlbums.value!!)
+        playService.getPlaySevice()!!.releaseMusic()
+        playService.getPlaySevice()!!
+            .setDataMusicOnline(model.getDiscoverModel().songAlbums.value!![playService.getPlaySevice()!!.currentPositionSong],
+                position,
+                model.getDiscoverModel().songAlbums.value!!)
 
-        })
+    })
 
 
 
-        model.getModel().songAlbums.observe(viewLifecycleOwner, Observer
-        {
-            (slidingUpPanelLayout.getSlidingPanelUp()).slide_play_song_big.play_nameSong.text =
-                it[position].nameSong
-            (slidingUpPanelLayout.getSlidingPanelUp()).slide_play_song_big.play_singerSong.text =
-                it[position].singerSong
+    model.getDiscoverModel().songAlbums.observe(viewLifecycleOwner, Observer
+            {
+                (slidingUpPanelLayout.getSlidingPanelUp()).slide_play_song_big.play_nameSong.text =
+                    it[position].nameSong
+                (slidingUpPanelLayout.getSlidingPanelUp()).slide_play_song_big.play_singerSong.text =
+                    it[position].singerSong
 
 
-            //setName Slide Panel Up
-            (slidingUpPanelLayout.getSlidingPanelUp()).slide_play_song_mini.nameSong.text =
-                it[position].nameSong
-            (slidingUpPanelLayout.getSlidingPanelUp()).slide_play_song_mini.singerSong.text =
-                it[position].singerSong
-        })
+        //setName Slide Panel Up
+        (slidingUpPanelLayout.getSlidingPanelUp()).slide_play_song_mini.nameSong.text =
+            it[position].nameSong
+        (slidingUpPanelLayout.getSlidingPanelUp()).slide_play_song_mini.singerSong.text =
+            it[position].singerSong
+    })
 
 
-    }
+}
 
-    override fun onClick(v: View?) {
-        when (v?.id) {
-            R.id.btn_back -> {
+override fun onClick(v: View?) {
+    when (v?.id) {
+        R.id.btn_back -> {
+            if (managerDiscover != null) {
                 managerDiscover.childFragmentManager.popBackStack()
+            }
+            if (managerRanking != null) {
+                managerRanking.childFragmentManager.popBackStack()
             }
         }
     }
+}
 }

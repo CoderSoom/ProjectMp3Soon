@@ -9,6 +9,7 @@ import android.os.*
 import android.util.Log
 import android.view.View
 import android.widget.SeekBar
+import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
@@ -39,6 +40,7 @@ import com.example.recyclerviewpool.view.fragment.search.ManagerFragmentSearch
 import com.example.recyclerviewpool.viewmodel.DiscoverModel
 import com.example.recyclerviewpool.viewmodel.LoadDataUtils
 import com.example.recyclerviewpool.viewmodel.PersonalModel
+import com.example.recyclerviewpool.viewmodel.RankingModel
 import com.google.android.material.tabs.TabLayout
 import com.sothree.slidinguppanel.SlidingUpPanelLayout
 import com.sothree.slidinguppanel.SlidingUpPanelLayout.PanelState
@@ -60,7 +62,8 @@ class MainActivity : AppCompatActivity(), PlayMusic.IPlayMusic, Playable, View.O
     private lateinit var managerDiscover: ManagerFragmentDiscover
     private lateinit var navigationBar: TabLayout
     lateinit var slidingUpPanelLayout: SlidingUpPanelLayout
-    private lateinit var model: DiscoverModel
+    private lateinit var discoverModel: DiscoverModel
+    private lateinit var rankingModel : RankingModel
     private lateinit var modelPersonal: PersonalModel
     private val mFragmentList: MutableList<Fragment> = ArrayList()
     private val mFragmentListSlideSong: MutableList<Fragment> = ArrayList()
@@ -87,10 +90,10 @@ class MainActivity : AppCompatActivity(), PlayMusic.IPlayMusic, Playable, View.O
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
         managerDiscover = ManagerFragmentDiscover()
-        model = DiscoverModel()
+        discoverModel = DiscoverModel()
+        rankingModel = RankingModel()
         modelPersonal = PersonalModel()
         personalFragment = PersonalFragment()
-        
         navigationBar = binding.tabLayout
         slidingUpPanelLayout = binding.slideMain
         binding.slideMain.setDragView(slidingUpPanelLayout)
@@ -312,15 +315,15 @@ class MainActivity : AppCompatActivity(), PlayMusic.IPlayMusic, Playable, View.O
             }
             v!!.repeat_off -> {
                 playService!!.setLooping(false)
-                if (playService!!.currentPositionSong == model.songAlbums.value!!.size - 1) {
+                if (playService!!.currentPositionSong == discoverModel.songAlbums.value!!.size - 1) {
                     playService!!.currentPositionSong = 0
-                    model.getInfo(model.songAlbums.value!![playService!!.currentPositionSong].linkSong)
-                    model.infoAlbum.observe(this, Observer {
+                    discoverModel.getInfo(discoverModel.songAlbums.value!![playService!!.currentPositionSong].linkSong)
+                    discoverModel.infoAlbum.observe(this, Observer {
                         playService!!.createNotification(this,
-                            model.songAlbums.value!![playService!!.currentPositionSong],
+                            discoverModel.songAlbums.value!![playService!!.currentPositionSong],
                             R.drawable.ic_pause_black_24dp,
                             playService!!.currentPositionSong,
-                            model.songAlbums.value!!.size - 1)
+                            discoverModel.songAlbums.value!!.size - 1)
                         binding.slide.nameSong.text = it.nameSong
                         binding.slide.singerSong.text =
 
@@ -349,7 +352,7 @@ class MainActivity : AppCompatActivity(), PlayMusic.IPlayMusic, Playable, View.O
     }
 
     private fun slidingPanelUp() {
-        model.infoAlbum.observe(this, Observer {
+        discoverModel.infoAlbum.observe(this, Observer {
             binding.slide.nameSong.text = it.nameSong
             binding.slide.singerSong.text = it.singerSong.substring(7, it.singerSong.length)
             LoadDataUtils.loadImg(binding.slide.cirImagesSong, it.imgSong)
@@ -434,7 +437,8 @@ class MainActivity : AppCompatActivity(), PlayMusic.IPlayMusic, Playable, View.O
 
     fun getSlidingPanelUp() = slidingUpPanelLayout
     fun getNavigation() = navigationBar
-    fun getModel() = model
+    fun getDiscoverModel() = discoverModel
+    fun getRankingModel() = rankingModel
     fun getAsyPlay() = asyPlay
 
 
@@ -451,16 +455,16 @@ class MainActivity : AppCompatActivity(), PlayMusic.IPlayMusic, Playable, View.O
     override fun setOnCompletionListener() {
         asyPlay!!.cancel(true)
         if (onRamdom == 1) {
-            var rd = (0 until model.songAlbums.value!!.size).random()
+            var rd = (0 until discoverModel.songAlbums.value!!.size).random()
             while (rd == playService!!.currentPositionSong) {
-                rd = (0 until model.songAlbums.value!!.size).random()
+                rd = (0 until discoverModel.songAlbums.value!!.size).random()
             }
-            model.getInfo(model.songAlbums.value!![rd].linkSong)
-            model.infoAlbum.observe(this, Observer {
+            discoverModel.getInfo(discoverModel.songAlbums.value!![rd].linkSong)
+            discoverModel.infoAlbum.observe(this, Observer {
                 playService!!.createNotification(this,
-                    model.songAlbums.value!![rd],
+                    discoverModel.songAlbums.value!![rd],
                     R.drawable.ic_pause_black_24dp, rd,
-                    model.songAlbums.value!!.size - 1)
+                    discoverModel.songAlbums.value!!.size - 1)
                 binding.slide.nameSong.text = it.nameSong
                 binding.slide.singerSong.text =
                     it.singerSong.substring(7 until it.singerSong.length)
@@ -469,17 +473,17 @@ class MainActivity : AppCompatActivity(), PlayMusic.IPlayMusic, Playable, View.O
                     it.singerSong.substring(7 until it.singerSong.length)
             })
         } else {
-            Log.d("TAG", model.newSong.value!!.size.toString())
-            if (model.newSong.value!!.size == 0) {
+            Log.d("TAG", discoverModel.newSong.value!!.size.toString())
+            if (discoverModel.newSong.value!!.size == 0) {
                 return
             } else {
                 playService!!.currentPositionSong++
-                model!!.getInfo(model!!.songAlbums.value!![playService!!.currentPositionSong].linkSong)
-                model.infoAlbum.observe(this, Observer {
+                discoverModel!!.getInfo(discoverModel!!.songAlbums.value!![playService!!.currentPositionSong].linkSong)
+                discoverModel.infoAlbum.observe(this, Observer {
                     playService!!.createNotification(this,
-                        model.songAlbums.value!![playService!!.currentPositionSong],
+                        discoverModel.songAlbums.value!![playService!!.currentPositionSong],
                         R.drawable.ic_pause_black_24dp, playService!!.currentPositionSong,
-                        model.songAlbums.value!!.size - 1)
+                        discoverModel.songAlbums.value!!.size - 1)
                     binding.slide.nameSong.text = it.nameSong
                     binding.slide.singerSong.text =
                         it.singerSong.substring(7 until it.singerSong.length)
@@ -559,14 +563,14 @@ class MainActivity : AppCompatActivity(), PlayMusic.IPlayMusic, Playable, View.O
         asyPlay!!.cancel(true)
         playService!!.currentPositionSong--
         if (playService!!.currentPositionSong >= 0) {
-            model.getInfo(model.songAlbums.value!![playService!!.currentPositionSong].linkSong)
-            model.infoAlbum.observe(this, Observer {
-                model.songAlbums.value!![playService!!.currentPositionSong].linkMusic =
+            discoverModel.getInfo(discoverModel.songAlbums.value!![playService!!.currentPositionSong].linkSong)
+            discoverModel.infoAlbum.observe(this, Observer {
+                discoverModel.songAlbums.value!![playService!!.currentPositionSong].linkMusic =
                     it.linkMusic
                 playService!!.createNotification(this,
-                    model.songAlbums.value!![playService!!.currentPositionSong],
+                    discoverModel.songAlbums.value!![playService!!.currentPositionSong],
                     R.drawable.ic_pause_black_24dp, playService!!.currentPositionSong,
-                    model.songAlbums.value!!.size - 1)
+                    discoverModel.songAlbums.value!!.size - 1)
                 binding.slide.nameSong.text = it.nameSong
                 binding.slide.singerSong.text =
                     it.singerSong.substring(7 until it.singerSong.length)
@@ -576,15 +580,15 @@ class MainActivity : AppCompatActivity(), PlayMusic.IPlayMusic, Playable, View.O
             })
 
         } else {
-            playService!!.currentPositionSong = model.songAlbums.value!!.size - 1
-            model.getInfo(model.songAlbums.value!![playService!!.currentPositionSong].linkSong)
-            model.infoAlbum.observe(this, Observer {
-                model.songAlbums.value!![playService!!.currentPositionSong].linkMusic =
+            playService!!.currentPositionSong = discoverModel.songAlbums.value!!.size - 1
+            discoverModel.getInfo(discoverModel.songAlbums.value!![playService!!.currentPositionSong].linkSong)
+            discoverModel.infoAlbum.observe(this, Observer {
+                discoverModel.songAlbums.value!![playService!!.currentPositionSong].linkMusic =
                     it.linkMusic
                 playService!!.createNotification(this,
-                    model.songAlbums.value!![playService!!.currentPositionSong],
+                    discoverModel.songAlbums.value!![playService!!.currentPositionSong],
                     R.drawable.ic_pause_black_24dp, playService!!.currentPositionSong,
-                    model.songAlbums.value!!.size - 1)
+                    discoverModel.songAlbums.value!!.size - 1)
                 binding.slide.nameSong.text = it.nameSong
                 binding.slide.singerSong.text =
                     it.singerSong.substring(7 until it.singerSong.length)
@@ -600,10 +604,10 @@ class MainActivity : AppCompatActivity(), PlayMusic.IPlayMusic, Playable, View.O
     override fun onMusicPlay() {
         playService!!.pauseMusic()
         playService!!.createNotification(this,
-            model.songAlbums.value!![playService!!.currentPositionSong],
+            discoverModel.songAlbums.value!![playService!!.currentPositionSong],
             R.drawable.ic_play_arrow_black_24dp,
             playService!!.currentPositionSong,
-            model.songAlbums.value!!.size - 1)
+            discoverModel.songAlbums.value!!.size - 1)
         binding.slide.playSong.setImageResource(R.drawable.ic_play_arrow_black_48dp)
         binding.slide.play.setImageResource(R.drawable.ic_play_arrow_black_48dp)
         isPlaying = true
@@ -613,10 +617,10 @@ class MainActivity : AppCompatActivity(), PlayMusic.IPlayMusic, Playable, View.O
     override fun onMusicPause() {
         playService!!.playMusic()
         playService!!.createNotification(this,
-            model.songAlbums.value!![playService!!.currentPositionSong],
+            discoverModel.songAlbums.value!![playService!!.currentPositionSong],
             R.drawable.ic_pause_black_24dp,
             playService!!.currentPositionSong,
-            model.songAlbums.value!!.size - 1)
+            discoverModel.songAlbums.value!!.size - 1)
         binding.slide.playSong.setImageResource(R.drawable.ic_pause_black_48dp)
         binding.slide.play.setImageResource(R.drawable.ic_pause_black_48dp)
         isPlaying = false
@@ -628,14 +632,14 @@ class MainActivity : AppCompatActivity(), PlayMusic.IPlayMusic, Playable, View.O
         asyPlay!!.cancel(true)
         playService!!.releaseMusic()
         playService!!.currentPositionSong++
-        if (playService!!.currentPositionSong <= model.songAlbums.value!!.size - 1) {
-            model.getInfo(model.songAlbums.value!![playService!!.currentPositionSong].linkSong)
-            model.infoAlbum.observe(this, Observer {
+        if (playService!!.currentPositionSong <= discoverModel.songAlbums.value!!.size - 1) {
+            discoverModel.getInfo(discoverModel.songAlbums.value!![playService!!.currentPositionSong].linkSong)
+            discoverModel.infoAlbum.observe(this, Observer {
                 playService!!.createNotification(this,
-                    model.songAlbums.value!![playService!!.currentPositionSong],
+                    discoverModel.songAlbums.value!![playService!!.currentPositionSong],
                     R.drawable.ic_pause_black_24dp,
                     playService!!.currentPositionSong,
-                    model.songAlbums.value!!.size - 1)
+                    discoverModel.songAlbums.value!!.size - 1)
                 binding.slide.nameSong.text = it.nameSong
                 binding.slide.singerSong.text =
                     it.singerSong.substring(7 until it.singerSong.length)
@@ -646,13 +650,13 @@ class MainActivity : AppCompatActivity(), PlayMusic.IPlayMusic, Playable, View.O
 
         } else {
             playService!!.currentPositionSong = 0
-            model.getInfo(model.songAlbums.value!![playService!!.currentPositionSong].linkSong)
-            model.infoAlbum.observe(this, Observer {
+            discoverModel.getInfo(discoverModel.songAlbums.value!![playService!!.currentPositionSong].linkSong)
+            discoverModel.infoAlbum.observe(this, Observer {
                 playService!!.createNotification(this,
-                    model.songAlbums.value!![playService!!.currentPositionSong],
+                    discoverModel.songAlbums.value!![playService!!.currentPositionSong],
                     R.drawable.ic_pause_black_24dp,
                     playService!!.currentPositionSong,
-                    model.songAlbums.value!!.size - 1)
+                    discoverModel.songAlbums.value!!.size - 1)
                 binding.slide.nameSong.text = it.nameSong
                 binding.slide.singerSong.text =
                     it.singerSong.substring(7 until it.singerSong.length)

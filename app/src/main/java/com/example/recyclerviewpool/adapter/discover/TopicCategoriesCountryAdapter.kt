@@ -74,12 +74,12 @@ class TopicCategoriesCountryAdapter : RecyclerView.Adapter<TopicCategoriesCountr
                 var endLink = data.values[position].linkCategory.endsWith("video.html")
                 if (endLink){
 
-                    model.getModel().albumsChil(data.values[position].linkCategory)
-                    model.getModel().getInfo(data.values[position].linkCategory)
+                    model.getDiscoverModel().albumsChil(data.values[position].linkCategory)
+                    model.getDiscoverModel().getInfo(data.values[position].linkCategory)
                     fragmentDiscoverManager.openAlbumRankingCountry()
                 }else {
-                    model.getModel().albumsChil(data.values[position].linkCategory)
-                    model.getModel().getInfo(data.values[position].linkCategory)
+                    model.getDiscoverModel().albumsChil(data.values[position].linkCategory)
+                    model.getDiscoverModel().getInfo(data.values[position].linkCategory)
                     fragmentDiscoverManager.openSongAlbums()
                 }
             }
@@ -107,7 +107,7 @@ class TopicCategoriesCountryAdapter : RecyclerView.Adapter<TopicCategoriesCountr
         return if (position == 0) {
             0
         } else {
-            model.getModel().categoriesCountry.value!![position].hashCode().toLong()
+            model.getDiscoverModel().categoriesCountry.value!![position].hashCode().toLong()
         }
 
     }

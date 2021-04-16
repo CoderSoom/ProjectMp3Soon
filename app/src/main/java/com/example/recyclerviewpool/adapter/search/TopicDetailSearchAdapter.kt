@@ -77,14 +77,14 @@ class TopicDetailSearchAdapter :
                 var endLink = data.values[position].linkCategory.endsWith("video.html")
                 if (endLink){
 
-                    model.getModel().albumsChil(data.values[position].linkCategory)
-                    model.getModel().getInfo(data.values[position].linkCategory)
+                    model.getDiscoverModel().albumsChil(data.values[position].linkCategory)
+                    model.getDiscoverModel().getInfo(data.values[position].linkCategory)
 
                     managerDiscover.openAlbumRankingCountry()
 
                 }else {
-                    model.getModel().albumsChil(data.values[position].linkCategory)
-                    model.getModel().getInfo(data.values[position].linkCategory)
+                    model.getDiscoverModel().albumsChil(data.values[position].linkCategory)
+                    model.getDiscoverModel().getInfo(data.values[position].linkCategory)
                     managerDiscover.openSongAlbums()
                 }
 

@@ -64,10 +64,10 @@ class TopicAlbumVideoAdapter : RecyclerView.Adapter<TopicAlbumVideoAdapter.ItemC
 
             override fun getOnClickVideo(position: Int) {
                ///////////////
-                model.getModel().getInfo(data.values[position].linkSong)
-                model.getModel()
+                model.getDiscoverModel().getInfo(data.values[position].linkSong)
+                model.getDiscoverModel()
                     .getRelateVideo(data.values[position].linkSong)
-                model.getModel().sugVideoMusic(data.values[position].linkSong)
+                model.getDiscoverModel().sugVideoMusic(data.values[position].linkSong)
                 fragmentDiscoverManager.openVideo()
 
             }
@@ -96,7 +96,7 @@ class TopicAlbumVideoAdapter : RecyclerView.Adapter<TopicAlbumVideoAdapter.ItemC
         return if (position == 0) {
             0
         } else {
-            model.getModel().albumsVideo.value!![position].hashCode().toLong()
+            model.getDiscoverModel().albumsVideo.value!![position].hashCode().toLong()
         }
 
     }
