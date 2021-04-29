@@ -17,7 +17,7 @@
 
         <LinearLayout
             android:id="@+id/holder_view"
-            android:layout_width="184dp"
+            android:layout_width="match_parent"
             android:layout_gravity="center"
             android:layout_height="wrap_content"
             android:orientation="vertical">
@@ -29,7 +29,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="184dp"
                 android:scaleType="centerCrop"
-                android:src="@drawable/csn"
+                android:src="@drawable/logoapp"
+                android:layout_marginLeft="6dp"
+                android:layout_marginRight="6dp"
                 app:riv_corner_radius="@dimen/radius_image" />
 
             <LinearLayout

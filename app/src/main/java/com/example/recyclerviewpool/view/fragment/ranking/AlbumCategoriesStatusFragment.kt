@@ -37,8 +37,9 @@ class AlbumCategoriesStatusFragment : Fragment , TopicChildCategoriesAdapter.ICa
         sharedViewModel = ViewModelProvider(requireActivity()).get(DiscoverModel::class.java)
         model = (activity as MainActivity)
         binding = FragmentAlbumCategoriesStatusBinding.inflate(inflater, container, false)
-        setUpModel()
         reg()
+        setUpModel()
+
 
         return binding.root
     }

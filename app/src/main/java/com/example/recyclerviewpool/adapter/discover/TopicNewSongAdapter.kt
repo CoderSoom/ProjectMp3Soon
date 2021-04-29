@@ -3,6 +3,7 @@ package com.example.recyclerviewpool.adapter.discover
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -15,6 +16,7 @@ import com.example.recyclerviewpool.view.MainActivity
 import com.example.recyclerviewpool.view.fragment.discover.ManagerFragmentDiscover
 import com.example.recyclerviewpool.viewmodel.DiscoverModel
 import com.example.recyclerviewpool.viewmodel.LoadDataUtils
+import com.example.recyclerviewpool.viewmodel.SetDataSlidingPanel
 import com.sothree.slidinguppanel.SlidingUpPanelLayout
 import kotlinx.android.synthetic.main.sliding_up_panel.view.*
 
@@ -80,75 +82,12 @@ class TopicNewSongAdapter : RecyclerView.Adapter<TopicNewSongAdapter.ItemCategor
             override fun getNewSongCount()= 5
 
             override fun getNewSongOnClick(position: Int) {
-
-
+                model.songAlbums = data.values
                 model.getPlaySevice()!!.currentPositionSong = position
-
-                (slidingUpPanelLayout.getSlidingPanelUp()).panelState = SlidingUpPanelLayout.PanelState.EXPANDED
-                (slidingUpPanelLayout.getSlidingPanelUp()).addPanelSlideListener(object :
-                    SlidingUpPanelLayout.PanelSlideListener {
-                    override fun onPanelSlide(panel: View?, slideOffset: Float) {
-                        panel!!.slide_play_song_mini.alpha = 1 - slideOffset
-                    }
-
-                    override fun onPanelStateChanged(
-                        panel: View?,
-                        previousState: SlidingUpPanelLayout.PanelState?,
-                        newState: SlidingUpPanelLayout.PanelState
-                    ) {
-                        if (newState == SlidingUpPanelLayout.PanelState.EXPANDED) {
-                            (slidingUpPanelLayout.getSlidingPanelUp()).slide_play_song_big.visibility =
-                                View.VISIBLE
-                        } else {
-                            (slidingUpPanelLayout.getSlidingPanelUp()).slide_play_song_big.visibility =
-                                View.INVISIBLE
-                        }
-                    }
-                })
-//        if ((activity as MainActivity).getAsyPlay()!!.isRunning) {
-//            (activity as MainActivity).getAsyPlay()!!.cancel(true)
-//            (activity as MainActivity).panelAsynTask()
-//        }
-                model.getDiscoverModel().getInfo(model.getDiscoverModel().newSong.value!![0]!!.values[position].linkSong)
-                model.getDiscoverModel().getRelateSong(model.getDiscoverModel().newSong.value!![0]!!.values[position].linkSong)
-                model.getDiscoverModel().getMVSong(model.getDiscoverModel().newSong.value!![0]!!.values[position].linkSong)
-
-                /////SetLink Music Player
+                SetDataSlidingPanel.setDataSlidingPanel(model,data.values, position)
                 model.getDiscoverModel().infoAlbum.observe(lifecycleOwner, Observer {
-                    LoadDataUtils.loadImgBitMapBlur(model,
-                        (slidingUpPanelLayout.getSlidingPanelUp()).bg_song,
-                        it.imgSong)
-                    model.getDiscoverModel().newSong.value!![0]!!.values[model.getPlaySevice()!!.currentPositionSong].linkMusic =
-                        it.linkMusic
-                    model.getDiscoverModel().newSong.value!![0]!!.values[model.getPlaySevice()!!.currentPositionSong].nameSong =
-                        it.nameSong
-
-
-                    model.getPlaySevice()!!.releaseMusic()
-                    model.getPlaySevice()!!
-                        .setDataMusicOnline(model.getDiscoverModel().newSong.value!![0]!!.values[model.getPlaySevice()!!.currentPositionSong],
-                            position,
-                            model.getDiscoverModel().newSong.value!![0]!!.values!!)
-
+                    SetDataSlidingPanel.setDataMusic(model, data.values, it, position)
                 })
-
-
-
-                model.getDiscoverModel().newSong.observe(lifecycleOwner, Observer
-                {
-                    (slidingUpPanelLayout.getSlidingPanelUp()).slide_play_song_big.play_nameSong.text =
-                        it[0].values[position].nameSong
-                    (slidingUpPanelLayout.getSlidingPanelUp()).slide_play_song_big.play_singerSong.text =
-                        it[0].values[position].singerSong
-
-
-                    //setName Slide Panel Up
-                    (slidingUpPanelLayout.getSlidingPanelUp()).slide_play_song_mini.nameSong.text =
-                        it[0].values[position].nameSong
-                    (slidingUpPanelLayout.getSlidingPanelUp()).slide_play_song_mini.singerSong.text =
-                        it[0].values[position].singerSong
-                })
-
             }
 
         }
@@ -158,9 +97,7 @@ class TopicNewSongAdapter : RecyclerView.Adapter<TopicNewSongAdapter.ItemCategor
             holder.binding.titleCategories.text = data.nameCategories
 
         } else {
-
             (holder.binding.rcCategories.adapter as NewSongAdapter).iNewSong = iCategories
-
             holder.binding.rcCategories.adapter!!.notifyDataSetChanged()
 
 

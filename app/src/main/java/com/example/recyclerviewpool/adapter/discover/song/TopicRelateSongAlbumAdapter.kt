@@ -1,8 +1,11 @@
 package com.example.recyclerviewpool.adapter.discover.song
 
 import android.annotation.SuppressLint
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.recyclerviewpool.R
@@ -11,21 +14,26 @@ import com.example.recyclerviewpool.model.itemdata.ItemMusicList
 import com.example.recyclerviewpool.model.itemdata.ItemSong
 import com.example.recyclerviewpool.view.fragment.discover.ManagerFragmentDiscover
 import com.example.recyclerviewpool.view.MainActivity
+import com.example.recyclerviewpool.viewmodel.SetDataSlidingPanel
+import kotlin.math.acos
 
 class TopicRelateSongAlbumAdapter : RecyclerView.Adapter<TopicRelateSongAlbumAdapter.RelateSongViewHolder> {
     private var iCategories: ICategories
     private var managerDiscover: ManagerFragmentDiscover
+    var lifecycleOwner: LifecycleOwner
     var model: MainActivity
 
 
     constructor(
         model: MainActivity,
         iCategories: ICategories,
-        managerDiscover: ManagerFragmentDiscover
+        managerDiscover: ManagerFragmentDiscover,
+        lifecycleOwner: LifecycleOwner
     ) {
         this.model = model
         this.iCategories = iCategories
         this.managerDiscover = managerDiscover
+        this.lifecycleOwner= lifecycleOwner
 
     }
 
@@ -69,9 +77,13 @@ class TopicRelateSongAlbumAdapter : RecyclerView.Adapter<TopicRelateSongAlbumAda
             override fun getData(chilPosition: Int) = data.values[chilPosition]
 
             override fun getOnClickItem(position: Int) {
-                model.getDiscoverModel().albumsChil(data.values[position].linkSong)
-//                model.getModel().getInfo(data.values[position].linkSong)
-                managerDiscover.openSongAlbums()
+                model.viewPagerSliding.currentItem=1
+                model.songAlbums = data.values
+                model.getPlaySevice()!!.currentPositionSong = position
+                SetDataSlidingPanel.setDataSlidingPanel(model,data.values, position)
+                model.getDiscoverModel().infoAlbum.observe(lifecycleOwner, Observer {
+                    SetDataSlidingPanel.setDataMusic(model, data.values, it, position)
+                })
 
 
             }

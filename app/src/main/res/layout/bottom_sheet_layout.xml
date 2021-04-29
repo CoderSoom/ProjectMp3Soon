@@ -13,7 +13,7 @@
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/imgSongDetail"
-            android:src="@drawable/csn"
+            android:src="@drawable/logoapp"
             android:layout_width="78dp"
             android:layout_height="78dp" />
 

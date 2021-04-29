@@ -8,27 +8,33 @@
             name="searchSong"
             type="com.example.recyclerviewpool.model.itemdata.ItemSong" />
     </data>
-
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
 
         <RelativeLayout
-            android:layout_marginTop="16sp"
+            android:layout_marginTop="4dp"
             android:id="@+id/ll"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@null"
+            android:background="?android:attr/selectableItemBackground"
             android:orientation="horizontal">
 
             <com.makeramen.roundedimageview.RoundedImageView
                 android:id="@+id/img_song_search"
+                android:layout_marginTop="6dp"
+                android:layout_marginBottom="6dp"
                 app:riv_corner_radius="6dp"
                 android:layout_centerVertical="true"
                 android:layout_width="@dimen/size_square_max_small"
                 android:layout_height="@dimen/size_square_max_small"
                 android:scaleType="centerCrop"
-                android:src="@drawable/csn"
+                android:src="@drawable/logoapp"
                 app:loadImg="@{searchSong.imgSong}" />
 
             <LinearLayout
+                android:layout_marginTop="6dp"
+                android:layout_marginBottom="6dp"
                 android:gravity="center_vertical"
                 android:id="@+id/info_song_search"
                 android:layout_centerVertical="true"
@@ -58,13 +64,16 @@
                     loadText="@{searchSong.singerSong}"
                   android:singleLine="true" />
             </LinearLayout>
-            <ImageView
-                android:layout_alignParentRight="true"
-                android:layout_width="wrap_content"
-                android:layout_centerVertical="true"
-                android:src="@drawable/ic_more_vert"
-                android:background="@null"
-                android:layout_height="wrap_content" />
+
 
         </RelativeLayout>
+    <ImageView
+        android:layout_alignParentRight="true"
+        android:layout_width="wrap_content"
+        android:padding="12dp"
+        android:layout_centerVertical="true"
+        android:src="@drawable/ic_more_vert"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:layout_height="wrap_content" />
+</RelativeLayout>
 </layout>

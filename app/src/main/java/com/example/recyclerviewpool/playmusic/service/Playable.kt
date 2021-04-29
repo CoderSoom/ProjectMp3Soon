@@ -5,4 +5,5 @@ interface Playable {
     fun onMusicPlay()
     fun onMusicPause()
     fun onMusicNext()
+    fun onMusicClose()
 }

@@ -50,12 +50,12 @@ class AlbumRankingCountryFragment : Fragment, SongAlbumsAdapter.IAlbum {
         ///SlidingPanelDown
         (slidingUpPanelLayout.getSlidingPanelUp()).panelState = PanelState.COLLAPSED
 
-
+        reg()
         binding.rcAlbums.apply {
             layoutManager = LinearLayoutManager(context)
             adapter = SongAlbumsAdapter(this@AlbumRankingCountryFragment)
         }
-        reg()
+
         updataDataAlbum()
         return binding.root
 

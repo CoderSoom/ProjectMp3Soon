@@ -56,26 +56,20 @@ class DiscoverFragment : Fragment, TopicAlbumSongAdapter.ICategories,
                 managerDiscover)
 
         }
-
-        binding.nestedScrollView.viewTreeObserver.addOnScrollChangedListener {
-            val scrollY: Int = binding.nestedScrollView.scrollY
-            if (scrollY == 0) {
-//                (activity as MainActivity).pullFresh().isRefreshing = false
-//                (activity as MainActivity).pullFresh().isEnabled = true
-            } else {
-//                (activity as MainActivity).pullFresh().isEnabled =
-//                    false
-            }
-        }
         //setUpAlbumsNews
-        binding.rcAlbums.adapter =
-            TopicAlbumSongAdapter(sharedViewModel, model, this, managerDiscover)
-        binding.rcAlbums.layoutManager = PreCachingLayoutManager(context)
-        binding.rcAlbums.hasFixedSize()
-        binding.rcAlbums.setItemViewCacheSize(10)
 
+        binding.rcAlbums.apply {
+            layoutManager = PreCachingLayoutManager(context)
+            hasFixedSize()
+            setItemViewCacheSize(10)
+            adapter = TopicAlbumSongAdapter(sharedViewModel,
+                model,
+                this@DiscoverFragment,
+                managerDiscover)
 
-        ///setUpAlbumsVideo
+        }
+
+//        /setUpAlbumsVideo
         binding.rcAlbumsVideo.apply {
             layoutManager = PreCachingLayoutManager(context)
             hasFixedSize()
@@ -140,7 +134,7 @@ class DiscoverFragment : Fragment, TopicAlbumSongAdapter.ICategories,
             layoutManager = PreCachingLayoutManager(context, LinearLayoutManager.VERTICAL, false)
             hasFixedSize()
             setItemViewCacheSize(5)
-            adapter = TopicSugAdapter(model, this@DiscoverFragment, managerDiscover)
+            adapter = TopicSugAdapter(sharedViewModel, model, this@DiscoverFragment, managerDiscover, viewLifecycleOwner)
 
         }
 
@@ -149,7 +143,7 @@ class DiscoverFragment : Fragment, TopicAlbumSongAdapter.ICategories,
         //Call API
         model.getDiscoverModel().albumsSong()
         model.getDiscoverModel().albumsVideo()
-        model.getDiscoverModel().getTopResult(context!!)
+        model.getDiscoverModel().getTopResult()
         model.getDiscoverModel().categoriesStatus()
         model.getDiscoverModel().categoriesCountry()
         model.getDiscoverModel().newSong()

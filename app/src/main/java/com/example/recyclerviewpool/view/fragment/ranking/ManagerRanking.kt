@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.recyclerviewpool.R
 import com.example.recyclerviewpool.databinding.ManagerRankingFragmentBinding
-import com.example.recyclerviewpool.view.fragment.discover.albumsong.AddAlbumFragment
 import com.example.recyclerviewpool.view.fragment.discover.video.FragmentVideo
 
 class ManagerRanking : Fragment(){

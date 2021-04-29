@@ -5,12 +5,15 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.recyclerviewpool.databinding.ItemSearchVideoBinding
 import com.example.recyclerviewpool.model.itemdata.ItemSong
+import com.example.recyclerviewpool.viewmodel.SearchModel
 
 class SearchVideoAdapter : RecyclerView.Adapter<SearchVideoAdapter.SearchSongHolder> {
     var iSearchVideo: ISearchVideo
 
+
     constructor(iSearchVideo: ISearchVideo) {
         this.iSearchVideo = iSearchVideo
+
     }
 
     interface ISearchVideo {

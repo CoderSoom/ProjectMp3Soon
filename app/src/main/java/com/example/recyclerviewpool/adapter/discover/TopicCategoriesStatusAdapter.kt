@@ -62,8 +62,6 @@ class TopicCategoriesStatusAdapter : RecyclerView.Adapter<TopicCategoriesStatusA
 
 
 
-
-
             override fun getCategoriesStatusData(chilPosition: Int)= data.values[chilPosition]
 
             override fun getCategoriesStatusCount()=data.values!!.size

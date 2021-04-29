@@ -24,7 +24,7 @@
             android:layout_width="98dp"
             android:layout_height="62dp"
             android:scaleType="centerCrop"
-            android:src="@drawable/csn"
+            android:src="@drawable/logoapp"
             app:riv_corner_radius="8dp" />
 
         <LinearLayout

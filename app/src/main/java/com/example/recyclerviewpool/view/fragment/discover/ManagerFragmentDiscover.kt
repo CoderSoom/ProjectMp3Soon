@@ -32,8 +32,10 @@ class ManagerFragmentDiscover : Fragment() {
         navigationBar = (activity as MainActivity)
         binding = ManagerDiscoverFragmentBinding.inflate(inflater, container, false)
         addDiscoverFragment()
+        (activity as MainActivity).managerDiscover  = this
         return binding.root
     }
+
 
     private fun addDiscoverFragment() {
         var fg = fragmentManager!!
@@ -75,7 +77,7 @@ class ManagerFragmentDiscover : Fragment() {
     }
 
     fun openAlbumRankingCountry() {
-        var fg = fragmentManager!!
+        var fg = childFragmentManager!!
         var tran = fg.beginTransaction()
         tran.replace(R.id.manager_discover_layout,
             AlbumRankingCountryFragment(this), AlbumRankingCountryFragment::class.java.name)
@@ -85,7 +87,7 @@ class ManagerFragmentDiscover : Fragment() {
 
 
     fun openAlbumCategoriesStatus() {
-        var fg = fragmentManager!!
+        var fg = childFragmentManager!!
         var tran = fg.beginTransaction()
         tran.replace(R.id.manager_discover_layout,
             AlbumCategoriesStatusFragment(this), AlbumCategoriesStatusFragment::class.java.name)

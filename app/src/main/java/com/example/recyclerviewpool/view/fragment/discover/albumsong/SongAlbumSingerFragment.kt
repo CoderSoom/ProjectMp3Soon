@@ -15,6 +15,7 @@ import com.example.recyclerviewpool.adapter.discover.song.SongAlbumSingerAdapter
 import com.example.recyclerviewpool.view.fragment.discover.ManagerFragmentDiscover
 import com.example.recyclerviewpool.viewmodel.DiscoverModel
 import com.example.recyclerviewpool.viewmodel.LoadDataUtils
+import com.example.recyclerviewpool.viewmodel.SetDataSlidingPanel
 import com.sothree.slidinguppanel.SlidingUpPanelLayout
 import com.sothree.slidinguppanel.SlidingUpPanelLayout.PanelState
 import kotlinx.android.synthetic.main.sliding_up_panel.view.*
@@ -86,35 +87,22 @@ class SongAlbumSingerFragment : Fragment, SongAlbumSingerAdapter.IAlbum {
 
     override fun getOnClickAlbumSinger(position: Int) {
 
-        model.getDiscoverModel()
-            .getInfo(model.getDiscoverModel().songChilSinger.value!![position].linkSong)
-
-        model.getDiscoverModel()
-            .getRelateSong(model.getDiscoverModel().songChilSinger.value!![position].linkSong)
-
-        model.getDiscoverModel()
-            .getMVSong(model.getDiscoverModel().songChilSinger.value!![position].linkSong)
-
-        (slidingUpPanelLayout.getSlidingPanelUp()).panelState = PanelState.EXPANDED
-        (slidingUpPanelLayout.getSlidingPanelUp()).addPanelSlideListener(object :
-            SlidingUpPanelLayout.PanelSlideListener {
-            override fun onPanelSlide(panel: View?, slideOffset: Float) {
-                panel!!.slide_play_song_mini.alpha = 1 - slideOffset
-            }
-
-            override fun onPanelStateChanged(
-                panel: View?,
-                previousState: PanelState?,
-                newState: PanelState
-            ) {
-                if (newState == PanelState.EXPANDED) {
-                    (slidingUpPanelLayout.getSlidingPanelUp()).slide_play_song_big.visibility =
-                        View.VISIBLE
-                } else {
-                    (slidingUpPanelLayout.getSlidingPanelUp()).slide_play_song_big.visibility =
-                        View.GONE
-                }
-            }
+        (activity as MainActivity).songAlbums = (activity as MainActivity).getDiscoverModel().songChilSinger.value!!
+        (activity as MainActivity).getPlaySevice()!!.currentPositionSong = position
+        SetDataSlidingPanel.setDataSlidingPanel(
+            activity as MainActivity,
+            (activity as MainActivity).getDiscoverModel().songChilSinger.value!!,
+            position
+        )
+        /////SetLink Music Player
+        model.getDiscoverModel().infoAlbum.observe(this, Observer
+        {
+            SetDataSlidingPanel.setDataMusic(
+                activity as MainActivity,
+                (activity as MainActivity).getDiscoverModel().songChilSinger.value!!,
+                it,
+                position
+            )
         })
     }
 

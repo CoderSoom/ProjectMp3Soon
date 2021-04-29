@@ -1,26 +1,38 @@
 package com.example.recyclerviewpool.adapter.search
 
 import android.graphics.Color
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.recyclerviewpool.databinding.ItemTopicAlbumSongBinding
 import com.example.recyclerviewpool.model.itemdata.ItemSong
 import com.example.recyclerviewpool.model.itemdata.ItemMusicList
+import com.example.recyclerviewpool.view.MainActivity
 import com.example.recyclerviewpool.view.fragment.search.ManagerFragmentSearch
+import com.example.recyclerviewpool.viewmodel.SetDataSlidingPanel
 
 class TopicMostSearchAdapter : RecyclerView.Adapter<TopicMostSearchAdapter.ItemCategoriesHolder> {
     private var iCategories: ICategories
     private var fragmentSearchManager: ManagerFragmentSearch
+    private var model :MainActivity
+    var lifecycleOwner: LifecycleOwner
 
 
     constructor(
         iCategories: ICategories,
-        fragmentSearchManager: ManagerFragmentSearch
+        fragmentSearchManager: ManagerFragmentSearch,
+    model: MainActivity,
+        lifecycleOwner: LifecycleOwner
     ) {
         this.iCategories = iCategories
         this.fragmentSearchManager = fragmentSearchManager
+        this.model = model
+        this.lifecycleOwner= lifecycleOwner
 
     }
 
@@ -57,14 +69,12 @@ class TopicMostSearchAdapter : RecyclerView.Adapter<TopicMostSearchAdapter.ItemC
             override fun getMostSearchedData(chilPosition: Int)= data.values[chilPosition]
 
             override fun getMostSearchedOnClickItem(position: Int) {
-//                model.getModel().albumsChil(data.values[position].linkSong)
-//                model.getModel().getInfo(data.values[position].linkSong)
-//                sharedViewModel.setData(
-//                    data.values[position].imgSong,
-//                    data.values[position].nameSong,
-//                    data.values[position].singerSong
-//                )
-//                fragmentSearchManager.openSongAlbums()
+                model.getPlaySevice()!!.currentPositionSong = position
+                SetDataSlidingPanel.setDataSlidingPanel(model,data.values, position)
+                model.getDiscoverModel().infoAlbum.observe(lifecycleOwner, Observer {
+                    SetDataSlidingPanel.setDataMusic(model, data.values, it, position)
+                })
+
             }
 
 

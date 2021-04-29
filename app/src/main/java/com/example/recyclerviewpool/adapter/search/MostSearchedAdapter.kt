@@ -19,15 +19,18 @@ class MostSearchedAdapter : RecyclerView.Adapter<MostSearchedAdapter.MostSearche
         fun getMostSearchedOnClickItem(position: Int)
     }
 
-    class MostSearchedViewHolder(val binding: ItemMostSearchedBinding) : RecyclerView.ViewHolder(binding.root)
+    class MostSearchedViewHolder(val binding: ItemMostSearchedBinding) :
+        RecyclerView.ViewHolder(binding.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MostSearchedViewHolder {
-        var binding = ItemMostSearchedBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        var binding =
+            ItemMostSearchedBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return MostSearchedViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: MostSearchedViewHolder, position: Int) {
         holder.binding.mostSearched = iMostSearched.getMostSearchedData(position)
+        holder.itemView.setOnClickListener { iMostSearched.getMostSearchedOnClickItem(position) }
     }
 
     override fun getItemCount() = iMostSearched.getMostSearchedCount()

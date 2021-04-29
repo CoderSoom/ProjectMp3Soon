@@ -36,10 +36,6 @@ class RankingFragment : Fragment {
         model = (activity as MainActivity)
         binding = FragmentRankingBinding.inflate(inflater, container, false)
         playService = (activity as MainActivity)
-        ///SlidingPanelDown
-        (slidingUpPanelLayout.getSlidingPanelUp()).panelState =
-            SlidingUpPanelLayout.PanelState.COLLAPSED
-
 
         listFragment.add(ManagerMusicVideoFragment(managerRanking, "play-back"))
         listFragment.add(ManagerMusicVideoFragment(managerRanking, "viet-nam"))

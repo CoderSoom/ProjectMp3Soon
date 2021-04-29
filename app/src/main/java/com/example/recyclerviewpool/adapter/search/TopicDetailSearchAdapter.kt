@@ -17,21 +17,22 @@ import com.example.recyclerviewpool.viewmodel.SearchModel
 
 class TopicDetailSearchAdapter :
     RecyclerView.Adapter<TopicDetailSearchAdapter.ItemCategoriesHolder> {
-    private var managerDiscover = ManagerFragmentDiscover()
     private var iCategories: ICategories
     private var managerSearch: ManagerFragmentSearch
-
+    var sharedViewModel: DiscoverModel
     private var model: MainActivity
 
     constructor(
 
         iCategories: ICategories, model: MainActivity,
-        managerSearch: ManagerFragmentSearch
+        managerSearch: ManagerFragmentSearch,
+        sharedViewModel: DiscoverModel
     ) {
 
         this.iCategories = iCategories
         this.model = model
         this.managerSearch = managerSearch
+        this.sharedViewModel = sharedViewModel
 
 
     }
@@ -72,7 +73,11 @@ class TopicDetailSearchAdapter :
             override fun getCategoriesCountryCount() = data.values.size
 
             override fun getCategoriesCountryOnClick(position: Int) {
-
+                sharedViewModel.setData(
+                    data.values[position].imgCategory,
+                    data.values[position].nameCategory,
+                    ""
+                )
                 var endLink = data.values[position].linkCategory.endsWith("video.html")
                 if (endLink) {
 

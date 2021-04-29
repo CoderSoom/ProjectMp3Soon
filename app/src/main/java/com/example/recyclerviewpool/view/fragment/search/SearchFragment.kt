@@ -53,27 +53,27 @@ class SearchFragment : Fragment, TopicSearchSongAdapter.ICategories,
         binding.rcMostSearched.apply {
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
             adapter =
-                TopicMostSearchAdapter(this@SearchFragment, managerSearch)
+                TopicMostSearchAdapter(this@SearchFragment, managerSearch, (activity as MainActivity), viewLifecycleOwner)
         }
         //setUp searchSong
         binding.rcSearchSong.apply {
             layoutManager = LinearLayoutManager(context)
             adapter =
-                TopicSearchSongAdapter(sharedViewModel, (activity as MainActivity), this@SearchFragment, managerSearch)
+                TopicSearchSongAdapter(sharedViewModel, (activity as MainActivity), this@SearchFragment, managerSearch, viewLifecycleOwner)
         }
 
         //setUp searchVideo
         binding.rcSearchVideo.apply {
             layoutManager = LinearLayoutManager(context)
             adapter =
-                TopicSearchVideoAdapter(this@SearchFragment, managerSearch)
+                TopicSearchVideoAdapter(this@SearchFragment, managerSearch, (activity as MainActivity))
         }
 
         //setUp searchAlbums
         binding.rcSearchAlbum.apply {
             layoutManager = LinearLayoutManager(context)
             adapter =
-                TopicSearchAlbumAdapter(this@SearchFragment, managerSearch)
+                TopicSearchAlbumAdapter(sharedViewModel, (activity as MainActivity), this@SearchFragment, managerSearch, viewLifecycleOwner)
         }
 
 
@@ -182,7 +182,7 @@ class SearchFragment : Fragment, TopicSearchSongAdapter.ICategories,
 
             override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
                 val content = binding.edtSearch.text.toString()
-                model.searchSong(content, context!!)
+//                model.searchSong(content)
                 model.searchAlbum(content)
                 model.searchVideo(content)
                 if (content.isNullOrEmpty()) {

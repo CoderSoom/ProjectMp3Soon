@@ -1,7 +1,6 @@
 package com.example.recyclerviewpool.view.fragment.discover.albumsong
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,25 +11,21 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.recyclerviewpool.R
+import com.example.recyclerviewpool.adapter.discover.song.SongAlbumsAdapter
 import com.example.recyclerviewpool.databinding.FragmentAlbumsBinding
 import com.example.recyclerviewpool.model.itemdata.ItemSong
 import com.example.recyclerviewpool.view.MainActivity
-import com.example.recyclerviewpool.adapter.discover.song.SongAlbumsAdapter
 import com.example.recyclerviewpool.view.fragment.discover.ManagerFragmentDiscover
-import com.example.recyclerviewpool.view.fragment.ranking.ManagerRanking
 import com.example.recyclerviewpool.view.fragment.search.ManagerFragmentSearch
 import com.example.recyclerviewpool.viewmodel.DiscoverModel
 import com.example.recyclerviewpool.viewmodel.LoadDataUtils
-import com.sothree.slidinguppanel.SlidingUpPanelLayout
-import com.sothree.slidinguppanel.SlidingUpPanelLayout.PanelState
-import kotlinx.android.synthetic.main.sliding_up_panel.view.*
-import kotlin.math.log
+import com.example.recyclerviewpool.viewmodel.SetDataSlidingPanel
 
 
 class AddAlbumFragment : Fragment, SongAlbumsAdapter.IAlbum, View.OnClickListener {
     private lateinit var sharedViewModel: DiscoverModel
-
     private lateinit var playService: MainActivity
+
     private lateinit var slidingUpPanelLayout: MainActivity
     lateinit var managerDiscover: ManagerFragmentDiscover
 
@@ -39,6 +34,7 @@ class AddAlbumFragment : Fragment, SongAlbumsAdapter.IAlbum, View.OnClickListene
     constructor(managerDiscover: ManagerFragmentDiscover) {
         this.managerDiscover = managerDiscover
     }
+
     constructor(managerSearch: ManagerFragmentSearch) {
         this.managerSearch = managerSearch
     }
@@ -57,6 +53,7 @@ class AddAlbumFragment : Fragment, SongAlbumsAdapter.IAlbum, View.OnClickListene
         slidingUpPanelLayout = (activity as MainActivity)
         model = (activity as MainActivity)
         binding = FragmentAlbumsBinding.inflate(inflater, container, false)
+
         binding.btnBack.setOnClickListener(this)
         reg()
         setUpViewPager()
@@ -65,6 +62,7 @@ class AddAlbumFragment : Fragment, SongAlbumsAdapter.IAlbum, View.OnClickListene
         return binding.root
 
     }
+
 
     private fun setUpViewPager() {
         listFragment.add(DetailsAlbumFragment())
@@ -115,93 +113,32 @@ class AddAlbumFragment : Fragment, SongAlbumsAdapter.IAlbum, View.OnClickListene
     }
 
     override fun getOnClickSong(position: Int) {
-
-
+        (activity as MainActivity).songAlbums = (activity as MainActivity).getDiscoverModel().songAlbums.value!!
         (activity as MainActivity).getPlaySevice()!!.currentPositionSong = position
-
-        (slidingUpPanelLayout.getSlidingPanelUp()).panelState = PanelState.EXPANDED
-        (slidingUpPanelLayout.getSlidingPanelUp()).addPanelSlideListener(object :
-            SlidingUpPanelLayout.PanelSlideListener {
-            override fun onPanelSlide(panel: View?, slideOffset: Float) {
-                panel!!.slide_play_song_mini.alpha = 1 - slideOffset
-            }
-
-            override fun onPanelStateChanged(
-                panel: View?,
-                previousState: PanelState?,
-                newState: PanelState
-            ) {
-                if (newState == PanelState.EXPANDED) {
-                    (slidingUpPanelLayout.getSlidingPanelUp()).slide_play_song_big.visibility =
-                        View.VISIBLE
-                } else {
-                    (slidingUpPanelLayout.getSlidingPanelUp()).slide_play_song_big.visibility =
-                        View.INVISIBLE
-                }
-            }
-        })
-        if (model.getDiscoverModel().songAlbums.value != null) {
-            model.getDiscoverModel()
-                .getInfo(model.getDiscoverModel().songAlbums.value!![position].linkSong)
-            model.getDiscoverModel()
-                .getRelateSong(model.getDiscoverModel().songAlbums.value!![position].linkSong)
-            model.getDiscoverModel()
-                .getMVSong(model.getDiscoverModel().songAlbums.value!![position].linkSong)
-        }
-
-
+        SetDataSlidingPanel.setDataSlidingPanel(
+            activity as MainActivity,
+            (activity as MainActivity).getDiscoverModel().songAlbums.value!!,
+            position
+        )
         /////SetLink Music Player
         model.getDiscoverModel().infoAlbum.observe(this, Observer
         {
-            LoadDataUtils.loadImgBitMapBlur(context,
-                (slidingUpPanelLayout.getSlidingPanelUp()).bg_song,
-                it.imgSong)
-            model.getDiscoverModel().songAlbums.value!![playService.getPlaySevice()!!
-                .currentPositionSong].linkMusic =
-                it.linkMusic
-            model.getDiscoverModel().songAlbums.value!![playService.getPlaySevice()!!
-                .currentPositionSong].nameSong =
-                it.nameSong
-
-
-            playService.getPlaySevice()!!.releaseMusic()
-            playService.getPlaySevice()!!
-                .setDataMusicOnline(model.getDiscoverModel().songAlbums.value!!
-                        [playService.getPlaySevice()!!.currentPositionSong],
-                    position,
-                    model.getDiscoverModel().songAlbums.value!!)
-
+            SetDataSlidingPanel.setDataMusic(
+                activity as MainActivity,
+                (activity as MainActivity).getDiscoverModel().songAlbums.value!!,
+                it,
+                position
+            )
         })
-
-
-
-        model.getDiscoverModel().songAlbums.observe(viewLifecycleOwner, Observer
-        {
-            (slidingUpPanelLayout.getSlidingPanelUp())
-                .slide_play_song_big.play_nameSong.text =
-                it[position].nameSong
-            (slidingUpPanelLayout.getSlidingPanelUp())
-                .slide_play_song_big.play_singerSong.text =
-                it[position].singerSong
-
-
-            //setName Slide Panel Up
-            (slidingUpPanelLayout.getSlidingPanelUp())
-                .slide_play_song_mini.nameSong.text =
-                it[position].nameSong
-            (slidingUpPanelLayout.getSlidingPanelUp())
-                .slide_play_song_mini.singerSong.text =
-                it[position].singerSong
-        })
-
-
     }
 
     override fun onClick(v: View?) {
         when (v?.id) {
             R.id.btn_back -> {
+//              managerSearch.hasOnCreateViewBeenCalled()){
                 managerDiscover.childFragmentManager.popBackStack()
-                managerSearch.childFragmentManager.popBackStack()
+
+
             }
         }
     }

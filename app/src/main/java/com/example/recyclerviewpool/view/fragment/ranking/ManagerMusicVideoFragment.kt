@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.LifecycleOwner
 import com.example.recyclerviewpool.R
 import com.example.recyclerviewpool.databinding.ManagerTabMusicVideoBinding
 import com.example.recyclerviewpool.view.MainActivity
@@ -15,7 +16,6 @@ class ManagerMusicVideoFragment : Fragment {
     private lateinit var model: MainActivity
     private lateinit var playService: MainActivity
     private lateinit var slidingUpPanelLayout: MainActivity
-
     private lateinit var binding: ManagerTabMusicVideoBinding
     var managerRanking: ManagerRanking
     private val country: String
@@ -63,7 +63,7 @@ class ManagerMusicVideoFragment : Fragment {
 
     private fun openFragmentMusic() {
         var fg = childFragmentManager.beginTransaction()
-        fg.replace(R.id.frame_layout, TabMusic(managerRanking, country))
+        fg.replace(R.id.frame_layout, TabMusic(country))
         fg.commit()
     }
 

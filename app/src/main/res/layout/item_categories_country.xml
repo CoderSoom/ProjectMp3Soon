@@ -20,7 +20,7 @@
         android:layout_height="89dp">
 
         <ImageView
-            android:src="@drawable/csn"
+            android:src="@drawable/logoapp"
             loadImg="@{detailSearch.imgCategory}"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />

@@ -20,7 +20,7 @@
             android:scaleType="fitXY"
             app:riv_corner_radius="@dimen/radius_image"
             android:layout_height="82dp"
-            android:src="@drawable/csn" />
+            android:src="@drawable/logoapp" />
 
         <TextView
             loadText="@{categoriesContry.nameCategory}"

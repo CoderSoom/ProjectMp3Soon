@@ -8,19 +8,25 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.recyclerviewpool.databinding.ItemTopicAlbumSongBinding
 import com.example.recyclerviewpool.model.itemdata.ItemSong
 import com.example.recyclerviewpool.model.itemdata.ItemMusicList
+import com.example.recyclerviewpool.view.MainActivity
 import com.example.recyclerviewpool.view.fragment.search.ManagerFragmentSearch
+import com.example.recyclerviewpool.viewmodel.LoadDataUtils
+import com.example.recyclerviewpool.viewmodel.SearchModel
 
 class TopicSearchVideoAdapter : RecyclerView.Adapter<TopicSearchVideoAdapter.ItemCategoriesHolder> {
     private var iCategories: ICategories
     private var fragmentSearchManager: ManagerFragmentSearch
+    private var model: MainActivity
 
     constructor(
         iCategories: ICategories,
-        fragmentSearchManager: ManagerFragmentSearch
+        fragmentSearchManager: ManagerFragmentSearch,
+        model: MainActivity
     ) {
 
         this.iCategories = iCategories
         this.fragmentSearchManager = fragmentSearchManager
+        this.model=  model
 
     }
 
@@ -68,14 +74,10 @@ class TopicSearchVideoAdapter : RecyclerView.Adapter<TopicSearchVideoAdapter.Ite
             }
 
             override fun getSearchVideoOnClickItem(position: Int) {
-//                model.getModel().albumsChil(data!!.values[position].linkSong)
-//                model.getModel().getInfo(data.values[position].linkSong)
-//                sharedViewModel.setData(
-//                    data.values[position].imgSong,
-//                    data.values[position].nameSong,
-//                    data.values[position].singerSong
-//                )
-//                fragmentSearchManager.openSongAlbums()
+                LoadDataUtils.hideSoftKeyboard(model)
+                model.getDiscoverModel().getRelateVideo(data!!.values[position].linkSong)
+                model.getDiscoverModel().getInfo(data!!.values[position].linkSong)
+                fragmentSearchManager.openVideo()
             }
 
 

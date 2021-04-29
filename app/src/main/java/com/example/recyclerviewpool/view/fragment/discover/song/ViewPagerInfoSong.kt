@@ -39,7 +39,7 @@ class ViewPagerInfoSong : Fragment, TopicRelateSongAlbumAdapter.ICategories,
 
         binding.rcRelateSong.apply {
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-            adapter = TopicRelateSongAlbumAdapter(model, this@ViewPagerInfoSong, managerDiscover)
+            adapter = TopicRelateSongAlbumAdapter(model, this@ViewPagerInfoSong, managerDiscover, viewLifecycleOwner)
         }
 
         binding.rcMVSong.apply {
@@ -93,6 +93,11 @@ class ViewPagerInfoSong : Fragment, TopicRelateSongAlbumAdapter.ICategories,
             binding.albumsSong.text = it.albumsSong
         })
     }
+    override fun getOnClickMVItem(position: Int) {
+        (activity as MainActivity).getDiscoverModel().getInfo(model.getDiscoverModel().mvSong.value!![position].linkSong)
+        (activity as MainActivity).getDiscoverModel().getRelateVideo(model.getDiscoverModel().mvSong.value!![position].linkSong)
+        managerDiscover.openVideo()
+    }
 
 
 
@@ -120,8 +125,7 @@ class ViewPagerInfoSong : Fragment, TopicRelateSongAlbumAdapter.ICategories,
        return model.getDiscoverModel().mvSong.value!![position]
     }
 
-    override fun getOnClickMVItem(position: Int) {
-    }
+
 
 
 }

@@ -22,7 +22,7 @@
             loadImg="@{newSong.imgSong}"
             android:layout_width="@dimen/size_circle_small"
             android:layout_height="@dimen/size_circle_small"
-            android:src="@drawable/csn" />
+            android:src="@drawable/logoapp" />
 
         <LinearLayout
             android:id="@+id/info_Song"

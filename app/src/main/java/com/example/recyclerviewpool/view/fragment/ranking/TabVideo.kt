@@ -25,12 +25,13 @@ class TabVideo(val title: String, var managerRanking: ManagerRanking) : Fragment
 
         binding = TabMusicVideoBinding.inflate(inflater, container, false)
         model = RankingModel()
+        reg()
         binding.rcCountry.apply {
             layoutManager = LinearLayoutManager(context)
             adapter = CountryVideoAdapter(this@TabVideo)
         }
         model.getVideoRanking(title)
-        reg()
+
 
         return binding.root
     }

@@ -78,12 +78,11 @@ class TopicCategoriesCountryAdapter : RecyclerView.Adapter<TopicCategoriesCountr
 
                     model.getDiscoverModel().albumsChil(data.values[position].linkCategory)
                     model.getDiscoverModel().getInfo(data.values[position].linkCategory)
-                    Log.d("TAF", data.values[position].imgCategory)
+
                     managerDiscover.openAlbumRankingCountry()
                 }else {
                     model.getDiscoverModel().albumsChil(data.values[position].linkCategory)
                     model.getDiscoverModel().getInfo(data.values[position].linkCategory)
-                    Log.d("TAF", data.values[position].imgCategory)
                     managerDiscover.openSongAlbums()
                 }
             }

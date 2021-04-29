@@ -24,8 +24,10 @@ open class ViewPagerPlaySong : Fragment(){
     ): View? {
 
         model = (activity as MainActivity)
+
         reg()
         binding = ViewpagerPlaySongBinding.inflate(inflater, container, false)
+        model.imgPlaySong = binding.imgSong
 
 
         return binding.root

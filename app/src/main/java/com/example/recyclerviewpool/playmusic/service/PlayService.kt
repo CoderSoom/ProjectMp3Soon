@@ -8,6 +8,7 @@ import android.app.Service
 import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.graphics.drawable.Drawable
 import android.os.Binder
 import android.os.Build
@@ -26,7 +27,6 @@ import com.example.recyclerviewpool.playmusic.PlayMusic
 class PlayService : Service(), PlayMusic.IPlayMusic {
 
     var imgSong: Bitmap? = null
-
     private lateinit var playMusic: PlayMusic
     var inter: PlayMusic.IPlayMusic? = null
 
@@ -64,16 +64,17 @@ class PlayService : Service(), PlayMusic.IPlayMusic {
 
     fun setDataMusicOnline(item: ItemSong, position: Int, itemSize: MutableList<ItemSong>) {
         playMusic.setDataSource(this, item.linkMusic!!)
-        createNotification(this, item,
-            R.drawable.ic_pause_black_24dp, position, itemSize.size - 1)
+        createNotification(
+            this, item,
+            R.drawable.ic_pause_black_24dp, position, itemSize.size - 1
+        )
         playMusic.setOnCompletionListener()
 
     }
-    fun setDataMusicOffline(path: String){
+
+    fun setDataMusicOffline(path: String) {
         playMusic.setDataOffline(path)
     }
-
-
 
 
     fun createNotification(
@@ -85,24 +86,27 @@ class PlayService : Service(), PlayMusic.IPlayMusic {
     ) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val mediaSessionCompat = MediaSessionCompat(context, "tag")
+            if (itemSong.imgSong.equals("https://chiasenhac.vn/imgs/no_cover.jpg")) {
+                imgSong = BitmapFactory.decodeResource(resources, R.drawable.logoapp)
+            } else {
+                Glide.with(context)
+                    .asBitmap()
+                    .load(itemSong.imgSong)
+                    .into(object : CustomTarget<Bitmap>() {
+                        override fun onResourceReady(
+                            resource: Bitmap,
+                            transition: Transition<in Bitmap>?
+                        ) {
+                            imgSong = resource
+                        }
 
-            Glide.with(context)
-                .asBitmap()
-                .load(itemSong.imgSong)
-                .into(object : CustomTarget<Bitmap>() {
-                    override fun onResourceReady(
-                        resource: Bitmap,
-                        transition: Transition<in Bitmap>?
-                    ) {
-                        imgSong = resource
-                    }
+                        override fun onLoadCleared(placeholder: Drawable?) {
 
-                    override fun onLoadCleared(placeholder: Drawable?) {
-
-                    }
+                        }
 
 
-                })
+                    })
+            }
 
             //Previous
             val pendingIntentPrevious: PendingIntent?
@@ -113,16 +117,20 @@ class PlayService : Service(), PlayMusic.IPlayMusic {
             } else {
                 val intentPrevious = Intent(context, NotificationActionService::class.java)
                     .setAction(CreateNotification.ACTION_PREVIUOS)
-                pendingIntentPrevious = PendingIntent.getBroadcast(context, 0,
-                    intentPrevious, PendingIntent.FLAG_UPDATE_CURRENT)
+                pendingIntentPrevious = PendingIntent.getBroadcast(
+                    context, 0,
+                    intentPrevious, PendingIntent.FLAG_UPDATE_CURRENT
+                )
                 action_previus = R.drawable.ic_skip_previous_black_24dp
             }
 
             //Play
             val intentPlay = Intent(context, NotificationActionService::class.java)
                 .setAction(CreateNotification.ACTION_PLAY)
-            val pendingIntentPlay = PendingIntent.getBroadcast(context, 0,
-                intentPlay, PendingIntent.FLAG_UPDATE_CURRENT)
+            val pendingIntentPlay = PendingIntent.getBroadcast(
+                context, 0,
+                intentPlay, PendingIntent.FLAG_UPDATE_CURRENT
+            )
 
 
             ///Next
@@ -134,8 +142,10 @@ class PlayService : Service(), PlayMusic.IPlayMusic {
             } else {
                 val intentNext = Intent(context, NotificationActionService::class.java)
                     .setAction(CreateNotification.ACTION_NEXT)
-                pendingIntentNext = PendingIntent.getBroadcast(context, 0,
-                    intentNext, PendingIntent.FLAG_UPDATE_CURRENT)
+                pendingIntentNext = PendingIntent.getBroadcast(
+                    context, 0,
+                    intentNext, PendingIntent.FLAG_UPDATE_CURRENT
+                )
                 action_next = R.drawable.ic_skip_next_black_24dp
 
             }
@@ -146,16 +156,20 @@ class PlayService : Service(), PlayMusic.IPlayMusic {
 
             val intentClose = Intent(context, NotificationActionService::class.java)
                 .setAction(CreateNotification.ACTION_CLOSE)
-            pendingIntentClose = PendingIntent.getBroadcast(context, 0,
-                intentClose, PendingIntent.FLAG_UPDATE_CURRENT)
-            action_close = R.drawable.baseline_close_black_24dp
+            pendingIntentClose = PendingIntent.getBroadcast(
+                context, 0,
+                intentClose, PendingIntent.FLAG_UPDATE_CURRENT
+            )
 
+            action_close = R.drawable.baseline_close_black_24dp
 
 
             //create notification
 
-            CreateNotification.notification = NotificationCompat.Builder(context,
-                CreateNotification.CHANNEL_ID)
+            CreateNotification.notification = NotificationCompat.Builder(
+                context,
+                CreateNotification.CHANNEL_ID
+            )
 
                 .setSmallIcon(R.drawable.icon_music)
                 .setContentTitle(itemSong.nameSong)
@@ -168,14 +182,15 @@ class PlayService : Service(), PlayMusic.IPlayMusic {
                 .addAction(playbutton, "Play", pendingIntentPlay)
                 .addAction(action_next, "Next", pendingIntentNext)
                 .addAction(action_close, "Close", pendingIntentClose)
-                .setStyle(androidx.media.app.NotificationCompat.MediaStyle()
-                    .setShowActionsInCompactView(0, 1, 2, 3)
-                    .setMediaSession(mediaSessionCompat.sessionToken))
+                .setStyle(
+                    androidx.media.app.NotificationCompat.MediaStyle()
+                        .setShowActionsInCompactView(0, 1, 2, 3)
+                        .setMediaSession(mediaSessionCompat.sessionToken)
+                )
                 .setOngoing(true)
                 .build()
             val notificationManager = getSystemService(NOTIFICATION_SERVICE) as NotificationManager
             notificationManager.notify(1, CreateNotification.notification)
-            startForeground(1, CreateNotification.notification!!)
 
 
         }
@@ -204,7 +219,8 @@ class PlayService : Service(), PlayMusic.IPlayMusic {
     override fun setOnCompletionListener() {
         inter?.setOnCompletionListener()
     }
-    fun setLooping(enable: Boolean){
+
+    fun setLooping(enable: Boolean) {
         playMusic.setLooping(enable)
     }
 
@@ -222,6 +238,8 @@ class PlayService : Service(), PlayMusic.IPlayMusic {
     }
 
     override fun onDestroy() {
+        playMusic.stop()
+        playMusic.release()
         super.onDestroy()
 
 

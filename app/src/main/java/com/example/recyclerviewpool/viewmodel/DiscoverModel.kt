@@ -68,7 +68,7 @@ class DiscoverModel : ViewModel() {
 
 
     private val songService =
-        RetrofitUtils.createRetrofit("http://192.168.1.4:5000", SongService::class.java)
+        RetrofitUtils.createRetrofit("http://172.16.2.223:5000", SongService::class.java)
 
 
     fun setData(
@@ -172,8 +172,6 @@ class DiscoverModel : ViewModel() {
     @SuppressLint("CheckResult")
     fun getMVSong(linkSong: String) {
         disPoRelateSong?.dispose()
-        Log.d("TAGGGGGGG", "$linkSong"
-        )
         songService.getMVSong(linkSong).subscribeOn(Schedulers.newThread())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
@@ -201,7 +199,7 @@ class DiscoverModel : ViewModel() {
     }
 
     @SuppressLint("CheckResult")
-    fun getTopResult(context: Context) {
+    fun getTopResult() {
         disPoTopResult?.dispose()
         songService.getTopResult().subscribeOn(Schedulers.newThread())
             .observeOn(AndroidSchedulers.mainThread())

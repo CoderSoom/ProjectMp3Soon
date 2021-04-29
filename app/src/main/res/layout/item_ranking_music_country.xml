@@ -39,7 +39,7 @@
             android:layout_marginBottom="6dp"
             android:layout_centerVertical="true"
             android:scaleType="centerCrop"
-            android:src="@drawable/csn"
+            android:src="@drawable/logoapp"
             app:loadImg="@{itemCountry.imgSong}"
             app:riv_corner_radius="6dp" />
 

@@ -21,13 +21,14 @@
 
        <com.makeramen.roundedimageview.RoundedImageView
            loadImg="@{mainSong.imgSong}"
+           android:id="@+id/imgSong"
            android:layout_width="match_parent"
            android:layout_marginLeft="21sp"
            android:layout_marginRight="21sp"
            app:riv_corner_radius="16dp"
            android:layout_marginTop="18dp"
            android:layout_marginBottom="18dp"
-           android:src="@drawable/csn"
+           android:src="@drawable/logoapp"
            android:layout_height="match_parent"/>
 
 

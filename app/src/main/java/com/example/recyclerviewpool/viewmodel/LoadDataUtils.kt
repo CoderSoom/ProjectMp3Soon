@@ -1,12 +1,12 @@
 package com.example.recyclerviewpool.viewmodel
 
 import android.annotation.SuppressLint
+import android.app.Activity
 import android.content.Context
 import android.graphics.Bitmap
-import android.graphics.BitmapFactory
-import android.graphics.Color
 import android.graphics.drawable.Drawable
 import android.net.Uri
+import android.view.inputmethod.InputMethodManager
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
@@ -15,13 +15,6 @@ import com.bumptech.glide.request.target.CustomTarget
 import com.bumptech.glide.request.transition.Transition
 import com.example.recyclerviewpool.R
 import com.vansuita.gaussianblur.GaussianBlur
-import io.reactivex.Observable
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.schedulers.Schedulers
-import java.io.IOException
-import java.io.InputStream
-import java.net.HttpURLConnection
-import java.net.URL
 import java.text.DecimalFormat
 import java.text.SimpleDateFormat
 import java.util.*
@@ -31,21 +24,21 @@ object LoadDataUtils {
     @JvmStatic
     @BindingAdapter("loadImg")
     open fun loadImg(img: ImageView, linkImg: String?) {
-        if (linkImg == "") {
-            img.setImageResource(R.drawable.csn)
+        if (linkImg == "" || linkImg.equals("https://chiasenhac.vn/imgs/no_cover.jpg")) {
+            img.setImageResource(R.drawable.logoapp)
+        } else {
+            Glide.with(img).load(linkImg)
+                .fitCenter()
+                .error(R.drawable.logoapp)
+                .into(img)
         }
-
-        Glide.with(img).load(linkImg)
-            .fitCenter()
-            .error(R.drawable.csn)
-            .into(img)
 
     }
 
     open fun loadImgBitMapBlur(context: Context?, img: ImageView, linkImg: String?) {
 
         if (linkImg == "") {
-            img.setImageResource(R.drawable.csn)
+            img.setImageResource(R.drawable.logoapp)
         }
         Glide.with(img).asBitmap()
             .load(linkImg)
@@ -64,7 +57,7 @@ object LoadDataUtils {
     open fun loadImgBitMap(context: Context?, img: ImageView, linkImg: String?) {
 
         if (linkImg == "") {
-            img.setImageResource(R.drawable.csn)
+            img.setImageResource(R.drawable.logoapp)
         }
         Glide.with(img).asBitmap()
             .load(linkImg)
@@ -135,14 +128,14 @@ object LoadDataUtils {
     fun loadImageUri(tv: ImageView, content: String?) {
         if (content == null) {
             Glide.with(tv)
-                .load(R.drawable.csn)
-                .error(R.drawable.csn)
+                .load(R.drawable.logoapp)
+                .error(R.drawable.logoapp)
                 .into(tv)
             return
         }
         Glide.with(tv)
             .load(Uri.parse(content))
-            .error(R.drawable.csn)
+            .error(R.drawable.logoapp)
             .into(tv)
     }
 
@@ -153,5 +146,17 @@ object LoadDataUtils {
         val second = calendar[Calendar.SECOND].toDouble()
         val format = DecimalFormat("00")
         return format.format(minute) + ":" + format.format(second)
+    }
+
+    fun hideSoftKeyboard(activity: Activity) {
+        val inputMethodManager: InputMethodManager = activity.getSystemService(
+            Activity.INPUT_METHOD_SERVICE
+        ) as InputMethodManager
+        if (inputMethodManager.isAcceptingText()) {
+            inputMethodManager.hideSoftInputFromWindow(
+                activity.currentFocus!!.windowToken,
+                0
+            )
+        }
     }
 }
